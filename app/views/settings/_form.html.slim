@@ -1,0 +1,42 @@
+= simple_form_for(@setting, html: { data: { turbo: false } }) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
+    = f.simple_fields_for :address do |ff|
+      = ff.input :label,
+                 input_html: { \
+                   data: { \
+                     controller: 'address', \
+                     address_search_url_value: addresses_search_path \
+                   } \
+                 },
+                 wrapper_html: { class: 'w-full' },
+                 collection: [ff.object.label].compact,
+                 prompt: 'Chercher une adresse',
+                 include_blank: false
+
+  = f.simple_fields_for :options, f.object.options do |ff|
+    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
+      = ff.input :map_refresh_interval,
+                 collection: SettingsOption::REFRESH_INTERVAL,
+                 include_blank: false,
+                 wrapper_html: { class: 'mb-3' }
+
+      = ff.input :delta_jam,
+                  wrapper_html: { class: 'mb-3' }
+
+      = ff.input :delta_loading,
+                  wrapper_html: { class: 'mb-3' }
+
+    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
+      = ff.input :theme,
+                 collection: settings_theme_select_options,
+                 include_blank: false,
+                 wrapper_html: { class: 'mb-3' }
+
+      = ff.input :enable_customers_map, as: :boolean
+      = ff.input :enable_places_map, as: :boolean
+      = ff.input :enable_transporters_map, as: :boolean
+
+  = f.button :submit, class: 'mt-6'

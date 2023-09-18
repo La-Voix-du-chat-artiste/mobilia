@@ -1,0 +1,75 @@
+= simple_form_for(@transporter) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  = f.object.errors.full_messages.join(", ")
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :first_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+    = f.input :last_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+    div
+      = f.input :photo, as: :file
+
+      - if f.object.photo.attached?
+        p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'max-w-[100px] rounded-full object-cover'
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :phone, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+    = f.input :email, as: :email,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    /= f.input :started_time, as: :time, html5: true,
+              wrapper_html: { class: 'w-full' }
+    /= f.input :ended_time, as: :time, html5: true,
+              wrapper_html: { class: 'w-full' }
+
+    = f.simple_fields_for :address do |ff|
+      = ff.input :label,
+                 input_html: { \
+                   data: { \
+                     controller: 'address', \
+                     address_search_url_value: addresses_search_path \
+                   } \
+                 },
+                 collection: [ff.object.label].compact,
+                 prompt: 'Chercher une adresse',
+                 include_blank: false,
+                 wrapper_html: { class: 'w-full' }
+
+    - vehicles = company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter).distinct
+    - if f.object.vehicle.present?
+      - ids = vehicles.ids << f.object.vehicle.id
+      - vehicles = company.vehicles.find(ids)
+
+    = f.association :vehicle,
+                    collection: vehicles_select_options(vehicles),
+                    include_blank: 'Sélectionner un véhicule',
+                    wrapper_html: { class: 'w-full' },
+                    input_html: { \
+                      data: { \
+                        controller: 'slim-select' \
+                      } \
+                    }
+
+  = f.simple_fields_for :availabilities, f.object.availabilities do |ff|
+    .flex.items-center.gap-3.mb-3
+      = ff.input :monday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+      = ff.input :tuesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+      = ff.input :wednesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+      = ff.input :thursday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+
+    .flex.items-center.gap-3
+      = ff.input :friday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+      = ff.input :saturday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+      = ff.input :sunday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6.mt-6
+    = f.input :details, as: :rich_text_area,
+              wrapper_html: { class: 'w-full' }
+
+  = f.button :submit

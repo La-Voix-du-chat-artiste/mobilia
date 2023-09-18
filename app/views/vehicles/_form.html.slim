@@ -1,0 +1,34 @@
+= simple_form_for(@vehicle) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :name, wrapper_html: { class: 'w-full' }
+    = f.input :number_plate, wrapper_html: { class: 'w-full' }
+    = f.input :status,
+              collection: select_options_for(Vehicle, :statuses),
+              include_blank: false,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :length, wrapper_html: { class: 'w-full' }
+    = f.input :width, wrapper_html: { class: 'w-full' }
+    = f.input :height, wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :max_regular_seats, wrapper_html: { class: 'w-full' }
+    = f.input :max_wheelchair_seats, wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :details, as: :rich_text_area,
+              wrapper_html: { class: 'w-full' }
+    div
+      = f.input :photo, as: :file
+
+      - if f.object.photo.attached?
+        p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'w-32 rounded-full object-cover'
+
+  = f.input :substitution, wrapper_html: { class: 'mb-6' }
+  = f.input :enabled, wrapper_html: { class: 'mb-6' }
+
+  = f.button :submit

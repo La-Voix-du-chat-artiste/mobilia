@@ -1,0 +1,53 @@
+details.row id=dom_id(vehicle) class=('opacity-50' unless vehicle.enabled?)
+  summary.flex.flex-col.lg:flex-row.items-center.gap-3.justify-between.p-2.relative
+    .flex.items-center.gap-2
+      - if vehicle.photo.attached?
+        = image_tag url_for(vehicle.photo), class: 'w-16 h-16 rounded-full object-cover'
+      div
+        p.mb-1
+          span.font-bold= vehicle.name
+          span.italic.text-gray-500=< "(#{vehicle.number_plate})"
+        - unless vehicle.normal?
+          p.inline-block.mb-1.bg-orange-500.px-2.py-1.text-sm.rounded-lg.text-white= vehicle.human_status
+        p.text-sm
+          - if vehicle.transporter.present?
+            = link_to transporter_path(vehicle.transporter), class: 'flex items-center gap-1' do
+              - if vehicle.transporter.photo.attached?
+                = image_tag vehicle.transporter.photo, class: 'w-6 h-6 object-cover rounded-full'
+              = vehicle.transporter.full_name
+          - elsif vehicle.normal?
+            span.text-orange-500 ⚠️ Véhicule sans chauffeur
+
+    .flex.items-center.gap-3
+      = link_to 'Fiche véhicule', vehicle_path(vehicle), class: 'btn-show'
+      = link_to 'Modifier', edit_vehicle_path(vehicle), class: 'btn-edit'
+      = button_to 'Supprimer', vehicle,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+
+  .p-2.border-t.dark:border-gray-600
+    p
+      strong Longueur:
+      =< vehicle.width.presence || '/'
+    p
+      strong Hauteur:
+      =< vehicle.height.presence || '/'
+
+    p
+      strong Nombre de places assises:
+      =< vehicle.max_regular_seats
+
+    p
+      strong Nombre de places en fauteuil roulant:
+      =< vehicle.max_wheelchair_seats
+
+    p
+      strong Status:
+      =< vehicle.human_status
+
+    p
+      strong Véhicule de remplacement ?
+      =< t(vehicle.substitution.to_s)
+
+    = vehicle.details

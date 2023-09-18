@@ -1,0 +1,6 @@
+= turbo_stream.update :search do
+  - if @places.any?
+    = render 'places', places: @places, pagy: @pagy
+  - else
+    .panel-info.mb-5
+      p Il n'y a aucun lieu correspondant à cette recherche

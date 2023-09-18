@@ -1,0 +1,35 @@
+details.row id=dom_id(customer) class=('opacity-50' unless customer.enabled?) class=('border-orange-500' if customer.archived?)
+  summary.flex.flex-col.lg:flex-row.items-center.gap-3.justify-between.p-2.relative
+    .flex.items-center.gap-2
+      - if customer.photo.attached?
+        = image_tag url_for(customer.photo), class: 'w-16 rounded-full object-cover'
+      div
+        p.font-bold= customer.full_name
+        - if customer.address.present?
+          p.italic.text-gray-500= customer.address.label
+
+    .flex.items-center.gap-3
+      = link_to 'Profil client', customer_path(customer), class: 'btn-show', data: { turbo_frame: :_top }
+      = link_to 'Modifier', edit_customer_path(customer), class: 'btn-edit', data: { turbo_frame: :_top }
+      = button_to (customer.available? ? 'Archiver' : 'Désarchiver'),
+                  archive_customer_path(customer),
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
+      = button_to 'Supprimer', customer,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce client ?' }
+
+  .p-2.border-t.dark:border-gray-600
+    p
+      strong Téléphone:
+      =< formatted_phone_number(customer.phone)
+    p
+      strong Email:
+      =< customer.email
+    p
+      strong Type:
+      =< customer.human_kind
+
+    = customer.details

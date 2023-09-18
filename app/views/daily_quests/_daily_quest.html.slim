@@ -1,0 +1,13 @@
+details.border.mb-3.rounded-lg.border-gray-300.bg-gray-100 id=dom_id(daily_quest)
+  summary.flex.items-center.gap-3.justify-between.p-2.relative
+    .flex.items-center.gap-3
+      p.font-bold= l(daily_quest.started_on)
+
+    .flex.items-center.gap-3
+      = link_to 'Voir', daily_quest_path(daily_quest), class: 'btn-show'
+      = link_to 'Exporter en PDF', daily_quest_path(daily_quest, format: :pdf), target: :_blank, class: 'btn-show'
+      = link_to 'Modifier', edit_daily_quest_path(daily_quest), class: 'btn-edit'
+      = button_to 'Supprimer', daily_quest,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer cette queête ?' }

@@ -1,0 +1,98 @@
+fr:
+  simple_form:
+    "yes": 'Oui'
+    "no": 'Non'
+    required:
+      text: 'requis'
+      mark: '*'
+
+    error_notification:
+      default_message: "Veuillez vérifier les problèmes suivants:"
+
+    labels:
+      session:
+        email: Email
+        password: Mot de passe
+        remember: Se souvenir de moi ?
+      transporter:
+        availabilities:
+          monday: Lundi
+          tuesday: Mardi
+          wednesday: Mercredi
+          thursday: Jeudi
+          friday: Vendredi
+          saturday: Samedi
+          sunday: Dimanche
+
+      setting:
+        options:
+          map_refresh_interval: Interval de rafraîchissement de la carte
+          theme: Thème
+          delta_jam: Delta embouteillage
+          delta_loading: Delta de chargement/déchargement
+          enable_customers_map: Activer la carte clients ?
+          enable_places_map: Activer la carte des lieux ?
+          enable_transporters_map: Activer la carte des chauffeurs ?
+
+    placeholders:
+      customer:
+        phone: "Format: 0123456789"
+      mission:
+        drop_duration: Durée en minutes
+
+    hints:
+      customer:
+        enabled: Si coché, le client pourra être affecté à un trajet
+        phone: "Téléphone au format 10 chiffres sans espace (ex: 0123456789)"
+        address:
+          label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
+        favorite_trip_transporter: Saisir le chauffeur par défaut à associer à ce client pour le trajet aller (de l'adresse du client au lieu à déposer). Si renseigné (non obligatoire), l'algorithme suivra cette règle dans la mesure où aucin conflit de trajet ne s'y oppose. Si non spécifié, le chauffeur le plus adapté sera automatiquement assigné.
+        favorite_trip_back_transporter: Saisir le chauffeur par défaut à associer à ce client pour le trajet de retour (du lieu déposé au retour chez le client). Si renseigné (non obligatoire), l'algorithme suivra cette règle dans la mesure où aucin conflit de trajet ne s'y oppose. Si non spécifié, le chauffeur le plus adapté sera automatiquement assigné.
+        details: Informations complémentaires à ajouter sur le client. Ces données seront affichées sur le PDF généré à destination du chauffeur.
+
+      place:
+        name: Nom du lieu (entreprise, institut, ...)
+        enabled: Si coché, ce lieu pourra être configuré sur un trajet
+        phone: "Téléphone au format 10 chiffres sans espace (ex: 0123456789)"
+        details: Informations complémentaires à ajouter sur le lieu. Ces données seront affichées sur le PDF généré à destination du chauffeur.
+        address:
+          label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
+
+      transporter:
+        details: Informations complémentaires à ajouter sur le transporteur
+        phone: "Téléphone au format 10 chiffres sans espace (ex: 0123456789)"
+        address:
+          label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
+        vehicle: Quel véhicule est assigné à ce transporteur ?
+
+      missions:
+        customer: Le client à aller chercher
+        place: Le lieu où le déposer
+        drop_time: L'heure à laquelle chercher le client chez lui sera déterminée automatiquement par l'algorithme
+        drop_duration: Permet de déterminer automatiquement l'heure à laquelle le client doit être recherché (à spécifier en minutes)
+
+      step:
+        description: Informations complémentaires à destination du chauffeur (seront affichées sur le PDF généré)
+
+      vehicle:
+        enabled: Si coché, ce véhicule pourra être associé à un chauffeur
+        substitution: Ce véhicule sert-il de remplacement pour un autre véhicule ?
+        details: Informations complémentaires à ajouter sur le véhicule. Ces données seront affichées sur le PDF généré à destination du chauffeur.
+        length: La longueur du véhicule est une information importante qui permet de déterminer un trajet plus précis. En effet, un camion de transport n'est pas forcément adapté aux petites routes de centre-ville et cette information permet de les éviter au maximum sur le trajet généré.
+        width: La largeur du véhicule est une information importante qui permet de déterminer un trajet plus précis. En effet, un camion de transport n'est pas forcément adapté aux petites routes de centre-ville et cette information permet de les éviter au maximum sur le trajet généré.
+        height: La hauteur du véhicule est une information importante qui permet de déterminer un trajet plus précis. En effet, un camion de transport n'est pas forcément adapté pour les routes avec des ponts bas et cette information permet de les éviter sur le trajet généré.
+        max_regular_seats: Cette information aide l'algorithme à savoir si le véhicule est encore en capacité à accepter une personne marchante sur le trajet ou s'il est déjà complet.
+        max_wheelchair_seats: Cette information aide l'algorithme à savoir si le véhicule est encore en capacité à accepter une personne en fauteuil roulant sur le trajet ou s'il est déjà complet.
+
+      user:
+        email: Veuillez saisir votre adresse email actuelle pour recevoir les instructions de réinitialisation du mot de passe.
+
+      setting:
+        options:
+          map_refresh_interval: Interval de rafraîchissement de la position des chauffeurs (en secondes)
+          theme: Thème du site
+          delta_jam: Temps à prendre en compte par l'algorithme pour anticiper d'éventuels embouteillages (en minutes)
+          delta_loading: Temps à prendre en compte pour le chargement / déchargement des personnes en fauteuil roulant (en minutes)
+          enable_customers_map: Si coché, une carte des clients sera affiché sur la page clients (n'affecte pas la carte globale)
+          enable_places_map: Si coché, une carte des lieux sera affiché sur la page lieux (n'affecte pas la carte globale)
+          enable_transporters_map: Si coché, une carte des chauffeurs sera affiché sur la page chauffeurs (n'affecte pas la carte globale)

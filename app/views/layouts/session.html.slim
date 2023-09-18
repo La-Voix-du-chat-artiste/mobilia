@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Mobilia - Connexion
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'tailwind', 'inter-font', 'data-turbo-track': 'reload'
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+
+    = javascript_importmap_tags
+
+  body.h-screen
+    main.md:w-2/3.lg:w-2/5.mx-auto.p-6
+      #flash= render 'flash'
+
+      = yield

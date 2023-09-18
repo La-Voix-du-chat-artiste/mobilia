@@ -1,0 +1,18 @@
+= simple_form_for([@absence.transporter, @absence]) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .flex.flex-col.lg:flex-row.gap-3.mb-6
+    = f.input :started_on, as: :date, html5: true,
+              wrapper_html: { class: 'w-full' }
+
+    = f.input :ended_on, as: :date, html5: true,
+              wrapper_html: { class: 'w-full' }
+
+    = f.input :reason,
+              collection: select_options_for(Absence, :reasons),
+              include_blank: false,
+              wrapper_html: { class: 'w-full' }
+
+  .form-actions
+    = f.button :submit

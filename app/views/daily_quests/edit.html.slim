@@ -1,0 +1,28 @@
+details.panel-info.mb-5
+  summary.cursor-pointer Explications à lire
+
+  .mt-3
+    p.mb-3 Cette page permet de configurer les missions de transport pour la journée du <strong>#{l(@daily_quest.started_on)}</strong>:
+
+    .mb-3
+      p.mb-1 Pour chaque mission, spécifiez:
+      ul.list-disc.list-inside.mb-2
+        li le <strong>client</strong> à transporter
+        li le <strong>lieu</strong> où il doit être déposé
+        li l'<strong>heure</strong> à laquelle il doit être déposé
+        li la <strong>durée</strong> de la consultation en minutes
+
+      p Note: L'heure à laquelle chercher le client chez lui et l'heure de retour seront automatiquement calculées par l'algorithme.
+
+  p Pour ajouter une nouvelle mission, cliquer sur le symbole <span class="px-1 py-0.5 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">+</span> en bas de page.
+  p Pour retirer une mission, cliquez sur le symbole <span class="px-1 py-0.5 font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">X</span> en haut à droite de chaque mission.
+  p Vous pouvez ajouter autant de missions que nécessaire.
+
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl Missions du #{l(@daily_quest.started_on, format: :complete_slash)}
+
+  = link_to '<< Retour au planning',
+            daily_quests_path(date: @daily_quest.started_on),
+            class: 'btn-back'
+
+= render 'form', daily_quest: @daily_quest

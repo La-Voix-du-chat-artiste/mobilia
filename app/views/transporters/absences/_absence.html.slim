@@ -1,0 +1,17 @@
+.row id=dom_id(absence)
+  .flex.items-center.gap-3.justify-between.p-2.relative
+    .flex.items-center.gap-2
+      p
+        | Du
+        span.font-bold=<> l(absence.started_on, format: :complete_slash)
+        | au
+        span.font-bold=< l(absence.ended_on, format: :complete_slash)
+
+      p.panel-warning.px-2.py-1= absence.human_reason
+
+    .flex.items-center.gap-3
+      = link_to 'Modifier', edit_transporter_absence_path(absence.transporter, absence), class: 'btn-edit'
+      = button_to 'Supprimer', [absence.transporter, absence],
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer cette absence ?' }

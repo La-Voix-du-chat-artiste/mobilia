@@ -1,0 +1,42 @@
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl
+    - if @archived
+      | Clients archivés
+    - else
+      | Clients disponibles
+
+  .flex.items-center.gap-3
+    = link_to 'Ajouter un client', new_customer_path, class: 'btn-add'
+    - if @archived
+      = link_to 'Clients disponibles', customers_path, class: 'btn-show'
+    - else
+      = link_to 'Clients archivés', customers_path(archived: true), class: 'btn-show'
+
+details.panel-info.mb-5
+  summary.cursor-pointer Explications à lire
+
+  .mt-3
+    p Les clients représentent les personnes à transporter aux différents lieux.
+    p Vous pouvez renseigner autant de clients que nécessaires et utiliser la fonction de recherche pour filtrer les clients selon les critères.
+
+= simple_form_for :search,
+                  url: customers_path,
+                  method: :get,
+                  html: { class: 'mb-6' },
+                  data: { \
+                    turbo_stream: true,
+                    controller: 'search', \
+                    action: 'keyup->search#submit' \
+                  } do |f|
+  = f.input :query,
+            label: false,
+            placeholder: 'Rechercher un client par prénom, nom, téléphone ou adresse',
+            input_html: { class: 'rounded-lg' },
+            wrapper_html: { class: 'lg:w-1/2 mx-auto' }
+
+= turbo_frame_tag :search do
+  = render 'customers', customers: @customers, pagy: @pagy
+
+- if options.enable_customers_map?
+  div data-controller="global-map" data-global-map-customers-url-value=customers_path
+    #map class="h-[500px]" data-global-map-target="map"

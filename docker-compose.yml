@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+  pg_fabelia:
+    image: postgres:16-alpine
+    shm_size: 1g
+    environment:
+      - POSTGRES_USER=mobilia
+      - POSTGRES_PASSWORD=mobilia
+      - POSTGRES_DB=mobilia_development
+    volumes:
+      - pg_mobilia:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+
+networks:
+  mobilia:
+    name: mobilia
+
+volumes:
+  pg_mobilia:

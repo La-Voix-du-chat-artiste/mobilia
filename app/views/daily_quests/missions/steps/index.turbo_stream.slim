@@ -1,0 +1,5 @@
+= turbo_stream.update :steps do
+  = render 'daily_quests/missions/steps', steps: @steps
+
+= turbo_stream.replace :map do
+  = render 'daily_quests/missions/map', mission: @mission

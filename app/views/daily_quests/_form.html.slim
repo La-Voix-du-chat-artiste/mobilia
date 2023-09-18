@@ -1,0 +1,26 @@
+= simple_form_for @daily_quest do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  = f.input :started_on, as: :hidden, wrapper: false
+
+  #missions.mb-6 data-controller="missions"
+    - if @daily_quest.missions.blank?
+      = f.simple_fields_for :missions, @daily_quest.missions.new, wrapper: false, include_id: false do |ff|
+        = render 'mission_fields', f: ff
+    - else
+      = f.simple_fields_for :missions, @daily_quest.missions, wrapper: false, include_id: false do |ff|
+        = render 'mission_fields', f: ff
+
+    template data-missions-target="template"
+      = f.simple_fields_for :missions, @daily_quest.missions.new, child_index: 'TEMPLATE_RECORD' do |f|
+        = render 'mission_fields', f: f
+
+    div data-missions-target="add_item"
+      = link_to 'Ajouter une mission +',
+                '#',
+                class: 'inline-block bg-orange-400 text-white p-2 rounded-lg',
+                data: { action: "click->missions#add_association" }
+      p.hint class="!block" Une fois toutes les missions configurées, pensez à enregistrer en cliquant sur "Enregistrer"
+
+  = f.button :submit, 'Enregistrer', class: 'block w-full mb-6'

@@ -1,0 +1,17 @@
+.text-center
+  = link_to transporter_path(transporter), class: 'block mb-1' do
+    = image_tag polymorphic_path(transporter.photo), class: 'w-16 h-16 object-cover mx-auto'
+
+  p.font-bold= transporter.full_name
+
+  p.text-gray-500.italic
+    span.underline Adresse domicile:
+    br
+    = transporter.address.label
+
+  p.text-gray-500= phone_to transporter.phone, formatted_phone_number(transporter.phone)
+  p.strong.text-xs
+    - if transporter.driving
+      span.inline-block.bg-green-500.text-white.p-1.rounded-lg.animate-pulse En déplacement
+    - else
+      span.inline-block.bg-orange-500.text-white.p-1.rounded-lg A l'arrêt

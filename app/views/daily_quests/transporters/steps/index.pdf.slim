@@ -1,0 +1,64 @@
+.mb-6.text-center
+  p.text-xl.mb-2 Feuille de route
+
+  - if @transporter.photo.attached?
+    = image_tag polymorphic_url(@transporter.photo), class: 'rounded-full object-cover w-16 h-16 mx-auto mb-3'
+
+  h1.text-3xl= @transporter.full_name
+  p.text-xl= l(@daily_quest.started_on, format: :complete_slash)
+  p.text-xl
+    = "#{@transporter.vehicle.name} - #{@transporter.vehicle.number_plate}"
+
+.border.p-2.rounded-lg.mb-6 style="background-color: #DEDEDE"
+  p Prévenir impérativement le client pour tout retard supérieur à 10 minutes par rapport à l'horaire prévu
+
+- if @transporter.vehicle.details?
+  .border.p-2.rounded-lg.mb-6
+    = @transporter.vehicle.details
+
+- @steps.order(arrival_at: :asc).each_with_index do |step, index|
+  - mission = step.mission
+
+  .border.mb-6.p-2
+    .mx-auto.mb-4.bprder-b style="display: -webkit-box"
+      - if step.customer_to_place?
+        p.inline-block.rounded-lg.text-xs.px-2.py-1 style="background-color: #3399FF; color: white" Trajet aller
+      - elsif step.place_to_customer?
+        p.inline-block.rounded-lg.text-xs.px-2.py-1 style="background-color: #FF9933; color: white" Trajet retour
+
+      p.font-bold.w-full.ml-2= step.title
+
+    .mx-auto.mb-4 style="display: -webkit-box"
+      .text-center class="w-[45%]"
+        p.p-1 style="background-color: #22C55E; color: white"
+          = l(step.started_at, format: '%Hh%M')
+        p.p-1 style="background-color: #DEDEDE; color: #444;"
+          = step.departure_address.label
+
+      <svg class="w-8 h-8 mx-3 my-3" style="color: #BBB;" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
+      </svg>
+
+      .text-center class="w-[45%]"
+        p.p-1 style="background-color: #22C55E; color: white"
+          = l(step.arrival_at, format: '%Hh%M')
+        p.p-1 style="background-color: #DEDEDE; color: #444;"
+          = step.arrival_address.label
+
+    div
+      p.mb-1
+        span.font-bold Détails du trajet:
+        =< " [ #{step.duration} mn |  #{step.distance} km ]"
+
+      p.mb-1
+        span.font-bold Profil:
+        =< mission.customer.human_kind
+
+      - if mission.customer.details?
+        p.font-bold.mb-1.mt-3 Détails du client:
+        == mission.customer.details
+
+
+      - if step.description?
+        p.font-bold.mb-1.mt-3 Informations complémentaires:
+        == step.description

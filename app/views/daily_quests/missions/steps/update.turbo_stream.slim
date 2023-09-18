@@ -1,0 +1,8 @@
+- if @step.transporter.blank?
+  = turbo_stream.remove dom_id(@step, 'mission')
+  = turbo_stream.append :backlog do
+    = render 'daily_quests/step', step: @step
+- else
+  = turbo_stream.remove dom_id(@step, 'mission')
+  = turbo_stream.prepend dom_id(@step.transporter, 'mission') do
+    = render 'daily_quests/step', step: @step

@@ -1,0 +1,37 @@
+header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
+  .flex.items-center.justify-center.gap-6.md:hidden.px-3.py-2.border-b.relative.z-20.bg-white/75.dark:bg-slate-700.dark:border-gray-600
+    = link_to 'Carte du jour', root_path, class: 'btn-show'
+
+    = link_to root_path do
+      - if company.logo.attached?
+        = image_tag company.logo, class: 'w-20 rounded-full'
+      - else
+        = company.name
+
+    button.flex.items-center.p-1.text-sm.border.border-black.rounded-lg.focus:outline-none.focus:ring-2.focus:border-primary-color.focus:text-primary-color.dark:text-white.dark:border-gray-600 aria-controls="navbar-hamburger" aria-expanded="false" data-controller="menu" data-action="click->menu#toggle" type="button"
+      span.sr-only Ouvrir le menu
+      svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+        path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"
+
+  nav#menu.hidden.flex.md:flex.flex-col.md:flex-row.items-center.justify-center.gap-3.md:gap-5.py-3.absolute.left-0.w-full.md:relative.border-b.bg-white.z-50.dark:bg-slate-700.lg:dark:bg-slate-700/75.dark:text-white.dark:border-gray-600 role="navigation"
+    = link_to 'Carte', root_path, class: ('active' if params[:controller] == 'homes')
+    = link_to 'Clients', customers_path, class: ('active' if params[:controller] == 'customers')
+    = link_to 'Lieux', places_path, class: ('active' if params[:controller] == 'places')
+    = link_to Transporter.model_name.human.pluralize.capitalize, transporters_path, class: ('active' if params[:controller] == 'transporters')
+
+    = link_to root_path, class: 'hidden md:block' do
+      - if company.logo.attached?
+        = image_tag company.logo, class: 'w-20 rounded-full'
+      - else
+        = company.name
+
+    = link_to 'Véhicules', vehicles_path, class: ('active' if params[:controller] == 'vehicles')
+    = link_to 'Planning', daily_quests_path, class: ('active' if params[:controller] == 'daily_quests' || params[:controller] == 'daily_quests/transporters/steps')
+    = link_to '🔧', settings_path, class: ('active' if params[:controller] == 'settings'), title: 'Paramètres'
+
+    = link_to sessions_path,
+              data: { turbo_method: :delete },
+              class: 'text-xs' do
+      span= current_user.full_name
+      br
+      span.underline Déconnexion

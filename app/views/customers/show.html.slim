@@ -1,0 +1,46 @@
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl= @customer.full_name
+
+  .flex.items-center.gap-2
+    = link_to '<< Retour aux clients', customers_path, class: 'btn-back'
+    = link_to 'Modifier', edit_customer_path(@customer), class: 'btn-edit'
+    = button_to (@customer.available? ? 'Archiver' : 'Désarchiver'),
+                archive_customer_path(@customer),
+                class: 'btn-destroy',
+                method: :delete,
+                data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
+    = button_to 'Supprimer', @customer,
+                class: 'btn-destroy',
+                method: :delete,
+                data: { turbo_confirm: 'Voulez-vous supprimer ce client ?' }
+
+.row.p-4 id=dom_id(@customer) class=('border-orange-500' if @customer.archived?)
+  / - if @customer.photo.attached?
+  /   p.mb-3= image_tag url_for(@customer.photo), class: 'w-32'
+
+  p
+    strong= Customer.human_attribute_name(:first_name)
+    =< @customer.first_name
+  p
+    strong= Customer.human_attribute_name(:last_name)
+    =< @customer.last_name
+  p
+    strong= Customer.human_attribute_name(:phone)
+    =< formatted_phone_number(@customer.phone)
+  p
+    strong= Customer.human_attribute_name(:email)
+    =< @customer.email
+
+  p
+    strong= Customer.human_attribute_name(:kind)
+    =< @customer.human_kind
+
+  - if @customer.address.present?
+    p
+      strong= Address.human_attribute_name(:label)
+      =< @customer.address.label
+
+  - if @customer.details?
+    div
+      p: strong= Customer.human_attribute_name(:details)
+      = @customer.details

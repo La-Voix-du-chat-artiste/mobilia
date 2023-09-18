@@ -1,0 +1,8 @@
+.text-center
+  = link_to customer_path(customer), class: 'block mb-1' do
+    = image_tag polymorphic_path(customer.photo), class: 'w-16 h-16 object-cover mx-auto'
+
+  p.font-bold= customer.name
+  p.text-gray-500.italic= customer.address.label
+  p.text-gray-500= phone_to customer.phone, formatted_phone_number(customer.phone)
+  p.text-gray-600= customer.human_kind

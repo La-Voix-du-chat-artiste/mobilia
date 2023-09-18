@@ -1,0 +1,108 @@
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl= @transporter.full_name
+
+  .flex.items-center.gap-2
+    = link_to '<< Retour aux transporteurs', transporters_path, class: 'btn-back'
+    = link_to 'Modifier', edit_transporter_path(@transporter), class: 'btn-edit'
+    = button_to 'Supprimer', @transporter,
+                class: 'btn-destroy',
+                method: :delete,
+                data: { turbo_confirm: 'Voulez-vous supprimer ce transporteur ?' }
+
+.row.p-4.mb-3 id=dom_id(@transporter)
+  / - if @transporter.photo.attached?
+  /   p= image_tag url_for(@transporter.photo), class: 'w-32'
+
+  p
+    strong Téléphone:
+    =< formatted_phone_number(@transporter.phone)
+  p
+    strong Email:
+    =< @transporter.email
+
+  div
+    p: strong Détails:
+    = @transporter.details
+
+  - if @transporter.address.present?
+    p
+      strong Adresse:
+      =< @transporter.address.label
+
+  - if @transporter.vehicle.present?
+    p
+      strong Véhicule:
+      =< @transporter.vehicle.name
+
+- if @transporter.vehicle.blank?
+  .panel-warning.mb-6
+    p.font-bold.mb-1 ⚠️ Transporteur sans véhicule
+    p.mb-2 Aucun véhicule n'est configuré pour ce transporteur. Vous ne pourrez pas lui assigner de missions sans véhicule.
+
+    = simple_form_for(@transporter) do |f|
+      = f.association :vehicle,
+                      collection: vehicles_select_options(company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter).distinct),
+                      label: false,
+                      hint: false,
+                      include_blank: 'Sélectionner un véhicule',
+                      wrapper_html: { class: 'w-full' },
+                      input_html: { \
+                        data: { \
+                          controller: 'slim-select', \
+                          action: 'change->slim-select#submit' \
+                        } \
+                      }
+
+section.mb-6.dark:text-white
+  header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+    h2.text-xl Les présences / absences
+
+    = link_to 'Ajouter une présence / absence', new_transporter_absence_path(@transporter), class: 'btn-show'
+
+
+  - if @absences.any?
+    == pagy_nav(@pagy) if @pagy.pages > 1
+
+    #absences
+      = render collection: @absences, partial: 'transporters/absences/absence'
+
+    == pagy_nav(@pagy) if @pagy.pages > 1
+
+  - else
+    .panel-info.mb-5
+      | Il n'y a pas encore de présence ou absence de configurée
+
+
+section.dark:text-white
+  header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-3.gap-3
+    h2.text-xl Les horaires de travail
+
+  - i18n_scope = 'activemodel'
+
+  p
+    strong Lundi:
+    =< I18n.t(@transporter.availabilities.monday, scope: i18n_scope)
+
+  p
+    strong Mardi:
+    =< I18n.t(@transporter.availabilities.tuesday, scope: i18n_scope)
+
+  p
+    strong Mercredi:
+    =< I18n.t(@transporter.availabilities.wednesday, scope: i18n_scope)
+
+  p
+    strong Jeudi:
+    =< I18n.t(@transporter.availabilities.thursday, scope: i18n_scope)
+
+  p
+    strong Vendredi:
+    =< I18n.t(@transporter.availabilities.friday, scope: i18n_scope)
+
+  p
+    strong Samedi:
+    =< I18n.t(@transporter.availabilities.saturday, scope: i18n_scope)
+
+  p
+    strong Dimanche:
+    =< I18n.t(@transporter.availabilities.sunday, scope: i18n_scope)

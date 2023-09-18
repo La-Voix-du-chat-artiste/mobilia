@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #000;
+    --color-secondary: #b7bb84;
+  }
+}
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/
+
+header h1, h2 {
+  @apply dark:text-white;
+}
+
+/* Trix editor */
+
+.dark .rich_text_area {
+  @apply text-white;
+}
+
+.dark trix-toolbar .trix-button {
+  @apply bg-white;
+}
+
+/* Menu */
+
+nav#menu a.active {
+  @apply bg-green-700 text-white p-2 rounded-lg;
+}
+
+/* Map */
+
+#map {
+  @apply z-[10] rounded-lg;
+}
+
+.map {
+  @apply h-[70vh] lg:h-screen;
+}
+
+/* Slim select */
+
+.ss-option {
+  @apply transition-colors;
+}
+
+.ss-option:hover {
+  @apply !bg-gray-100 !text-gray-500;
+}
+
+.ss-selected {
+  @apply !bg-gray-200 !text-gray-700;
+}
+
+.ss-main .ss-values .ss-value {
+  @apply bg-gray-300;
+}
+
+
+/* Leaflet */
+
+path.leaflet-interactive {
+  @apply transition-all;
+}
+
+path.leaflet-interactive:hover,
+path.leaflet-interactive.active {
+  @apply stroke-[5px] stroke-[#333333] opacity-100;
+}
+
+.mission.active {
+  @apply bg-green-500 !text-white dark:border-green-500;
+}
+
+.leaflet-popup-content {
+  @apply !m-0 !p-2 rounded-lg;
+}
+
+.leaflet-popup-content img {
+  @apply hover:scale-105 transition-transform;
+}
+
+.leaflet-popup-content p {
+  @apply !m-0;
+}
+
+.leaflet-popup-content p:not(:last-child) {
+  @apply !mb-1;
+}
+
+.dark .leaflet-layer,
+.dark .leaflet-control-zoom-in,
+.dark .leaflet-control-zoom-out,
+.dark .leaflet-control-attribution {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* buttons */
+
+.btn-add {
+  @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300;
+}
+
+.btn-show {
+  @apply btn-add !bg-blue-700 px-4 py-2 hover:!bg-blue-800 focus:!ring-blue-300;
+}
+
+.btn-edit {
+  @apply btn-add !bg-orange-700 hover:!bg-orange-800 focus:!ring-orange-300;
+}
+
+.btn-destroy {
+  @apply btn-add !bg-red-700 hover:!bg-red-800 focus:!ring-red-300;
+}
+
+.btn-back {
+  @apply btn-add !bg-gray-700 hover:!bg-gray-800 focus:!ring-gray-300 dark:hover:!bg-gray-600;
+}
+
+/* Pagy pagination style */
+
+.pagy-nav {
+  @apply flex space-x-2 justify-center my-8;
+}
+
+.pagy-nav .page a,
+.pagy-nav .page.active,
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled {
+  @apply block rounded px-3 py-1 text-sm text-black hover:text-secondary-color dark:text-white;
+}
+
+.pagy-nav .page.prev.disabled,
+.pagy-nav .page.next.disabled {
+  @apply text-gray-400 cursor-default;
+  &:hover {
+    @apply text-gray-400 bg-gray-200;
+  }
+  &:active {
+    @apply text-gray-400 bg-gray-200;
+  }
+}
+
+.pagy-nav .page.active {
+  @apply text-white cursor-default bg-secondary-color hover:text-white hover:bg-primary-color;
+
+  &:active {
+    @apply text-white bg-primary-color;
+  }
+}
+
+/* Form */
+
+form label {
+  @apply dark:text-white;
+}
+
+input.string, input.password, input.numeric,
+input.date, input.time, select.select {
+  @apply rounded-lg dark:bg-slate-700/25 dark:text-white;
+}
+
+.error, .error_notification {
+  @apply text-red-500 italic text-sm;
+}
+
+.field_with_errors input,
+.field_with_errors textarea {
+  @apply border-red-500;
+}
+
+.field_with_errors input:focus,
+.field_with_errors textarea:focus {
+  @apply border-red-500 ring-red-500;
+}
+
+.hint {
+  @apply inline-block mt-2 panel-info;
+}
+
+.hint:before {
+  content: 'ℹ️ ';
+  @apply mr-0.5;
+}
+
+input.boolean, input.check_boxes {
+  @apply inline-block w-4 mr-1;
+}
+
+.panel-info {
+  @apply border text-blue-500 bg-blue-50 border-blue-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-blue-400;
+}
+
+.panel-warning {
+  @apply border text-orange-500 bg-orange-50 border-orange-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-orange-400;
+}
+
+.panel-success {
+  @apply border text-green-500 bg-green-50 border-green-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
+}
+
+.row {
+  @apply border mb-3 rounded-lg border-gray-300 bg-gray-100 dark:bg-slate-700/50 dark:text-white dark:border-gray-600;
+}
+
+/* Flash */
+
+.flash-notice {
+  @apply border text-green-500 bg-green-50 border-green-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
+}
+
+.flash-alert {
+  @apply border text-red-500 bg-red-50 border-red-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
+}

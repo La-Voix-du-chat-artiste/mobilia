@@ -1,0 +1,4 @@
+fr:
+  transporter_mailer:
+    send_planning:
+      subject: "Votre planning de transport du %{date}"

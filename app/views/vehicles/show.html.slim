@@ -1,0 +1,47 @@
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl= @vehicle.name
+
+  .flex.items-center.gap-2
+    = link_to '<< Retour aux véhicules', vehicles_path, class: 'btn-back'
+    = link_to 'Modifier', edit_vehicle_path(@vehicle), class: 'btn-edit'
+    = button_to 'Supprimer', @vehicle,
+                class: 'btn-destroy',
+                method: :delete,
+                data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+
+.row.p-4 id=dom_id(@vehicle)
+  - if @vehicle.photo.attached?
+    p.mb-3= image_tag url_for(@vehicle.photo), class: 'max-w-[300px]'
+
+  p
+    strong Plaque d'immatriculation:
+    =< @vehicle.number_plate
+
+  p
+    strong Longueur:
+    =< @vehicle.width.presence || '/'
+
+  p
+    strong Hauteur:
+    =< @vehicle.height.presence || '/'
+
+  p
+    strong Nombre de places assises:
+    =< @vehicle.max_regular_seats
+
+  p
+    strong Nombre de places en fauteuil roulant:
+    =< @vehicle.max_wheelchair_seats
+
+  p
+    strong Status:
+    =< @vehicle.human_status
+
+  p
+    strong Véhicule de remplacement ?
+    =< t(@vehicle.substitution.to_s)
+
+  - if @vehicle.details?
+    div
+      p: strong Détails:
+      = @vehicle.details

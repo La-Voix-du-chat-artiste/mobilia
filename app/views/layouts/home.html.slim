@@ -1,0 +1,23 @@
+doctype html
+html class=options.theme
+  head
+    title= "#{company.name} | Mobilia"
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    link rel="stylesheet" href="https://unpkg.com/slim-select@latest/dist/slimselect.css"
+    link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+    link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+    link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css"
+    = stylesheet_link_tag 'tailwind', 'inter-font', 'data-turbo-track': 'reload'
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+
+    = javascript_importmap_tags
+
+  body class="dark:bg-slate-800"
+    = render 'header', fixed: true
+
+    main.h-screen.relative
+      = yield

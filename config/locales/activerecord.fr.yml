@@ -1,0 +1,96 @@
+fr:
+  activemodel:
+    no_work: Journée non travaillée
+    morning: Matin 8h/12h
+    afternoon: Après-midi 14h/18h
+    all_day: Toute la journée
+
+  activerecord:
+    models:
+      vehicle: véhicule
+      customer: client
+      transporter: chauffeur
+      place: lieu
+
+    attributes:
+      address:
+        label: Adresse
+
+      place:
+        name: Nom
+        phone: Téléphone
+        email: Email
+        details: Détails
+        photo: Image d'illustration
+        enabled: Activé ?
+
+      customer:
+        first_name: Prénom
+        last_name: Nom
+        phone: Téléphone
+        email: Email
+        kind: Particularité
+        details: Détails
+        photo: Avatar d'illustration
+        enabled: Activé ?
+        kinds:
+          walker: Marchant
+          wheelchair: En fauteuil roulant manuel
+          wheelchair_auto: En fauteuil roulant électrique
+        favorite_trip_transporter: Chauffeur aller préféré
+        favorite_trip_back_transporter: Chauffeur retour préféré
+
+      mission:
+        customer: Client
+        place: Lieu
+        drop_time: Heure à déposer au lieu de rendez-vous
+        drop_duration: Durée de la consultation
+
+      vehicle:
+        name: Nom
+        number_plate: Plaque d'immatriculation
+        length: Longeur
+        width: Largeur
+        height: Hauteur
+        max_regular_seats: Nombre maximum de places assises
+        max_wheelchair_seats: Nombre maximum de places fauteuil
+        status: Statut
+        photo: Photo d'illustration
+        details: Informations complémentaires
+        substitution: Remplacement ?
+        enabled: Activé ?
+        statuses:
+          normal: Etat normal
+          breakdown: En panne
+          mechanic: Chez le garagiste
+
+      absence:
+        started_on: Début
+        ended_on: Fin
+        reason: Raison
+        reasons:
+          unspecified: Non spécifié
+          holidays: Vacances
+          disease: Arrêt maladie
+          other_company: Autre Société
+          attending: Présent
+
+      transporter:
+        first_name: Prénom
+        last_name: Nom
+        phone: Téléphone
+        email: Email
+        started_time: Heure de début de journée
+        ended_time: Heure de fin de journée
+        details: Détails
+        photo: Avatar d'illustration
+        vehicle: Véhicule
+
+      step:
+        description: Remarque
+        transporter: Chauffeur
+
+      user:
+        email: Email
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe

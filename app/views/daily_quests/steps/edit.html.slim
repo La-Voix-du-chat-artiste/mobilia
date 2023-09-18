@@ -1,0 +1,6 @@
+= turbo_frame_tag dom_id(@step) do
+  = simple_form_for [@daily_quest, @step] do |f|
+    = f.input :description, as: :rich_text_area,
+              label_html: { class: 'text-sm underline' }
+
+    = f.button :submit,"Enregistrer", class: 'btn-add mt-2'

@@ -1,0 +1,6 @@
+h1 Bonjour #{@transporter.first_name},
+
+p Vous trouverez en pièce jointe votre planning de transport du <strong>#{l(@daily_quest.started_on)}</strong>.
+
+p Bonne journée,
+p= @daily_quest.company.name

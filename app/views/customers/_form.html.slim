@@ -1,0 +1,75 @@
+= simple_form_for(@customer) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :first_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+    = f.input :last_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
+    = f.input :phone, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+    = f.input :email, as: :email,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6
+    = f.simple_fields_for :address do |ff|
+      = ff.input :label,
+                 input_html: { \
+                   data: { \
+                     controller: 'address', \
+                     address_search_url_value: addresses_search_path \
+                   } \
+                 },
+                 wrapper_html: { class: 'lg:w-2/3' },
+                 collection: [ff.object.label].compact,
+                 prompt: "Saisir l'adresse du client",
+                 include_blank: false
+
+    = f.input :kind,
+              collection: select_options_for(Customer, :kinds),
+              include_blank: false,
+              wrapper_html: { class: 'lg:w-1/3' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6
+    - transporters = transporters_select_options
+    = f.association :favorite_trip_transporter,
+                    collection: transporters,
+                    include_blank: 'Pas de chauffeur préféré',
+                    input_html: { \
+                      class: 'w-full', \
+                      data: { \
+                        controller: 'slim-select' \
+                      } \
+                    },
+                    wrapper_html: { class: 'w-full' }
+
+    = f.association :favorite_trip_back_transporter,
+                    collection: transporters,
+                    include_blank: 'Pas de chauffeur préféré',
+                    input_html: { \
+                      class: 'w-full', \
+                      data: { \
+                        controller: 'slim-select' \
+                      } \
+                    },
+                    wrapper_html: { class: 'w-full' }
+
+  .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6
+    = f.input :details, as: :rich_text_area,
+              wrapper_html: { class: 'w-full' }
+
+    div
+      = f.input :photo, as: :file
+
+      - if f.object.photo.attached?
+        p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'w-32 rounded-full object-cover'
+
+  = f.input :enabled,
+            wrapper_html: { class: 'mb-6' }
+
+  .form-actions
+    = f.button :submit

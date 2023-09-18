@@ -1,0 +1,30 @@
+fr:
+  'true': Oui
+  'false': Non
+
+  light: Clair
+  dark: Sombre
+
+  helpers:
+    submit:
+      create: Valider
+      update: Valider
+      submit: Valider
+
+  date:
+    formats:
+      complete_slash: "%A %d/%m/%Y"
+  time:
+    formats:
+      complete_slash: "%A %d/%m/%Y %Hh%M"
+
+  distance:
+    centi:
+      one: "centimètre"
+      other: "centimètres"
+    unit:
+      one: "mètre"
+      other: "mètres"
+    thousand:
+      one: "kilomètre"
+      other: "kilomètres"

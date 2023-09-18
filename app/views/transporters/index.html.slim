@@ -1,0 +1,21 @@
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl Chauffeurs
+
+  = link_to 'Ajouter un chauffeur', new_transporter_path, class: 'btn-add'
+
+details.panel-info.mb-5
+  summary.cursor-pointer Explications à lire
+  .mt-3
+    p.mb-3 Les chauffeurs à qui assigner les missions de transport sont à spécifier sur cette page.
+    p Vous pouvez configurer les absences des chauffeurs pour une période donnée en cliquant sur "Profil chauffeur". Les absences sont prises en considération dans l'attribution automatique des missions de transport aux chauffeurs.
+
+== pagy_nav(@pagy) if @pagy.pages > 1
+
+#transporters
+  = render @transporters
+
+== pagy_nav(@pagy) if @pagy.pages > 1
+
+- if options.enable_transporters_map?
+  div data-controller="global-map" data-global-map-transporters-url-value=transporters_path
+    #map class="h-[500px]" data-global-map-target="map"
