@@ -194,7 +194,15 @@ class Step < ApplicationRecord
                         target: "mission_step_#{id}"
   end
 
+  def achieved?
+    daily_quest.started_on == Date.current && arrival_at <= Time.current
+  end
+
   private
+
+  def daily_quest
+    mission.daily_quest
+  end
 
   def options
     @options ||= mission.daily_quest.company.setting.options
