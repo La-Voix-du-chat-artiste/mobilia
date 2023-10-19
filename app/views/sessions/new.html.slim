@@ -6,10 +6,14 @@
                     html: { data: { turbo: false } } do |f|
     = f.input :email,
               wrapper_html: { class: 'mb-5' },
-              autofocus: true
+              autofocus: true,
+              placeholder: 'admin1@test.test',
+              hint: 'Use admin1@test.test for demo purposes'
 
     = f.input :password, as: :password,
-              wrapper_html: { class: 'mb-5' }
+              wrapper_html: { class: 'mb-5' },
+              placeholder: 'password',
+              hint: 'Use password for demo purposes'
 
     = f.input :remember, as: :boolean,
               wrapper_html: { class: 'mb-5' }
@@ -20,3 +24,8 @@
 
   p.text-center.mt-6
     = link_to 'Mot de passe oublié ?', new_password_reset_path, class: 'text-sm underline'
+
+p.mt-6.text-sm.text-center
+  | Refer to the
+  =<> link_to 'Mobilia Github README instructions', 'https://github.com/La-Voix-du-chat-artiste/mobilia', target: :blank, class: 'underline'
+  | for more details.

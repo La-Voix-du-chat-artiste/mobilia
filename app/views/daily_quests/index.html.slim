@@ -6,8 +6,10 @@ header.mb-3
 
     .flex.flex-row.items-center.gap-2
       = link_to 'Dupliquer toute la semaine',
-                duplicate_week_daily_quest_path(@daily_quest), class: 'btn-add',
-                data: { turbo_method: :post, turbo_confirm: "Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
+                '#',
+                title: 'Feature coming soon',
+                class: 'btn-add cursor-not-allowed line-through',
+                data: { turbo_method: :post, turbo_confirm: "[Coming soon] Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
 
       = link_to "<< #{l(@daily_quest.started_on - 1.day)}", daily_quests_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'

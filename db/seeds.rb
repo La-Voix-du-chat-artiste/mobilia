@@ -3,7 +3,7 @@ require 'open-uri'
 
 puts 'Seeding companies...'
 
-2.times do
+1.time do
   logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
   background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
 
