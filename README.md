@@ -17,7 +17,7 @@ It handles the management and routing of your fleet and drivers
 - Management of daily plannings, including:
   - Automatic distribution of journeys
   - Auto compute of time travelling ( needed for auto-planning)
-  - Duplication of a week to the next one
+  - Duplication of a week to the next one (coming soon)
   - Generation of PDF routes for each transporter
   - Sending of PDF by email (to one driver or to all of them)
 - Basic settings to personalize experience
@@ -52,6 +52,16 @@ To setup the development project, follow these instructions:
 - Run `$ bin/rails db:migrate db:seed`
 - Finally launch the Rails server with `$ bin/dev` !
 
+## Demonstration
+
+Visit [https://mobilia.flownaely.cafe](https://mobilia.flownaely.cafe) for an online demonstration.
+
+Use following credentials to log in as an administrator:
+- Email: **admin1@test.test**
+- Password: **password**
+
+Note that the database is seed once a day so all data will be dropped and regenerated.
+
 ## Screenshots
 
 ### Customers
@@ -71,7 +81,8 @@ To setup the development project, follow these instructions:
 
 ## Contributing
 
-We encourage you to contribute to mobilia ! Project is still very early in its development and bugs are likely to emerge ;)
+We encourage you to contribute to mobilia by opening issues and/or pull requests !  
+Project is still very early in its development and bugs are likely to emerge ;)
 
 ## Sponsoring
 
