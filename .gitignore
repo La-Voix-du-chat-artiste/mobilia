@@ -38,4 +38,6 @@
 !/app/assets/builds/.keep
 
 .env*
+!.env.template
+!.env.test
 .DS_Store
