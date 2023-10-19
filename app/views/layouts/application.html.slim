@@ -20,6 +20,12 @@ html class=options.theme
   body class="dark:bg-slate-800"
     main.mx-auto.px-5.mb-8 class=('container' unless params[:controller] == 'daily_quests')
       .mb-6= render 'header'
-      #flash= render 'flash'
+
+      = turbo_stream_from :flash
+      #flash= render 'flashes'
 
       = yield
+
+      / Workaround that refresh page after optimze steps job has ended
+      = turbo_stream_from :page_reload
+      #page_reload

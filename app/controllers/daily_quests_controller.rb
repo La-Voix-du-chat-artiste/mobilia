@@ -50,7 +50,7 @@ class DailyQuestsController < ApplicationController
 
     OptimizerJob.perform_later(steps)
 
-    redirect_to daily_quests_path(started_on: @daily_quest.started_on), notice: "Les missions sont en cours d'assignation. Veuillez patienter, cela peut prendre quelques minutes."
+    head :ok
   end
 
   # @route POST /daily_quests/:id/duplicate_week (duplicate_week_daily_quest)

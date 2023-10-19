@@ -1,3 +1,2 @@
-- flash.each do |flash_type, message|
-  .flash__message.p-4.my-4.text-sm.rounded-lg class="#{flash_type == 'notice' ? 'flash-notice ' : 'flash-alert'}"
-    = message
+.flash__message.p-4.my-4.text-sm.rounded-lg class="#{flash_type == 'notice' ? 'flash-notice ' : 'flash-alert'}"
+  == simple_format message
