@@ -17,6 +17,7 @@ export default class extends Controller {
         animation: 150,
         sort: false,
         handle: '.handle',
+        filter: '.disabled',
         ghost: 'bg-gray-100',
         delayOnTouchOnly: true,
         onEnd: this._assignToNewTransporter.bind(this)
