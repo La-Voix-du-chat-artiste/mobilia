@@ -3,27 +3,23 @@ require 'open-uri'
 
 puts 'Seeding companies...'
 
-1.time do
-  logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
-  background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
+logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
+background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
 
-  Company.create!(
-    name: Faker::Company.name,
-    description: Faker::Company.catch_phrase,
-    logo: {
-      io: URI.parse(logo).open,
-      filename: 'logo.png'
-    },
-    background_cover: {
-      io: URI.parse(background_cover).open,
-      filename: 'background_cover.png'
-    }
-  )
-end
+Company.create!(
+  name: Faker::Company.name,
+  description: Faker::Company.catch_phrase,
+  logo: {
+    io: URI.parse(logo).open,
+    filename: 'logo.png'
+  },
+  background_cover: {
+    io: URI.parse(background_cover).open,
+    filename: 'background_cover.png'
+  }
+)
 
-Company.all.each_with_index do |company, index|
-  index += 1
-
+Company.find_each.with_index(1) do |company, index|
   puts "[#{company.name}] Seeding settings..."
 
   Setting.create!(company: company)
@@ -64,6 +60,10 @@ Company.all.each_with_index do |company, index|
   6.times do |_i|
     random_address = random_addresses.sample.strip
     puts random_address
+
+    week_availabilities = %i[morning afternoon morning afternoon morning afternoon all_day]
+    saturday_availabilities = %i[no_work morning]
+
     Transporter.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -73,7 +73,16 @@ Company.all.each_with_index do |company, index|
       password_confirmation: 'password',
       address: Address.new(label: random_address),
       vehicle: company.vehicles.enabled.where.missing(:transporter).sample,
-      company: company
+      company: company,
+      availabilities: {
+        monday: week_availabilities.sample,
+        tuesday: week_availabilities.sample,
+        wednesday: week_availabilities.sample,
+        thursday: week_availabilities.sample,
+        friday: week_availabilities.sample,
+        saturday: saturday_availabilities.sample,
+        sunday: :no_work
+      }
     )
   end
 
@@ -99,6 +108,10 @@ Company.all.each_with_index do |company, index|
 
   [Date.current, Date.tomorrow, 2.days.from_now.to_date].each do |date|
     puts "  => #{I18n.l(date)}"
+
+    Transporter.find_each do |t|
+      t.absences.create(started_on: date, ended_on: date) if rand(8).zero?
+    end
 
     GenerateQuestDemo.call(company, date)
   end

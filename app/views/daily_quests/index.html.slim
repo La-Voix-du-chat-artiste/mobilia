@@ -120,7 +120,10 @@ details.panel-info.mb-5
             - if transporter.photo.attached?
               = image_tag transporter.photo, class: 'w-10 rounded-full'
               .text-left
-                p.font-bold= transporter.full_name
+                p
+                  span.font-bold= transporter.full_name
+                  span.text-sm=< "[#{transporter.periods_for?(@daily_quest.started_on).join('h -> ')}h]"
+
                 - if transporter.vehicle.present?
                   p.text-sm
                     = "#{transporter.vehicle.name} / #{transporter.vehicle.number_plate}"

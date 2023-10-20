@@ -67,8 +67,8 @@ details.step.handle.border.rounded-lg.p-2.mb-2.hover:bg-gray-100.transition-colo
       = link_to 'Ajouter une remarque', edit_daily_quest_step_path(step.mission.daily_quest, step), class: 'underline text-sm'
 
   - if step.conflict?
-    p.mt-1.p-1.bg-orange-500.rounded-lg.text-xs.text-white
+    p.mt-2.p-1.bg-orange-500.rounded-lg.text-xs.text-white
       | ⚠️ Trajet en conflit
   - elsif step.impossible?
-    p.mt-1.p-1.bg-red-500.rounded-lg.text-xs.text-white
+    p.mt-2.p-1.bg-red-500.rounded-lg.text-xs.text-white
       | ⚠️ Trajet impossible

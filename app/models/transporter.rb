@@ -20,7 +20,23 @@ class Transporter < User
 
   after_create :assign_photo, unless: -> { photo.present? }
 
-  def off?(date = Date.current)
+  def self.sort_by_courses_for(daily_quest)
+    all.sort_by { |t| (t.step_ids & daily_quest.step_ids).count }
+  end
+
+  def periods_for?(my_date)
+    day = my_date.to_date.strftime('%A').downcase
+    period_name = availabilities[day].to_sym
+    AvailabilitiesOption::PERIODS[period_name]
+  end
+
+  def available_at?(started_at, arrival_at)
+    periods = periods_for?(started_at)
+    Rails.logger.info [[started_at.hour, periods.first], [arrival_at.hour, periods.second]]
+    started_at.hour >= periods.first && arrival_at.hour <= periods.second
+  end
+
+  def off?(date = Time.current)
     absences.present_today?(date)
   end
 

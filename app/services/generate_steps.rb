@@ -30,11 +30,12 @@ class GenerateSteps < ApplicationService
       arrival_point_icon: :place,
       arrival_at: mission.drop_datetime, # Arrival time to place
       role: 'customer_to_place',
-      transporter: trip_transporter,
       addresses: [customer.address.dup, place.address.dup]
     )
 
     step_1.started_at = step_1.arrival_at - (step_1.duration.minutes + step_1.jam + step_1.delta)
+    step_1.transporter = trip_transporter_for(step_1.started_at, step_1.arrival_at)
+
     step_1.save!
   end
 
@@ -47,20 +48,23 @@ class GenerateSteps < ApplicationService
       arrival_point_icon: :ending_line,
       role: 'place_to_customer',
       started_at: return_back_at,
-      transporter: trip_back_transporter,
       addresses: [place.address.dup, customer.address.dup]
     )
 
     step_2.arrival_at = step_2.started_at + (step_2.duration.minutes + step_2.jam + step_2.delta)
+    step_2.transporter = trip_back_transporter_for(step_2.started_at, step_2.arrival_at)
+
     step_2.save!
   end
 
-  def trip_transporter
-    customer.favorite_trip_transporter
+  def trip_transporter_for(started_at, arrival_at)
+    favorite = customer.favorite_trip_transporter
+    favorite if favorite&.available_at?(started_at, arrival_at)
   end
 
-  def trip_back_transporter
-    customer.favorite_trip_back_transporter
+  def trip_back_transporter_for(started_at, arrival_at)
+    favorite = customer.favorite_trip_back_transporter
+    favorite if favorite&.available_at?(started_at, arrival_at)
   end
 
   def place
