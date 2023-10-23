@@ -1,3 +1,5 @@
+@import './plugins/slim-select';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,25 +50,6 @@ nav#menu a.active {
 .map {
   @apply h-[70vh] lg:h-screen;
 }
-
-/* Slim select */
-
-.ss-option {
-  @apply transition-colors;
-}
-
-.ss-option:hover {
-  @apply !bg-gray-100 !text-gray-500;
-}
-
-.ss-selected {
-  @apply !bg-gray-200 !text-gray-700;
-}
-
-.ss-main .ss-values .ss-value {
-  @apply bg-gray-300;
-}
-
 
 /* Leaflet */
 

@@ -17,6 +17,18 @@ module DailyQuests
       end
     end
 
+    # @route DELETE /daily_quests/:daily_quest_id/steps/:id (daily_quest_step)
+    def destroy
+      @step.destroy
+
+      respond_to do |format|
+        notice = 'La mission a bien été supprimée'
+
+        format.html { redirect_to daily_quests_path(date: @daily_quest.started_on), notice: notice }
+        format.turbo_stream { flash.now[:notice] = notice }
+      end
+    end
+
     # @route POST /daily_quests/:daily_quest_id/steps/:id/optimize (optimize_daily_quest_step)
     def optimize
       Optimizer.call(@step)
