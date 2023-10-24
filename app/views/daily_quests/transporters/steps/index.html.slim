@@ -3,7 +3,10 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
     - if @transporter.photo.attached?
       = image_tag(@transporter.photo, class: 'w-12 h-12 object-cover rounded-full')
     .dark:text-white
-      p.italic.text-gray-500=< @transporter.full_name
+      .flex
+        p.italic.text-gray-500=< @transporter.full_name
+        = @transporter.periods_for?(@daily_quest.started_on)
+
       p= @daily_quest.title
 
   .flex.items-center.justify-between.gap-3

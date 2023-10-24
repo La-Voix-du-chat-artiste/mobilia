@@ -4,7 +4,7 @@ class DailyQuestsController < ApplicationController
   # @route GET /daily_quests (daily_quests)
   def index
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
-    @transporters = company.transporters.all.with_attached_photo.includes(:absences)
+    @transporters = company.transporters.all.with_attached_photo.includes(:absences).sort_by_courses_for(@daily_quest)
   end
 
   # @route GET /daily_quests/:id (daily_quest)

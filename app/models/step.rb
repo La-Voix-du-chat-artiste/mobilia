@@ -9,7 +9,8 @@ class Step < ApplicationRecord
     customer_to_transporter: 3,
     customer_to_customer: 4,
     conflict: 5,
-    impossible: 6
+    possible: 6,
+    impossible: 7
   }
   enum departure_point_icon: {
     starting_line: 0, transporter: 1, customer: 2, place: 3, ending_line: 4
