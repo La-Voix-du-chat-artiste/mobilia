@@ -1,5 +1,6 @@
 import { ApplicationController, useIntersection } from 'stimulus-use'
 import { get } from '@rails/request.js'
+import 'leaflet.markercluster'
 import 'leaflet-gesture-handling'
 
 export default class extends ApplicationController {
@@ -52,7 +53,9 @@ export default class extends ApplicationController {
 
     const tuiles = L.tileLayer("https://a.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png").addTo(this.map)
 
-    this.markers = new L.FeatureGroup()
+    this.markers = L.markerClusterGroup({
+      showCoverageOnHover: false, maxClusterRadius: 20
+    })
 
     this.customers.forEach((customer) => {
       let marker
