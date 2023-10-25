@@ -1,5 +1,7 @@
 class DailyQuestsController < ApplicationController
-  before_action :set_daily_quest, only: %i[show edit update destroy optimize duplicate_week]
+  before_action :set_daily_quest, only: %i[
+    show edit update destroy optimize duplicate_week reset
+  ]
 
   # @route GET /daily_quests (daily_quests)
   def index
@@ -58,6 +60,13 @@ class DailyQuestsController < ApplicationController
     DuplicateWeekJob.perform_later(@daily_quest)
 
     redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes.'
+  end
+
+  # @route POST /daily_quests/:id/reset (reset_daily_quest)
+  def reset
+    ResetDailyQuest.call(@daily_quest)
+
+    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'Le planning du jour a bien été réinitialisé'
   end
 
   private

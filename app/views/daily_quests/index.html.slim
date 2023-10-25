@@ -24,6 +24,11 @@ header.mb-3
               = link_to 'Dupliquer toute la semaine',
                         duplicate_week_daily_quest_path(@daily_quest), class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors',
                         data: { turbo_method: :post, turbo_confirm: "Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
+              - if @daily_quest.steps.any?(&:transporter)
+                = link_to 'Réinitialiser le planning',
+                          reset_daily_quest_path(@daily_quest),
+                          data: { turbo_method: :post, turbo_confirm: 'Voulez-vous réinitialiser le planning du jour ? Toutes les missions se trouvant actuellement dans les colonnes des chauffeurs seront désassignées.' },
+                          class: 'p-3 text-red-700 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
 
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
