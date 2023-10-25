@@ -13,6 +13,7 @@ pin 'slim-select', to: 'https://ga.jspm.io/npm:slim-select@2.6.0/dist/slimselect
 pin 'sortablejs', to: 'https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable.esm.js'
 
 pin 'stimulus-use', to: 'https://ga.jspm.io/npm:stimulus-use@0.52.0/dist/index.js'
+pin 'stimulus-password-visibility', to: 'https://ga.jspm.io/npm:stimulus-password-visibility@2.1.1/dist/stimulus-password-visibility.mjs'
 
 pin 'leaflet', to: 'https://ga.jspm.io/npm:leaflet@1.9.2/dist/leaflet-src.js'
 pin 'leaflet.markercluster', to: 'https://ga.jspm.io/npm:leaflet.markercluster@1.5.3/dist/leaflet.markercluster-src.js'
