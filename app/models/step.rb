@@ -7,10 +7,12 @@ class Step < ApplicationRecord
     customer_to_place: 1,
     place_to_customer: 2,
     customer_to_transporter: 3,
-    customer_to_customer: 4,
-    conflict: 5,
-    possible: 6,
-    impossible: 7
+    customer_to_customer: 4
+  }
+  enum status: {
+    possible: 0,
+    conflict: 1,
+    impossible: 2
   }
   enum departure_point_icon: {
     starting_line: 0, transporter: 1, customer: 2, place: 3, ending_line: 4
@@ -226,6 +228,7 @@ end
 #  mission_id           :bigint(8)        not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  status               :integer          default("possible"), not null
 #
 # Indexes
 #

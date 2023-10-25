@@ -71,7 +71,7 @@ class Optimizer < ApplicationService
     best = best_transporters.min_by { |x, y| x.second <=> y.second } if best_transporters.present?
 
     step.transporter_id = best&.first
-    step.role = step.transporter_id.blank? ? :conflict : :possible
+    step.status = step.transporter_id.blank? ? :conflict : :possible
     step.save!
 
     step.broadcast_remove_from_unassigned_bucket
