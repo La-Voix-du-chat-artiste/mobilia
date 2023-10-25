@@ -1,10 +1,15 @@
 class DailyQuestsController < ApplicationController
+  MAX_HOUR = 18
+
   before_action :set_daily_quest, only: %i[
     show edit update destroy optimize duplicate_week reset
   ]
 
   # @route GET /daily_quests (daily_quests)
   def index
+    # Planning redirect to tomorrow if todays missions are ended
+    redirect_to daily_quests_path(date: Date.tomorrow) if params[:date].blank? && Time.current.hour >= MAX_HOUR
+
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
     @transporters = company.transporters.all.with_attached_photo.includes(:absences).sort_by_courses_for(@daily_quest)
   end
