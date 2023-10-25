@@ -148,5 +148,4 @@ details.panel-info.mb-3
             </svg>
 
         .sortable_steps.space-y-2 class="min-h-[300px]" data-transporter-id=transporter.id id=dom_id(transporter, 'mission')
-          - @daily_quest.steps.includes(:transporter, mission: :daily_quest).where(transporter: transporter).each do |step|
-            = render 'step', step: step
+          = render 'transporter_missions', daily_quest: @daily_quest, transporter: transporter

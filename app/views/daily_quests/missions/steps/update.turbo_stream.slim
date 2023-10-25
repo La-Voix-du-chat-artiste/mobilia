@@ -4,5 +4,5 @@
     = render 'daily_quests/step', step: @step
 - else
   = turbo_stream.remove dom_id(@step, 'mission')
-  = turbo_stream.prepend dom_id(@step.transporter, 'mission') do
-    = render 'daily_quests/step', step: @step
+  = turbo_stream.update dom_id(@step.transporter, 'mission') do
+    = render 'daily_quests/transporter_missions', daily_quest: @step.mission.daily_quest, transporter: @step.transporter
