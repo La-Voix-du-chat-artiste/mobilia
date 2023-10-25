@@ -7,24 +7,32 @@ class OptimizerJob < ApplicationJob
 
     total_steps = @steps.count
 
-    @steps.each_with_index do |step, index|
-      last_one = total_steps == index + 1
+    @steps.each.with_index(1) do |step, index|
+      last_one = total_steps == index
+      percentage = (index / total_steps.to_f) * 100
 
-      message = <<~MESSAGE
+      message = <<~MESSAGE.squish
         Les missions sont en cours d'assignation. Veuillez patienter, cela peut prendre quelques minutes. La page sera automatiquement rafraîchie une fois la tâche accomplie.
 
-        Placement de la mission <strong>#{index + 1}/#{total_steps}</strong>, veuillez patienter...
+        <br />
+
+        Placement de la mission <strong>#{index}/#{total_steps}</strong>, veuillez patienter...
+
+        <div class="progress">
+          <div class="progress-label" style="width: #{percentage.to_i}%">#{percentage.to_i}%</div>
+        </div>
       MESSAGE
 
       if last_one
         message += <<~MESSAGE
+
           La page va être réactualisée dans quelques instants...
         MESSAGE
       end
 
       Turbo::StreamsChannel.broadcast_update_to(
         :flash,
-        target: 'flash',
+        target: 'flashes',
         partial: 'flash',
         locals: {
           flash_type: 'notice',

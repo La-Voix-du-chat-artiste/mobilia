@@ -206,3 +206,13 @@ input.boolean, input.check_boxes {
 .flash-alert {
   @apply border text-red-500 bg-red-50 border-red-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
 }
+
+/* Progress bar */
+
+.progress {
+  @apply w-full bg-gray-600 rounded-full mt-3;
+}
+
+.progress .progress-label {
+  @apply bg-green-600 text-xs font-medium text-white text-center p-1 leading-none rounded-full;
+}
