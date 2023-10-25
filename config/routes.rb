@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
 
     scope module: :daily_quests, except: %i[new create] do
-      resources :steps, only: %i[edit update] do
+      resources :steps, only: %i[edit update destroy] do
         member do
           post 'optimize'
         end
