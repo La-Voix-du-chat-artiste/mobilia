@@ -41,7 +41,7 @@ export default class extends ApplicationController {
     }
 
     this.map = L.map(this.mapTarget, {
-      gestureHandling: true,
+      gestureHandling: false,
       attributionControl: false,
       zoomControl: false
     })
