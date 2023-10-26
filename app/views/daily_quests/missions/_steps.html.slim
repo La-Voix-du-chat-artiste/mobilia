@@ -15,16 +15,12 @@ ul.mb-3 data-controller="steps"
       .flex.items-center.gap-3
         div
           .flex.items-center.gap-2
-            p.text-white.p-1.bg-green-500= step.started_at ? l(step.started_at, format: '%Hh%M') : "XXX"
+            p.panel-success= step.started_at ? l(step.started_at, format: '%Hh%M') : "XXX"
 
         = step.title
 
         div
           .flex.items-center.gap-2
-            p.text-white.p-1.bg-green-500= step.arrival_at ? l(step.arrival_at, format: '%Hh%M') : "XXX"
+            p.panel-success= step.arrival_at ? l(step.arrival_at, format: '%Hh%M') : "XXX"
 
       .text-sm.text-gray-400== step.description
-      / .text-sm.text-gray-400.ml-2
-      /   = step.departure_address.coords
-      /   br
-      /   = step.arrival_address.coords

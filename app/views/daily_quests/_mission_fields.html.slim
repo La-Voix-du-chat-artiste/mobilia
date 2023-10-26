@@ -32,8 +32,21 @@
               }, \
               wrapper_html: { class: 'w-full' }
 
-    = f.input :drop_duration,
-              wrapper_html: { class: 'w-full' }
+    div data-controller="round-trip"
+      = f.input :round_trip,
+                as: :boolean,
+                input_html: { \
+                  data: { \
+                    round_trip_target: 'booleanInput', \
+                    action: 'change->round-trip#toggleDuration' \
+                  } \
+                }
+
+      = f.input :drop_duration,
+                wrapper_html: { \
+                  class: 'w-full mt-6', \
+                  data: { round_trip_target: 'durationInput' } \
+                }
 
   .absolute.right-0.top-0
     = link_to "#",

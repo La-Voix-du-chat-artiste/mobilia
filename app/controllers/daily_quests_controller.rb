@@ -86,7 +86,7 @@ class DailyQuestsController < ApplicationController
     params.require(:daily_quest).permit(
       :started_on, :status,
       missions_attributes: %i[
-        id drop_time drop_duration customer_id place_id _destroy
+        id drop_time drop_duration round_trip customer_id place_id _destroy
       ]
     )
   end

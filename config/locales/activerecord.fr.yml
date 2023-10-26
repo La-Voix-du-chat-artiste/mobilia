@@ -45,6 +45,7 @@ fr:
         place: Lieu
         drop_time: Heure à déposer au lieu de rendez-vous
         drop_duration: Durée de la consultation
+        round_trip: Trajet retour ?
 
       vehicle:
         name: Nom

@@ -7,17 +7,10 @@ class GenerateSteps < ApplicationService
   end
 
   def call
-    # if missions.first == mission
-    #   transporter_home_to_customer_home
-    # else
-    #   transporter_last_dropped_mission_step_to_customer_home
-    # end
-
     step_1 = customer_home_to_place
-    step_2 = place_to_customer_home
+    step_2 = place_to_customer_home if mission.round_trip?
 
     [step_1, step_2]
-    # customer_home_to_transporter_home if missions.last == mission
   end
 
   private
