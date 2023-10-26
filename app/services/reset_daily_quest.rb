@@ -4,6 +4,6 @@ class ResetDailyQuest < ApplicationService
   end
 
   def call
-    @daily_quest.steps.update_all(transporter_id: nil)
+    @daily_quest.steps.update_all(transporter_id: nil, status: :possible)
   end
 end
