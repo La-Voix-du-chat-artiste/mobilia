@@ -16,16 +16,16 @@
     summary.text-sm class=(step.achieved? ? 'cursor-pointer' : 'cursor-move')
       .text-center
         .flex.items-center.justify-center.gap-2.mb-2
-          p.text-white.p-1.bg-green-500= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"
+          p.panel-success= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"
           | >>
-          p.text-white.p-1.bg-green-500= step.arrival_at ? l(step.arrival_at.round, format: '%Hh%M') : "XXX"
+          p.panel-success= step.arrival_at ? l(step.arrival_at.round, format: '%Hh%M') : "XXX"
         span.font-bold= step.title
 
     hr.border.border-gray-300.my-3.dark:border-gray-700
 
     .space-y-3.mb-3
       .flex.items-center.gap-2
-        p.text-white.p-1.bg-green-500= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"
+        p.panel-success= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"
 
         div
           p.text-xs.text-gray-400= step.departure_address.label
@@ -45,7 +45,7 @@
         </svg>
 
       .flex.items-center.gap-2.mb-2
-        p.text-white.p-1.bg-green-500= step.arrival_at ? l(step.arrival_at.round, format: '%Hh%M') : "XXX"
+        p.panel-success= step.arrival_at ? l(step.arrival_at.round, format: '%Hh%M') : "XXX"
 
         div
           p.text-xs.text-gray-400= step.arrival_address.label

@@ -1,15 +1,13 @@
 div data-controller="global-map" data-global-map-customers-url-value=daily_customers_path(date: params[:date]) data-global-map-places-url-value=daily_places_path(date: params[:date]) data-global-map-transporters-url-value=daily_transporters_path(date: params[:date]) data-global-map-refresh-transporters-value=@refresh.to_s data-global-map-refresh-transporters-delay-value=(@refresh_map_interval.seconds.to_i * 1000 if @refresh) data-global-map-latitude-value=company.setting.address&.latitude data-global-map-longitude-value=company.setting.address&.longitude
   #map.w-screen.h-screen.absolute.inset-0 data-global-map-target="map"
 
-  section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20
+  section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20.dark:bg-gray-700.dark:text-white
     - date = params[:date] ? params[:date].to_date : Date.current
 
     .mb-1
-      p.border-b.mb-2.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center class="py-0.5" Planning <strong>#{l(date, format: :complete_slash)}</strong>
+      p.mb-2.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center.dark:border-gray-200 class="py-0.5" Planning <strong>#{l(date, format: :complete_slash)}</strong>
 
     .mb-3
-      / p.font-bold.mb-2 Légende
-
       p.flex.items-center.gap-2.mb-2.cursor-pointer data-action="click->global-map#toggleCustomers"
         span.inline-block.w-6.h-6.border-2.border-white.bg-green-500.rounded-full
         span< Clients
@@ -24,8 +22,8 @@ div data-controller="global-map" data-global-map-customers-url-value=daily_custo
 
     div
       - if params[:date].blank? || Date.current == params[:date]&.to_date
-        = link_to "Voir demain (#{l(date.tomorrow, format: :complete_slash)}) >>", root_path(date: Date.tomorrow), class: 'border rounded-lg px-2 py-0.5 bg-gray-100'
+        = link_to "Voir demain (#{l(date.tomorrow, format: :complete_slash)}) >>", root_path(date: Date.tomorrow), class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-500 dark:text-white'
       - else
-        = link_to "<< Voir aujourd'hui (#{l(date.yesterday, format: :complete_slash)})", root_path, class: 'border rounded-lg px-2 py-0.5 bg-gray-100'
+        = link_to "<< Voir aujourd'hui (#{l(date.yesterday, format: :complete_slash)})", root_path, class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-500 dark:text-white'
 
 = turbo_frame_tag :marker_details, class: 'absolute right-0 bottom-0 lg:bottom-20 lg:max-w-[350px] z-20'
