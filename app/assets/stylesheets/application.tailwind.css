@@ -82,6 +82,14 @@ path.leaflet-interactive.active {
   @apply !mb-1;
 }
 
+.leaflet-popup-content-wrapper {
+  @apply dark:bg-slate-700/[0.95] dark:text-white;
+}
+
+.leaflet-popup-tip {
+  @apply dark:bg-slate-700/[0.95];
+}
+
 .dark .leaflet-layer,
 .dark .leaflet-control-zoom-in,
 .dark .leaflet-control-zoom-out,

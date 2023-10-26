@@ -102,7 +102,7 @@ details.panel-info.mb-3
       .panel-success.mt-2
         p Félicitations, vous avez assigné toutes les missions en attente !
 
-    .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2 class="min-h-[300px]" id="backlog"
+    .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2.content-start class="min-h-[300px]" id="backlog"
       - steps.includes(:transporter, mission: :daily_quest).each do |step|
         = render 'step', step: step
 
