@@ -49,7 +49,7 @@ fr:
       vehicle:
         name: Nom
         number_plate: Plaque d'immatriculation
-        length: Longeur
+        length: Longueur
         width: Largeur
         height: Hauteur
         max_regular_seats: Nombre maximum de places assises
