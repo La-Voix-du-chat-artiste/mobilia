@@ -33,14 +33,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :daily_quests do
+  resources :daily_quests, except: %i[create] do
     member do
       post :reset
       post :duplicate_week
       post 'optimize'
     end
 
-    scope module: :daily_quests, except: %i[new create] do
+    scope module: :daily_quests do
       resources :steps, only: %i[edit update destroy] do
         member do
           post 'optimize'

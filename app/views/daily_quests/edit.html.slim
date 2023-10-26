@@ -21,8 +21,12 @@ details.panel-info.mb-5
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Missions du #{l(@daily_quest.started_on, format: :complete_slash)}
 
-  = link_to '<< Retour au planning',
-            daily_quests_path(date: @daily_quest.started_on),
-            class: 'btn-back'
+  .flex.flex-row.items-center.gap-2
+    = link_to '<< Retour au planning',
+              daily_quests_path(date: @daily_quest.started_on),
+              class: 'btn-back'
+
+    = link_to "<< #{l(@daily_quest.started_on - 1.day)}", new_daily_quest_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
+    = link_to "#{l(@daily_quest.started_on + 1.day)} >>", new_daily_quest_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
 = render 'form', daily_quest: @daily_quest

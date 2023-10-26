@@ -23,6 +23,13 @@ class DailyQuestsController < ApplicationController
     end
   end
 
+  # @route GET /daily_quests/new (new_daily_quest)
+  def new
+    @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
+
+    redirect_to edit_daily_quest_path(@daily_quest)
+  end
+
   # @route GET /daily_quests/:id/edit (edit_daily_quest)
   def edit
   end
