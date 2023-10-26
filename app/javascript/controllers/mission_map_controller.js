@@ -11,7 +11,7 @@ export default class extends Controller {
 
   connect() {
     this.map = L.map(this.element, {
-      gestureHandling: true,
+      gestureHandling: false,
       attributionControl: false
     })
 

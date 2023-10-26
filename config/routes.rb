@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   resources :daily_quests do
     member do
+      post :reset
       post :duplicate_week
       post 'optimize'
     end

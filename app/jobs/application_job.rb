@@ -1,7 +1,24 @@
 class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
+  rescue_from StandardError, with: :broadcast_flash_alert
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  private
+
+  def broadcast_flash_alert(e)
+    message = <<~MESSAGE
+      [#{e.class.name}]
+      #{e.message}
+    MESSAGE
+
+    Rails.logger.tagged(e.class) do
+      Rails.logger.error do
+        ActiveSupport::LogSubscriber.new.send(
+          :color,
+          "#{message} // #{e.backtrace}",
+          :red
+        )
+      end
+    end
+
+    ApplicationRecord.broadcast_flash(:alert, message, disappear: false)
+  end
 end

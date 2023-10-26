@@ -5,16 +5,34 @@ header.mb-3
     h1.text-3xl Missions #{l(@daily_quest.started_on, format: :complete_slash)}
 
     .flex.flex-row.items-center.gap-2
-      = link_to 'Dupliquer toute la semaine',
-                '#',
-                title: 'Feature coming soon',
-                class: 'btn-add cursor-not-allowed line-through',
-                data: { turbo_method: :post, turbo_confirm: "[Coming soon] Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
-
       = link_to "<< #{l(@daily_quest.started_on - 1.day)}", daily_quests_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
+
+      .group.relative.z-50 tabindex="-1"
+        button.inline-flex.w-full.items-center.justify-center.font-medium.leading-5.focus-within:outline.focus-within:outline-2.focus-within:border-transparent.focus-within:outline-primary-color.btn-add[type="button" aria-haspopup="true"]
+          span Menu
+          svg.ml-2.-mr-1.h-5.w-5[viewbox="0 0 20 20" fill="currentColor"]
+            path[fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"]
+
+        .invisible.origin-top-right.-translate-y-2.scale-95.transform.opacity-0.transition-all.duration-300.group-focus-within:visible.group-focus-within:translate-y-0.group-focus-within:scale-100.group-focus-within:opacity-100
+          .absolute.right-0.mt-2.w-56.origin-top-right.divide-y.divide-gray-100.rounded-md.border.border-gray-200.bg-white.shadow-lg.outline-none.dark:bg-gray-700.dark:border-gray-600.dark:text-white role="menu"
+            nav.flex.flex-col.divide-y.dark:divide-gray-600.text-sm
+              = link_to 'Détails des missions', @daily_quest, class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+              - if @daily_quest.started_on >= Date.current
+                = link_to 'Ajouter/Modifier une mission', edit_daily_quest_path(@daily_quest), class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+                - if @daily_quest.steps.any?(&:transporter)
+                  = link_to 'Envoyer les plannings de tous les chauffeurs par email', send_all_plannings_daily_quest_transporters_path(@daily_quest), data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' }, class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+              = link_to 'Dupliquer toute la semaine',
+                        duplicate_week_daily_quest_path(@daily_quest), class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors',
+                        data: { turbo_method: :post, turbo_confirm: "Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
+              - if @daily_quest.steps.any?(&:transporter)
+                = link_to 'Réinitialiser le planning',
+                          reset_daily_quest_path(@daily_quest),
+                          data: { turbo_method: :post, turbo_confirm: 'Voulez-vous réinitialiser le planning du jour ? Toutes les missions se trouvant actuellement dans les colonnes des chauffeurs seront désassignées.' },
+                          class: 'p-3 text-red-700 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
-details.panel-info.mb-5
+details.panel-info.mb-3
   summary.cursor-pointer Explications à lire
 
   .mt-2
@@ -35,18 +53,6 @@ details.panel-info.mb-5
       li Vous pouvez toujours réaffecter des missions placées automatiquement par l'algorithme manuellement si des changements sont nécessaires. Un code couleur avertira d'un potentiel conflit de durée ou de distance.
       li Renseigner de manière la plus précise possible les informations du véhicule, les absences des chauffeurs, les informations complémentaires des clients et des lieux permet à l'algorithme de créer un planning précis et de générer moins de stress pour les chauffeurs.
       li Chaque chauffeur a automatiquement un PDF contenant toutes les missions de sa journée avec toutes les informations nécessaires intégrées dessus.
-
-
-.flex.flex-col.md:flex-row.items-center.justify-center.lg:justify-end.gap-2.mb-3
-  = link_to 'Détails des missions', @daily_quest, class: 'btn-show'
-  - if @daily_quest.started_on >= Date.current
-    = link_to 'Ajouter une mission', edit_daily_quest_path(@daily_quest), class: 'btn-add'
-    = link_to send_all_plannings_daily_quest_transporters_path(@daily_quest), data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' }, class: 'btn-edit' do
-      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-        <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-        <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-      </svg>
-      p.ml-3 Envoyer les plannings de tous les chauffeurs
 
 - if @transporters.any?(&:no_vehicle?)
   .panel-warning.mb-3
@@ -93,13 +99,12 @@ details.panel-info.mb-5
     - steps = @daily_quest.steps.single
 
     - if steps.empty?
-      .panel-success
+      .panel-success.mt-2
         p Félicitations, vous avez assigné toutes les missions en attente !
-    - else
-      .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.pt-3 class="min-h-[300px]" id="backlog"
-        - steps.includes(:transporter, mission: :daily_quest).each do |step|
-          = render 'step', step: step
 
+    .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2 class="min-h-[300px]" id="backlog"
+      - steps.includes(:transporter, mission: :daily_quest).each do |step|
+        = render 'step', step: step
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.flex-nowrap.overflow-x-auto
     - transporters_count = 0
@@ -143,5 +148,4 @@ details.panel-info.mb-5
             </svg>
 
         .sortable_steps.space-y-2 class="min-h-[300px]" data-transporter-id=transporter.id id=dom_id(transporter, 'mission')
-          - @daily_quest.steps.includes(:transporter, mission: :daily_quest).where(transporter: transporter).each do |step|
-            = render 'step', step: step
+          = render 'transporter_missions', daily_quest: @daily_quest, transporter: transporter

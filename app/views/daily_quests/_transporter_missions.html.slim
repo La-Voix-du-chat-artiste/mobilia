@@ -1,0 +1,2 @@
+- daily_quest.steps.includes(:transporter, mission: :daily_quest).where(transporter: transporter).each do |step|
+  = render 'daily_quests/step', step: step
