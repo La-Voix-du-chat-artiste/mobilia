@@ -16,19 +16,48 @@ header.mb-3
         .invisible.origin-top-right.-translate-y-2.scale-95.transform.opacity-0.transition-all.duration-300.group-focus-within:visible.group-focus-within:translate-y-0.group-focus-within:scale-100.group-focus-within:opacity-100
           .absolute.right-0.mt-2.w-56.origin-top-right.divide-y.divide-gray-100.rounded-md.border.border-gray-200.bg-white.shadow-lg.outline-none.dark:bg-gray-700.dark:border-gray-600.dark:text-white role="menu"
             nav.flex.flex-col.divide-y.dark:divide-gray-600.text-sm
-              = link_to 'Détails des missions', @daily_quest, class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+              = link_to @daily_quest,
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+                <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
+                  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                    <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z"/>
+                  </g>
+                </svg>
+                | Détails des missions
+
               - if @daily_quest.started_on >= Date.current
-                = link_to 'Ajouter/Modifier une mission', edit_daily_quest_path(@daily_quest), class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+                = link_to edit_daily_quest_path(@daily_quest),
+                          class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+                  <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                  </svg>
+                  | Ajouter/Modifier une mission
+
                 - if @daily_quest.steps.any?(&:transporter)
-                  = link_to 'Envoyer les plannings de tous les chauffeurs par email', send_all_plannings_daily_quest_transporters_path(@daily_quest), data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' }, class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
-              = link_to 'Dupliquer toute la semaine',
-                        duplicate_week_daily_quest_path(@daily_quest), class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors',
-                        data: { turbo_method: :post, turbo_confirm: "Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" }
+                  = link_to send_all_plannings_daily_quest_transporters_path(@daily_quest),
+                            data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' },
+                            class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+                    <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 2-8.4 7.05a1 1 0 0 1-1.2 0L1 2m18 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1m18 0v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2"/>
+                    </svg>
+                    | Envoyer les plannings de tous les chauffeurs par email
+
+              = link_to duplicate_week_daily_quest_path(@daily_quest),
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors',
+                        data: { turbo_method: :post, turbo_confirm: "Voulez-vous dupliquer la semaine du #{l(@daily_quest.started_on.beginning_of_week)} - #{l(@daily_quest.started_on.end_of_week)} sur la semaine du #{l(@daily_quest.started_on.beginning_of_week + 1.week)} - #{l(@daily_quest.started_on.end_of_week + 1.week)} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée" } do
+                  <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z"/>
+                  </svg>
+                  | Dupliquer toute la semaine
               - if @daily_quest.steps.any?(&:transporter)
-                = link_to 'Réinitialiser le planning',
-                          reset_daily_quest_path(@daily_quest),
+                = link_to reset_daily_quest_path(@daily_quest),
                           data: { turbo_method: :post, turbo_confirm: 'Voulez-vous réinitialiser le planning du jour ? Toutes les missions se trouvant actuellement dans les colonnes des chauffeurs seront désassignées.' },
-                          class: 'p-3 text-red-700 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+                          class: 'p-3 text-red-700 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+                  <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                  </svg>
+                  | Réinitialiser le planning
 
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
@@ -132,8 +161,7 @@ details.panel-info.mb-3
                 - if transporter.vehicle.present?
                   p.text-sm
                     = "#{transporter.vehicle.name} / #{transporter.vehicle.number_plate}"
-
-        .flex.items-center.justify-center.gap-3.bg-gray-100.p-2.rounded-b-lg.mb-2.dark:bg-slate-700/75.dark:text-white
+        .flex.items-center.justify-center.gap-3.bg-gray-100.p-2.rounded-b-lg.dark:bg-slate-700/75.dark:text-white
           = link_to 'Trajets du jour', daily_quest_transporter_steps_path(@daily_quest, transporter), class: 'text-sm underline'
 
           = link_to daily_quest_transporter_steps_path(@daily_quest, transporter, format: :pdf), target: :_blank, title: 'Exporter en PDF' do
@@ -147,5 +175,5 @@ details.panel-info.mb-3
               <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
             </svg>
 
-        .sortable_steps.space-y-2 class="min-h-[300px]" data-transporter-id=transporter.id id=dom_id(transporter, 'mission')
+        .sortable_steps.space-y-2.mt-2 class="min-h-[300px]" data-transporter-id=transporter.id id=dom_id(transporter, 'mission')
           = render 'transporter_missions', daily_quest: @daily_quest, transporter: transporter

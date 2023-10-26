@@ -4,7 +4,7 @@
 
   = f.input :started_on, as: :hidden, wrapper: false
 
-  #missions.mb-6 data-controller="missions"
+  #missions.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-4.gap-4.mb-6 data-controller="missions"
     - if @daily_quest.missions.blank?
       = f.simple_fields_for :missions, @daily_quest.missions.new, wrapper: false, include_id: false do |ff|
         = render 'mission_fields', f: ff
@@ -16,11 +16,11 @@
       = f.simple_fields_for :missions, @daily_quest.missions.new, child_index: 'TEMPLATE_RECORD' do |f|
         = render 'mission_fields', f: f
 
-    div data-missions-target="add_item"
+    .place-self-end data-missions-target="add_item"
       = link_to 'Ajouter une mission +',
                 '#',
-                class: 'inline-block bg-orange-400 text-white p-2 rounded-lg',
+                class: 'btn-edit',
                 data: { action: "click->missions#add_association" }
       p.hint class="!block" Une fois toutes les missions configurées, pensez à enregistrer en cliquant sur "Enregistrer"
 
-  = f.button :submit, 'Enregistrer', class: 'block w-full mb-6'
+  = f.button :submit, 'Enregistrer', class: 'btn-add w-full mb-6'

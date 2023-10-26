@@ -1,9 +1,8 @@
-.nested-fields.relative.border.p-2.mb-5
-  .flex.justify-between.gap-6
-    = f.input :_destroy, as: :hidden, wrapper: false
-    = f.input :id, as: :hidden, wrapper: false
+.nested-fields.relative.row.p-3.hover:bg-gray-50.dark:hover:bg-gray-700/75.transition-colors class="!mb-0"
+  = f.input :_destroy, as: :hidden, wrapper: false
+  = f.input :id, as: :hidden, wrapper: false
 
-  .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6
+  .flex.flex-col.justify-between.gap-6.mb-6
     = f.association :customer,
                     collection: customers_select_options,
                     include_blank: false,
@@ -26,7 +25,7 @@
                     },
                     wrapper_html: { class: 'w-full' }
 
-  .flex.flex-col.lg:flex-row.justify-between.gap-6
+  .flex.flex-col.justify-between.gap-6
     = f.input :drop_time, as: :time, html5: true,
               input_html: { \
                 value: (f.object.drop_time.strftime('%H:%M') if f.object.persisted?) \
@@ -36,8 +35,8 @@
     = f.input :drop_duration,
               wrapper_html: { class: 'w-full' }
 
-  .absolute.-right-2.-top-0
+  .absolute.right-0.top-0
     = link_to "#",
-              class: 'bg-red-400 text-white p-2 rounded-lg',
+              class: 'btn-destroy',
               data: { action: "click->missions#remove_association" } do
       | X
