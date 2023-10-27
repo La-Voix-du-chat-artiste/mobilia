@@ -70,6 +70,7 @@ fr:
         place: Le lieu où le déposer
         drop_time: L'heure à laquelle chercher le client chez lui sera déterminée automatiquement par l'algorithme
         drop_duration: Permet de déterminer automatiquement l'heure à laquelle le client doit être recherché (à spécifier en minutes)
+        round_trip: Cocher la case si un trajet retour est à prévoir pour cette mission
 
       step:
         description: Informations complémentaires à destination du chauffeur (seront affichées sur le PDF généré)

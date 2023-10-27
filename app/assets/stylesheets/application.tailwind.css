@@ -82,6 +82,14 @@ path.leaflet-interactive.active {
   @apply !mb-1;
 }
 
+.leaflet-popup-content-wrapper {
+  @apply dark:bg-slate-700/[0.95] dark:text-white;
+}
+
+.leaflet-popup-tip {
+  @apply dark:bg-slate-700/[0.95];
+}
+
 .dark .leaflet-layer,
 .dark .leaflet-control-zoom-in,
 .dark .leaflet-control-zoom-out,
@@ -158,6 +166,10 @@ input.date, input.time, select.select {
   @apply text-red-500 italic text-sm;
 }
 
+.error_notification {
+  @apply mb-3;
+}
+
 .field_with_errors input,
 .field_with_errors textarea {
   @apply border-red-500;
@@ -219,4 +231,10 @@ input.boolean, input.check_boxes {
 
 .progress .progress-label {
   @apply bg-green-600 text-xs font-medium text-white text-center p-1 leading-none rounded-full;
+}
+
+/* Bullet */
+
+#bullet-footer {
+  @apply dark:!bg-black;
 }

@@ -5,7 +5,7 @@ class Mission < ApplicationRecord
   has_many :steps, dependent: :destroy
 
   validates :drop_time, presence: true
-  validates :drop_duration, presence: true
+  validates :drop_duration, presence: true, if: :round_trip?
   default_scope -> { order(:drop_time) }
   # acts_as_list scope: :daily_quest
 
@@ -38,6 +38,7 @@ end
 #  daily_quest_id :bigint(8)        not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  round_trip     :boolean          default(TRUE), not null
 #
 # Indexes
 #

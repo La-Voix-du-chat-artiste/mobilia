@@ -3,5 +3,6 @@
     = image_tag polymorphic_path(place.photo), class: 'w-16 h-16 object-cover mx-auto'
 
   p.font-bold= place.name
-  p.text-gray-500.italic= place.address.label
-  p.text-gray-500= phone_to place.phone, formatted_phone_number(place.phone)
+  p.text-gray-500.dark:text-white.italic= place.address.label
+
+  = phone_to place.phone, formatted_phone_number(place.phone), class: 'block text-blue-500 dark:text-blue-200'

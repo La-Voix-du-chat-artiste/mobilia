@@ -45,11 +45,12 @@ fr:
         place: Lieu
         drop_time: Heure à déposer au lieu de rendez-vous
         drop_duration: Durée de la consultation
+        round_trip: Trajet retour ?
 
       vehicle:
         name: Nom
         number_plate: Plaque d'immatriculation
-        length: Longeur
+        length: Longueur
         width: Largeur
         height: Hauteur
         max_regular_seats: Nombre maximum de places assises

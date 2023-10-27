@@ -51,16 +51,16 @@ class Transporter < User
       .last
   end
 
+  def driving?
+    !!driving
+  end
+
   private
 
   def assign_photo
     url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff"
 
     photo.attach(io: URI.parse(url).open, filename: 'transporter.jpg')
-  end
-
-  def driving?
-    !!driving
   end
 end
 
