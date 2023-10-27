@@ -47,7 +47,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to customer_path(@customer), notice: 'Customer was successfully created.' }
+        format.html { redirect_to customer_path(@customer), notice: 'Le client a bien été créé' }
         format.json { render :show, status: :created, location: @customer }
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
@@ -72,7 +72,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to customer_path(@customer), notice: 'Customer was successfully updated.' }
+        format.html { redirect_to customer_path(@customer), notice: 'Le client a bien été mis à jour' }
         format.json { render :show, status: :ok, location: @customer }
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
@@ -88,7 +88,7 @@ class CustomersController < ApplicationController
     @customer.destroy
 
     respond_to do |format|
-      format.html { redirect_to customers_path, notice: 'Customer was successfully destroyed.' }
+      format.html { redirect_to customers_path, notice: 'Le client a bien été supprimé' }
       format.json { head :no_content }
     end
   end

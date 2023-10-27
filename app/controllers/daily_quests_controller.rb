@@ -39,7 +39,7 @@ class DailyQuestsController < ApplicationController
   def update
     respond_to do |format|
       if @daily_quest.update(daily_quest_params)
-        format.html { redirect_to daily_quest_url(@daily_quest), notice: 'Daily quest was successfully updated.' }
+        format.html { redirect_to daily_quest_url(@daily_quest), notice: 'Le planning a bien été mis à jour' }
         format.json { render :show, status: :ok, location: @daily_quest }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class DailyQuestsController < ApplicationController
     @daily_quest.destroy
 
     respond_to do |format|
-      format.html { redirect_to daily_quests_url, notice: 'Daily quest was successfully destroyed.' }
+      format.html { redirect_to daily_quests_url, notice: 'Le planning a bien été supprimé' }
       format.json { head :no_content }
     end
   end
