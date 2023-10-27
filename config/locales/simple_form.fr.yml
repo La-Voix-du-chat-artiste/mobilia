@@ -33,6 +33,7 @@ fr:
           enable_customers_map: Activer la carte clients ?
           enable_places_map: Activer la carte des lieux ?
           enable_transporters_map: Activer la carte des chauffeurs ?
+          show_help: Afficher les explications ?
 
     placeholders:
       customer:
@@ -97,3 +98,4 @@ fr:
           enable_customers_map: Si coché, une carte des clients sera affiché sur la page clients (n'affecte pas la carte globale)
           enable_places_map: Si coché, une carte des lieux sera affiché sur la page lieux (n'affecte pas la carte globale)
           enable_transporters_map: Si coché, une carte des chauffeurs sera affiché sur la page chauffeurs (n'affecte pas la carte globale)
+          show_help: Si coché, le bandeau d'aides et explications sera ouvert automatiquement sur les pages où il est présent. Autrement il sera fermé.

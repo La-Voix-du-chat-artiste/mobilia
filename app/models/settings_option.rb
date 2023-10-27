@@ -11,6 +11,7 @@ class SettingsOption
   attribute :enable_customers_map, :boolean, default: true
   attribute :enable_places_map, :boolean, default: true
   attribute :enable_transporters_map, :boolean, default: true
+  attribute :show_help, :boolean, default: true
 
   validates :map_refresh_interval, presence: true, inclusion: REFRESH_INTERVAL
   validates :theme, presence: true, inclusion: THEMES
@@ -27,4 +28,5 @@ class SettingsOption
   validates :enable_customers_map, allow_blank: false, inclusion: [true, false]
   validates :enable_places_map, allow_blank: false, inclusion: [true, false]
   validates :enable_transporters_map, allow_blank: false, inclusion: [true, false]
+  validates :show_help, allow_blank: false, inclusion: [true, false]
 end

@@ -17,7 +17,7 @@
                  include_blank: false
 
   = f.simple_fields_for :options, f.object.options do |ff|
-    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
+    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
       = ff.input :map_refresh_interval,
                  collection: SettingsOption::REFRESH_INTERVAL,
                  include_blank: false,
@@ -29,14 +29,15 @@
       = ff.input :delta_loading,
                   wrapper_html: { class: 'mb-3' }
 
-    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
       = ff.input :theme,
                  collection: settings_theme_select_options,
                  include_blank: false,
                  wrapper_html: { class: 'mb-3' }
 
+    .flex.flex-col.lg:flex-row.items-start.justify-between.gap-5
       = ff.input :enable_customers_map, as: :boolean
       = ff.input :enable_places_map, as: :boolean
       = ff.input :enable_transporters_map, as: :boolean
+      = ff.input :show_help, as: :boolean
 
   = f.button :submit, class: 'mt-6'
