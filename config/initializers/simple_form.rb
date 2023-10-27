@@ -111,7 +111,7 @@ SimpleForm.setup do |config|
   # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  config.label_class = 'inline-block mb-2'
+  config.label_class = 'inline-block'
 
   # You can define the default class to be used on forms. Can be overridden
   # with `html: { :class }`. Defaulting to none.

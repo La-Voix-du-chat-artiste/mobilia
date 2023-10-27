@@ -61,7 +61,7 @@ header.mb-3
 
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
-details.panel-info.mb-3
+details.panel-info.mb-3 open=options.show_help?
   summary.cursor-pointer Explications à lire
 
   .mt-2

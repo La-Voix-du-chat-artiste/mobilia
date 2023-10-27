@@ -163,7 +163,7 @@ input.date, input.time, select.select {
 }
 
 .error, .error_notification {
-  @apply text-red-500 italic text-sm;
+  @apply block text-red-500 italic text-sm mt-2;
 }
 
 .error_notification {
