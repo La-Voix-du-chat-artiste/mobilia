@@ -1,6 +1,5 @@
 import { ApplicationController, useIntersection } from 'stimulus-use'
 import { get } from '@rails/request.js'
-import 'leaflet.markercluster'
 import 'leaflet-gesture-handling'
 
 export default class extends ApplicationController {
@@ -53,9 +52,7 @@ export default class extends ApplicationController {
 
     const tuiles = L.tileLayer("https://a.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png").addTo(this.map)
 
-    this.markers = L.markerClusterGroup({
-      showCoverageOnHover: false, maxClusterRadius: 20
-    })
+    this.markers = new L.FeatureGroup()
 
     this.customers.forEach((customer) => {
       let marker
@@ -179,12 +176,17 @@ export default class extends ApplicationController {
   async _fetchTransporters() {
     const response = await get(this.transportersUrlValue, { responseKind: 'json' })
     this.transporters = await response.json
+
+    return response.response.status
   }
 
   async _unsetFetchAndSetTransporters() {
-    this._unsetTransportersMarkers()
-    await this._fetchTransporters()
-    this._setTransportersMarkers()
+    const status = await this._fetchTransporters()
+
+    if (status == 200) {
+      this._unsetTransportersMarkers()
+      this._setTransportersMarkers()
+    }
   }
 
   _unsetTransportersMarkers() {
@@ -225,12 +227,4 @@ export default class extends ApplicationController {
       this.markers.addLayer(marker)
     })
   }
-
-  // fitBounds() {
-  //   if (this.customers.length > 0) {
-  //     this.map.fitBounds(this.markers.getBounds(), { maxZoom: 13 })
-  //   } else {
-  //     this.map.setView([this.latitudeValue, this.longitudeValue], 6)
-  //   }
-  // }
 }
