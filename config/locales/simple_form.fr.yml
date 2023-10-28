@@ -42,6 +42,12 @@ fr:
         drop_duration: Durée en minutes
 
     hints:
+      company:
+        name: Nom de l'entreprise
+        logo: Logo à renseigner au format carré pour un meilleur rendu
+        description: Description de l'entreprise
+        virtual_address: Si vous renseignez une adresse, la carte sera automatiquement centrée dessus.
+
       customer:
         enabled: Si coché, le client pourra être affecté à un trajet
         phone: "Téléphone au format 10 chiffres sans espace (ex: 0123456789)"
@@ -99,3 +105,6 @@ fr:
           enable_places_map: Si coché, une carte des lieux sera affiché sur la page lieux (n'affecte pas la carte globale)
           enable_transporters_map: Si coché, une carte des chauffeurs sera affiché sur la page chauffeurs (n'affecte pas la carte globale)
           show_help: Si coché, le bandeau d'aides et explications sera ouvert automatiquement sur les pages où il est présent. Autrement il sera fermé.
+
+      address:
+        label: Si vous renseignez une adresse, la carte sera automatiquement centrée dessus s'il n'y a pas de marqueur dessus.

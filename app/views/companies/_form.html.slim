@@ -1,0 +1,24 @@
+= simple_form_for company do |f|
+  = f.input :name, wrapper_html: { class: 'mb-3' }
+
+  .flex.items-center.justify-between.gap-6.mb-3
+    = f.input :logo, as: :file
+    - if f.object.logo.attached?
+      = image_tag f.object.logo, class: 'w-32 rounded-full'
+
+  = f.input :description, as: :rich_text_area,
+            wrapper_html: { class: 'mb-3' }
+
+  = f.input :virtual_address,
+            input_html: { \
+              data: { \
+                controller: 'address', \
+                address_search_url_value: addresses_search_path \
+              } \
+            },
+            prompt: 'Chercher une adresse',
+            include_blank: false,
+            collection: [f.object.virtual_address].compact,
+            wrapper_html: { class: 'w-full mb-3' }
+
+  = f.button :submit

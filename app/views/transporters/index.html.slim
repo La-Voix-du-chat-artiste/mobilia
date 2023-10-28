@@ -9,13 +9,19 @@ details.panel-info.mb-5 open=options.show_help?
     p.mb-3 Les chauffeurs à qui assigner les missions de transport sont à spécifier sur cette page.
     p Vous pouvez configurer les absences des chauffeurs pour une période donnée en cliquant sur "Profil chauffeur". Les absences sont prises en considération dans l'attribution automatique des missions de transport aux chauffeurs.
 
-== pagy_nav(@pagy) if @pagy.pages > 1
+- if @transporters.any?
+  == pagy_nav(@pagy) if @pagy.pages > 1
 
-#transporters
-  = render @transporters
+  #transporters
+    = render @transporters
 
-== pagy_nav(@pagy) if @pagy.pages > 1
+  == pagy_nav(@pagy) if @pagy.pages > 1
 
-- if options.enable_transporters_map?
-  div data-controller="global-map" data-global-map-transporters-url-value=transporters_path
-    #map class="h-[500px]" data-global-map-target="map"
+  - if options.enable_transporters_map?
+    div data-controller="global-map" data-global-map-transporters-url-value=transporters_path
+      #map class="h-[500px]" data-global-map-target="map"
+
+- else
+  p.panel-warning.p-4
+    | Il n'y a pas encore de chauffeurs -
+    =< link_to 'Ajouter le premier', new_transporter_path, class: 'underline'

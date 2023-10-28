@@ -7,7 +7,7 @@ header.mb-3
     .flex.flex-row.items-center.gap-2
       = link_to "<< #{l(@daily_quest.started_on - 1.day)}", daily_quests_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
 
-      .group.relative.z-50 tabindex="-1"
+      .group.relative.z-40 tabindex="-1"
         button.inline-flex.w-full.items-center.justify-center.font-medium.leading-5.focus-within:outline.focus-within:outline-2.focus-within:border-transparent.focus-within:outline-primary-color.btn-add[type="button" aria-haspopup="true"]
           span Menu
           svg.ml-2.-mr-1.h-5.w-5[viewbox="0 0 20 20" fill="currentColor"]
@@ -127,9 +127,13 @@ details.panel-info.mb-3 open=options.show_help?
 
     - steps = @daily_quest.steps.single
 
-    - if steps.empty?
-      .panel-success.mt-2
-        p Félicitations, vous avez assigné toutes les missions en attente !
+    - if @daily_quest.steps.any? && steps.empty?
+      p.panel-success.mt-2
+        | Félicitations, vous avez assigné toutes les missions en attente !
+    - elsif @daily_quest.steps.blank?
+      p.panel-warning.mt-2
+        | Vous n'avez pas encore ajouté de missions -
+        =< link_to 'Ajouter une mission', edit_daily_quest_path(@daily_quest), class: 'underline'
 
     .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2.content-start class="min-h-[300px]" id="backlog"
       - steps.includes(:transporter, mission: :daily_quest).each do |step|

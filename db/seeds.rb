@@ -114,6 +114,8 @@ Company.find_each.with_index(1) do |company, index|
 
   puts "[#{company.name}] Seeding admin..."
 
+  avatar = Faker::LoremFlickr.image(size: '300x300', search_terms: ['avatar'])
+
   User.create!(
     role: 'admin',
     first_name: 'John',
@@ -121,6 +123,10 @@ Company.find_each.with_index(1) do |company, index|
     email: "admin#{index}@test.test",
     password: 'password',
     password_confirmation: 'password',
-    company: company
+    company: company,
+    photo: {
+      io: URI.parse(avatar).open,
+      filename: 'user_avatar'
+    }
   )
 end

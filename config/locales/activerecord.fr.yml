@@ -13,6 +13,12 @@ fr:
       place: lieu
 
     attributes:
+      company:
+        name: Nom
+        logo: Logo
+        description: Description
+        virtual_address: Adresse
+
       address:
         label: Adresse
 
@@ -92,6 +98,10 @@ fr:
         transporter: Chauffeur
 
       user:
+        first_name: Prénom
+        last_name: Nom
         email: Email
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
+        photo: Avatar
+        details: Détails

@@ -6,7 +6,7 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
       - if company.logo.attached?
         = image_tag company.logo, class: 'w-20 rounded-full'
       - else
-        = company.name
+        span.dark:text-white= company.name
 
     button.flex.items-center.p-1.text-sm.border.border-black.rounded-lg.focus:outline-none.focus:ring-2.focus:border-primary-color.focus:text-primary-color.dark:text-white.dark:border-gray-600 aria-controls="navbar-hamburger" aria-expanded="false" data-controller="menu" data-action="click->menu#toggle" type="button"
       span.sr-only Ouvrir le menu
@@ -19,19 +19,55 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
     = link_to 'Lieux', places_path, class: ('active' if params[:controller] == 'places')
     = link_to Transporter.model_name.human.pluralize.capitalize, transporters_path, class: ('active' if params[:controller] == 'transporters')
 
-    = link_to root_path, class: 'hidden md:block' do
-      - if company.logo.attached?
-        = image_tag company.logo, class: 'w-20 rounded-full'
-      - else
-        = company.name
+    - if company.logo.attached?
+      = link_to root_path, class: 'hidden md:block text-center text-sm' do
+        = image_tag company.logo, class: 'w-20 rounded-full mb-1 mx-auto'
 
     = link_to 'Véhicules', vehicles_path, class: ('active' if params[:controller] == 'vehicles')
     = link_to 'Planning', daily_quests_path, class: ('active' if params[:controller] == 'daily_quests' || params[:controller] == 'daily_quests/transporters/steps')
-    = link_to '🔧', settings_path, class: ('active' if params[:controller] == 'settings'), title: 'Paramètres'
+
+    = link_to 'Paramètres',
+              settings_path,
+              class: ('active' if params[:controller] == 'settings'),
+              class: 'md:hidden'
+
+    - if allowed_to?(:update?, company)
+      = link_to 'Modifier mon entreprise',
+                edit_companies_path,
+                class: 'md:hidden'
 
     = link_to sessions_path,
               data: { turbo_method: :delete },
-              class: 'text-xs' do
+              class: 'md:hidden' do
       span= current_user.full_name
       br
       span.underline Déconnexion
+
+    .group.relative.z-40.hidden.md:block tabindex="-1"
+      button.inline-flex.w-full.items-center.justify-center.font-medium.leading-5.focus-within:outline.focus-within:outline-2.focus-within:border-transparent.focus-within:outline-primary-color.btn-back[type="button" aria-haspopup="true"]
+        span.flex.items-center.gap-2
+          - if current_user.photo.attached?
+            = image_tag current_user.photo, class: 'rounded-full w-8'
+          p.text-left
+            = current_user.full_name
+            br
+            span.text-xs= current_user.company.name
+        svg.ml-2.-mr-1.h-5.w-5[viewbox="0 0 20 20" fill="currentColor"]
+          path[fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"]
+
+      .invisible.origin-top-right.-translate-y-2.scale-95.transform.opacity-0.transition-all.duration-300.group-focus-within:visible.group-focus-within:translate-y-0.group-focus-within:scale-100.group-focus-within:opacity-100
+        .absolute.right-0.mt-2.w-56.origin-top-right.divide-y.divide-gray-100.rounded-md.border.border-gray-200.bg-white.shadow-lg.outline-none.dark:bg-gray-700.dark:border-gray-600.dark:text-white role="menu"
+          nav.flex.flex-col.divide-y.dark:divide-gray-600.text-sm
+            = link_to settings_path,
+                      class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+              | Paramètres
+
+            - if allowed_to?(:update?, company)
+              = link_to 'Modifier mon entreprise',
+                        edit_companies_path,
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+
+            = link_to sessions_path,
+                      data: { turbo_method: :delete },
+                      class: 'p-3 text-orange-500 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+              | Déconnexion

@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   resource :settings, only: %i[show edit update]
   resolve('Setting') { [:settings] }
 
+  resource :companies, only: %i[new create edit update]
+  resolve('Company') { [:companies] }
+
+  resources :users, only: %i[new create]
+
   resources :customers do
     get :search
     member do

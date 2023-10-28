@@ -8,9 +8,15 @@ details.panel-info.mb-5 open=options.show_help?
 
   p.mt-3 Les différents véhicules sont à renseigner sur cette page. Les véhicules peuvent ensuite être associés à un chauffeur.
 
-== pagy_nav(@pagy) if @pagy.pages > 1
+- if @vehicles.any?
+  == pagy_nav(@pagy) if @pagy.pages > 1
 
-#vehicles
-  = render @vehicles
+  #vehicles
+    = render @vehicles
 
-== pagy_nav(@pagy) if @pagy.pages > 1
+  == pagy_nav(@pagy) if @pagy.pages > 1
+
+- else
+  p.panel-warning.p-4
+    | Il n'y a pas encore de véhicules -
+    =< link_to 'Ajouter le premier', new_vehicle_path, class: 'underline'

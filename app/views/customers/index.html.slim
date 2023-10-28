@@ -19,24 +19,30 @@ details.panel-info.mb-5 open=options.show_help?
     p Les clients représentent les personnes à transporter aux différents lieux.
     p Vous pouvez renseigner autant de clients que nécessaires et utiliser la fonction de recherche pour filtrer les clients selon les critères.
 
-= simple_form_for :search,
-                  url: customers_path,
-                  method: :get,
-                  html: { class: 'mb-6' },
-                  data: { \
-                    turbo_stream: true,
-                    controller: 'search', \
-                    action: 'keyup->search#submit' \
-                  } do |f|
-  = f.input :query,
-            label: false,
-            placeholder: 'Rechercher un client par prénom, nom, téléphone ou adresse',
-            input_html: { class: 'rounded-lg' },
-            wrapper_html: { class: 'lg:w-1/2 mx-auto' }
+- if @customers.any?
+  = simple_form_for :search,
+                    url: customers_path,
+                    method: :get,
+                    html: { class: 'mb-6' },
+                    data: { \
+                      turbo_stream: true,
+                      controller: 'search', \
+                      action: 'keyup->search#submit' \
+                    } do |f|
+    = f.input :query,
+              label: false,
+              placeholder: 'Rechercher un client par prénom, nom, téléphone ou adresse',
+              input_html: { class: 'rounded-lg' },
+              wrapper_html: { class: 'lg:w-1/2 mx-auto' }
 
-= turbo_frame_tag :search do
-  = render 'customers', customers: @customers, pagy: @pagy
+  = turbo_frame_tag :search do
+    = render 'customers', customers: @customers, pagy: @pagy
 
-- if options.enable_customers_map?
-  div data-controller="global-map" data-global-map-customers-url-value=customers_path
-    #map class="h-[500px]" data-global-map-target="map"
+  - if options.enable_customers_map?
+    div data-controller="global-map" data-global-map-customers-url-value=customers_path
+      #map class="h-[500px]" data-global-map-target="map"
+
+- else
+  p.panel-warning.p-4
+    | Il n'y a pas encore de clients -
+    =< link_to 'Ajouter le premier', new_customer_path, class: 'underline'

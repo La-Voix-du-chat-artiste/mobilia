@@ -1,4 +1,6 @@
 class Company < ApplicationRecord
+  attr_accessor :virtual_address
+
   has_one :setting, dependent: :destroy
   has_many :customers, dependent: :destroy
   has_many :daily_quests, dependent: :destroy
@@ -14,7 +16,14 @@ class Company < ApplicationRecord
 
   has_rich_text :description
 
-  after_create -> { create_setting! }
+  after_create do
+    if virtual_address.present?
+      address = Address.new(label: virtual_address)
+      create_setting!(address: address)
+    else
+      create_setting!
+    end
+  end
 end
 
 # == Schema Information

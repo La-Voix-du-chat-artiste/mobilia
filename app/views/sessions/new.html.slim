@@ -20,7 +20,7 @@
                 placeholder: 'password',
                 hint: 'Use <strong>password</strong> for demo purposes'.html_safe
 
-      button.absolute.h-6.w-6.right-3 class="top-10" type="button" data-action="password-visibility#toggle"
+      button.absolute.h-6.w-6.right-3 class="top-8" type="button" data-action="password-visibility#toggle"
         p data-tooltip="Afficher le mot de passe en clair"
           svg.w-6.h-6.text-gray-600 data-password-visibility-target="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14"
             g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -40,6 +40,9 @@
 
   p.text-center.mt-6
     = link_to 'Mot de passe oublié ?', new_password_reset_path, class: 'text-sm underline'
+
+  p.text-center.mt-3
+    = link_to 'Créer mon entreprise', new_companies_path, class: 'text-sm underline'
 
 p.mt-6.text-sm.text-center.dark:text-white
   | Refer to the
