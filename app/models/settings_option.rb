@@ -5,7 +5,7 @@ class SettingsOption
   THEMES = %w[light dark].freeze
 
   attribute :map_refresh_interval, :integer, default: -> { REFRESH_INTERVAL[0] }
-  attribute :theme, :string, default: -> { THEMES[0] }
+  attribute :theme, :string, default: -> { THEMES[1] }
   attribute :delta_jam, :integer, default: 8
   attribute :delta_loading, :integer, default: 5
   attribute :enable_customers_map, :boolean, default: true

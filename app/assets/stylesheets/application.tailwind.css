@@ -157,8 +157,13 @@ form label {
   @apply dark:text-white;
 }
 
+form label:not(.boolean) {
+  @apply mb-2;
+}
+
 input.string, input.password, input.numeric,
-input.date, input.time, select.select {
+input.date, input.time, select.select,
+textarea.text, input.file {
   @apply rounded-lg dark:bg-slate-700/25 dark:text-white;
 }
 

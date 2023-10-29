@@ -20,10 +20,6 @@ Company.create!(
 )
 
 Company.find_each.with_index(1) do |company, index|
-  puts "[#{company.name}] Seeding settings..."
-
-  Setting.create!(company: company)
-
   puts "[#{company.name}] Seeding places..."
 
   file = File.open('db/addresses.txt')

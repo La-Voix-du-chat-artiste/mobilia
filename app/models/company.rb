@@ -13,6 +13,8 @@ class Company < ApplicationRecord
   has_one_attached :background_cover
 
   has_rich_text :description
+
+  after_create -> { create_setting! }
 end
 
 # == Schema Information
