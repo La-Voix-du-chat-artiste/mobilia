@@ -35,6 +35,9 @@ fr:
           enable_transporters_map: Activer la carte des chauffeurs ?
           show_help: Afficher les explications ?
 
+      user:
+        remove_photo: Supprimer la photo ?
+
     placeholders:
       customer:
         phone: "Format: 0123456789"
@@ -91,9 +94,6 @@ fr:
         height: La hauteur du véhicule est une information importante qui permet de déterminer un trajet plus précis. En effet, un camion de transport n'est pas forcément adapté pour les routes avec des ponts bas et cette information permet de les éviter sur le trajet généré.
         max_regular_seats: Cette information aide l'algorithme à savoir si le véhicule est encore en capacité à accepter une personne marchante sur le trajet ou s'il est déjà complet.
         max_wheelchair_seats: Cette information aide l'algorithme à savoir si le véhicule est encore en capacité à accepter une personne en fauteuil roulant sur le trajet ou s'il est déjà complet.
-
-      user:
-        email: Veuillez saisir votre adresse email actuelle pour recevoir les instructions de réinitialisation du mot de passe.
 
       setting:
         options:

@@ -1,0 +1,20 @@
+= simple_form_for user, url: me_profile_path, html: { class: 'space-y-5' } do |f|
+  .flex.items-start.justify-between.gap-5
+    = f.input :first_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+    = f.input :last_name, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.items-start.justify-between.gap-5
+    = f.input :email, as: :email,
+              wrapper_html: { class: 'w-full' }
+    = f.input :phone, as: :string,
+              wrapper_html: { class: 'w-full' }
+
+  .flex.items-center.justify-start.gap-5
+    = f.input :photo, as: :file
+    - if f.object.photo.attached?
+      = image_tag user.photo, class: 'w-32 rounded-full'
+      = f.input :remove_photo, as: :boolean
+
+  = f.button :submit, class: 'pretty-btn'
