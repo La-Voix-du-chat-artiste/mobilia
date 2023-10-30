@@ -1,15 +1,16 @@
 class Optimizer < ApplicationService
-  attr_reader :daily_quest, :mission, :step
+  attr_reader :daily_quest, :company, :step
 
   def initialize(step, daily_quest = nil)
     @step = step
-    @daily_quest = daily_quest || @step.mission&.daily_quest
+    @daily_quest = daily_quest || @step.mission.daily_quest
+    @company = @daily_quest.company
   end
 
   def call
     step.broadcast_pending_placement
 
-    sorted_transporters = Transporter.sort_by_courses_for(daily_quest)
+    sorted_transporters = company.transporters.sort_by_courses_for(daily_quest)
 
     best_transporters = sorted_transporters.filter_map do |transporter|
       next if transporter.off?(daily_quest.started_on)

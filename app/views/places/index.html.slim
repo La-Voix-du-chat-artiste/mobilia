@@ -7,24 +7,30 @@ details.panel-info.mb-5 open=options.show_help?
   summary.cursor-pointer Explications à lire
   p.mt-3 Les lieux représentent les différents endroits où les clients sont déposés. Ce peut-être un institut médical, un hôpital, une entreprise, ...
 
-= simple_form_for :search,
-                  url: places_path,
-                  method: :get,
-                  html: { class: 'mb-6' },
-                  data: { \
-                    turbo_stream: true,
-                    controller: 'search', \
-                    action: 'keyup->search#submit' \
-                  } do |f|
-  = f.input :query,
-            label: false,
-            placeholder: 'Rechercher un lieu par nom ou adresse',
-            input_html: { class: 'rounded-lg' },
-            wrapper_html: { class: 'lg:w-1/2 mx-auto' }
+- if @places.any?
+  = simple_form_for :search,
+                    url: places_path,
+                    method: :get,
+                    html: { class: 'mb-6' },
+                    data: { \
+                      turbo_stream: true,
+                      controller: 'search', \
+                      action: 'keyup->search#submit' \
+                    } do |f|
+    = f.input :query,
+              label: false,
+              placeholder: 'Rechercher un lieu par nom ou adresse',
+              input_html: { class: 'rounded-lg' },
+              wrapper_html: { class: 'lg:w-1/2 mx-auto' }
 
-= turbo_frame_tag :search do
-  = render 'places', places: @places, pagy: @pagy
+  = turbo_frame_tag :search do
+    = render 'places', places: @places, pagy: @pagy
 
-- if options.enable_places_map?
-  div data-controller="global-map" data-global-map-places-url-value=places_path
-    #map class="h-[500px]" data-global-map-target="map"
+  - if options.enable_places_map?
+    div data-controller="global-map" data-global-map-places-url-value=places_path
+      #map class="h-[500px]" data-global-map-target="map"
+
+- else
+  p.panel-warning.p-4
+    | Il n'y a pas encore de lieux -
+    =< link_to 'Ajouter le premier', new_place_path, class: 'underline'

@@ -1,0 +1,19 @@
+.text-center.mb-6.dark:text-white
+  - if @user.company.logo.attached?
+    = image_tag @user.company.logo, class: 'w-16 mx-auto mb-3'
+
+  h1.text-4xl= @user.company.name
+
+.row.p-5
+  h2.text-3xl.text-center.mb-3 Créer votre compte administrateur
+
+  = simple_form_for @user, html: { class: 'space-y-5' } do |f|
+    = f.input :first_name, as: :string
+    = f.input :last_name, as: :string
+    = f.input :email, as: :email
+    = f.input :password, as: :password
+    = f.input :password_confirmation, as: :password
+    = f.input :photo, as: :file
+    = f.input :details, as: :rich_text_area
+
+    = f.button :submit
