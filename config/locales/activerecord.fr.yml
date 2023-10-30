@@ -103,5 +103,6 @@ fr:
         email: Email
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
+        phone: Téléphone
         photo: Avatar
         details: Détails

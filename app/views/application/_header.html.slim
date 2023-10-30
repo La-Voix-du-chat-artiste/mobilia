@@ -26,15 +26,16 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
     = link_to 'Véhicules', vehicles_path, class: ('active' if params[:controller] == 'vehicles')
     = link_to 'Planning', daily_quests_path, class: ('active' if params[:controller] == 'daily_quests' || params[:controller] == 'daily_quests/transporters/steps')
 
+    - if allowed_to?(:update?, current_user, with: ProfilePolicy)
+      = link_to 'Mon profil', me_profile_path, class: 'md:hidden'
+
+    - if allowed_to?(:update?, company)
+      = link_to 'Mon entreprise', edit_companies_path, class: 'md:hidden'
+
     = link_to 'Paramètres',
               settings_path,
               class: ('active' if params[:controller] == 'settings'),
               class: 'md:hidden'
-
-    - if allowed_to?(:update?, company)
-      = link_to 'Modifier mon entreprise',
-                edit_companies_path,
-                class: 'md:hidden'
 
     = link_to sessions_path,
               data: { turbo_method: :delete },
@@ -58,14 +59,19 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
       .invisible.origin-top-right.-translate-y-2.scale-95.transform.opacity-0.transition-all.duration-300.group-focus-within:visible.group-focus-within:translate-y-0.group-focus-within:scale-100.group-focus-within:opacity-100
         .absolute.right-0.mt-2.w-56.origin-top-right.divide-y.divide-gray-100.rounded-md.border.border-gray-200.bg-white.shadow-lg.outline-none.dark:bg-gray-700.dark:border-gray-600.dark:text-white role="menu"
           nav.flex.flex-col.divide-y.dark:divide-gray-600.text-sm
+            - if allowed_to?(:update?, current_user, with: ProfilePolicy)
+              = link_to 'Mon profil',
+                        me_profile_path,
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+
+            - if allowed_to?(:update?, company)
+              = link_to 'Mon entreprise',
+                        edit_companies_path,
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
+
             = link_to settings_path,
                       class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
               | Paramètres
-
-            - if allowed_to?(:update?, company)
-              = link_to 'Modifier mon entreprise',
-                        edit_companies_path,
-                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
 
             = link_to sessions_path,
                       data: { turbo_method: :delete },
