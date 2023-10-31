@@ -17,7 +17,7 @@ class ApplicationPolicy < ActionPolicy::Base
   private
 
   def allow_super_admins
-    deny! unless user.super_admin?
+    deny! unless super_admin?
   end
 
   def allow_admins
@@ -25,6 +25,22 @@ class ApplicationPolicy < ActionPolicy::Base
   end
 
   def admin_up?
-    user.admin? || user.super_admin?
+    deny! unless admin? || super_admin?
+  end
+
+  def admin?
+    user.admin?
+  end
+
+  def super_admin?
+    user.super_admin?
+  end
+
+  def same_company?
+    record.company == user.company
+  end
+
+  def options
+    user.company.setting.options
   end
 end

@@ -7,12 +7,16 @@ module DailyQuests
 
       # @route GET /daily_quests/:daily_quest_id/missions/:mission_id/steps (daily_quest_mission_steps)
       def index
+        authorize! Step, context: { daily_quest: @daily_quest }
+
         @steps = @mission.steps.all
       end
 
       # @route PATCH /daily_quests/:daily_quest_id/missions/:mission_id/steps/:id (daily_quest_mission_step)
       # @route PUT /daily_quests/:daily_quest_id/missions/:mission_id/steps/:id (daily_quest_mission_step)
       def update
+        authorize! @step, context: { daily_quest: @daily_quest }
+
         return if @step.update(step_params)
 
         head :unprocessable_entity

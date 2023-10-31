@@ -3,16 +3,24 @@ class VehiclesController < ApplicationController
 
   # @route GET /vehicles (vehicles)
   def index
-    @pagy, @vehicles = pagy(company.vehicles.all.with_all_rich_text.with_attached_photo)
+    authorize! Vehicle
+
+    vehicles = authorized_scope(company.vehicles)
+
+    @pagy, @vehicles = pagy(vehicles)
   end
 
   # @route GET /vehicles/new (new_vehicle)
   def new
+    authorize! Vehicle
+
     @vehicle = company.vehicles.new
   end
 
   # @route POST /vehicles (vehicles)
   def create
+    authorize! Vehicle
+
     @vehicle = company.vehicles.new(vehicle_params)
 
     respond_to do |format|
@@ -28,15 +36,19 @@ class VehiclesController < ApplicationController
 
   # @route GET /vehicles/:id (vehicle)
   def show
+    authorize! @vehicle
   end
 
   # @route GET /vehicles/:id/edit (edit_vehicle)
   def edit
+    authorize! @vehicle
   end
 
   # @route PATCH /vehicles/:id (vehicle)
   # @route PUT /vehicles/:id (vehicle)
   def update
+    authorize! @vehicle
+
     respond_to do |format|
       if @vehicle.update(vehicle_params)
         format.html { redirect_to vehicle_path(@vehicle), notice: 'Le véhicule a bien été mis à jour.' }
@@ -50,6 +62,8 @@ class VehiclesController < ApplicationController
 
   # @route DELETE /vehicles/:id (vehicle)
   def destroy
+    authorize! @vehicle
+
     @vehicle.destroy
 
     respond_to do |format|

@@ -19,33 +19,39 @@ details.row id=dom_id(transporter)
             .flex.items-center.gap-3
               span.text-orange-500 ⚠️ Chauffeur sans véhicule
 
-              = simple_form_for(transporter) do |f|
-                = f.association :vehicle,
-                                collection: vehicles_select_options(company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter)),
-                                label: false,
-                                hint: false,
-                                include_blank: 'Sélectionner un véhicule',
-                                wrapper_html: { class: 'w-full' },
-                                input_html: { \
-                                  data: { \
-                                    controller: 'slim-select', \
-                                    action: 'change->slim-select#submit' \
-                                  } \
-                                }
+              - if allowed_to?(:update?, transporter)
+                = simple_form_for(transporter) do |f|
+                  = f.association :vehicle,
+                                  collection: vehicles_select_options(company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter)),
+                                  label: false,
+                                  hint: false,
+                                  include_blank: 'Sélectionner un véhicule',
+                                  wrapper_html: { class: 'w-full' },
+                                  input_html: { \
+                                    data: { \
+                                      controller: 'slim-select', \
+                                      action: 'change->slim-select#submit' \
+                                    } \
+                                  }
 
-          - else
+          - elsif allowed_to?(:show?, transporter.vehicle)
             = link_to vehicle_path(transporter.vehicle), class: 'flex items-center gap-1' do
               - if transporter.vehicle.photo.attached?
                 = image_tag transporter.vehicle.photo, class: 'w-6 h-6 object-cover rounded-full'
               = "#{transporter.vehicle.name} / #{transporter.vehicle.number_plate}"
 
     .flex.items-center.gap-3
-      = link_to 'Profil chauffeur', transporter_path(transporter), class: 'btn-show'
-      = link_to 'Modifier', edit_transporter_path(transporter), class: 'btn-edit'
-      = button_to 'Supprimer', transporter,
-                  class: 'btn-destroy',
-                  method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce transporteur ?' }
+      - if allowed_to?(:show?, transporter)
+        = link_to 'Profil chauffeur', transporter_path(transporter), class: 'btn-show'
+
+      - if allowed_to?(:update?, transporter)
+        = link_to 'Modifier', edit_transporter_path(transporter), class: 'btn-edit'
+
+      - if allowed_to?(:destroy?, transporter)
+        = button_to 'Supprimer', transporter,
+                    class: 'btn-destroy',
+                    method: :delete,
+                    data: { turbo_confirm: 'Voulez-vous supprimer ce transporteur ?' }
 
   .p-2.border-t.dark:border-gray-600
     p

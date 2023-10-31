@@ -17,20 +17,30 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
     - menu_item = 'py-3 w-full text-center lg:w-auto lg:text-left'
 
     = link_to 'Carte', root_path, class: "#{menu_item} #{'active' if params[:controller] == 'homes'}"
-    = link_to 'Clients', customers_path, class: "#{menu_item} #{'active' if params[:controller] == 'customers'}"
-    = link_to 'Lieux', places_path, class: "#{menu_item} #{'active' if params[:controller] == 'places'}"
-    = link_to Transporter.model_name.human.pluralize.capitalize, transporters_path, class: "#{menu_item} #{'active' if params[:controller] == 'transporters'}"
+
+    - if allowed_to?(:index?, Customer)
+      = link_to 'Clients', customers_path, class: "#{menu_item} #{'active' if params[:controller] == 'customers'}"
+
+    - if allowed_to?(:index?, Place)
+      = link_to 'Lieux', places_path, class: "#{menu_item} #{'active' if params[:controller] == 'places'}"
+
+    - if allowed_to?(:index?, Transporter, with: TransporterPolicy)
+      = link_to Transporter.model_name.human.pluralize.capitalize,
+                transporters_path,
+                class: "#{menu_item} #{'active' if params[:controller] == 'transporters'}"
 
     - if company.logo.attached?
       = link_to root_path, class: 'hidden md:block text-center text-sm' do
         = image_tag company.logo, class: 'w-20 rounded-full mb-1 mx-auto'
 
-    = link_to 'Véhicules',
-              vehicles_path,
-              class: "#{menu_item} #{'active' if params[:controller] == 'vehicles'}"
+    - if allowed_to?(:index?, Vehicle)
+      = link_to 'Véhicules',
+                vehicles_path,
+                class: "#{menu_item} #{'active' if params[:controller] == 'vehicles'}"
 
-    = link_to 'Planning', daily_quests_path,
-              class: "#{menu_item} #{'active' if params[:controller] == 'daily_quests'}"
+    - if allowed_to?(:index?, DailyQuest)
+      = link_to 'Planning', daily_quests_path,
+                class: "#{menu_item} #{'active' if params[:controller] == 'daily_quests'}"
 
     - if allowed_to?(:update?, current_user, with: ProfilePolicy)
       = link_to 'Mon profil',
@@ -42,9 +52,10 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
                 edit_companies_path,
                 class: "#{menu_item} md:hidden #{'active' if params[:controller].include?('companies')}"
 
-    = link_to 'Paramètres',
-              settings_path,
-              class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'settings'}"
+    - if allowed_to?(:show?, company.setting)
+      = link_to 'Paramètres',
+                settings_path,
+                class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'settings'}"
 
     = link_to sessions_path,
               data: { turbo_method: :delete },
@@ -80,9 +91,10 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
                         edit_companies_path,
                         class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
 
-            = link_to settings_path,
-                      class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
-              | Paramètres
+            - if allowed_to?(:show?, company.setting)
+              = link_to settings_path,
+                        class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+                | Paramètres
 
             = link_to sessions_path,
                       data: { turbo_method: :delete },

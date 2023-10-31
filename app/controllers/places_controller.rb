@@ -3,41 +3,33 @@ class PlacesController < ApplicationController
 
   # @route GET /places (places)
   def index
-    places = company.places.includes(:address).with_attached_photo.with_all_rich_text
+    authorize! Place
 
     query = params.dig(:search, :query)
-    places = places.by_query(query) if query.present?
+
+    places = authorized_scope(
+      company.places, scope_options: { search_query: query }
+    )
 
     respond_to do |format|
-      format.html { @pagy, @places = pagy(places) }
       format.json { @places = places }
+      format.html { @pagy, @places = pagy(places) }
       format.turbo_stream { @pagy, @places = pagy(places) }
-    end
-  end
-
-  # @route GET /places/daily (daily_places)
-  def daily
-    date = params[:date].presence || Date.current
-
-    @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
-    @steps = @daily_quest.steps.where('arrival_at > ?', Time.current - DailyQuest::WAITING_TIME.minutes)
-
-    @missions = @steps.map(&:mission)
-    @places = @missions.map(&:place).uniq
-
-    respond_to do |format|
-      format.json { render :index }
     end
   end
 
   # @route GET /places/new (new_place)
   def new
+    authorize! Place
+
     @place = company.places.new
     @place.build_address
   end
 
   # @route POST /places (places)
   def create
+    authorize! Place
+
     @place = company.places.new(place_params)
 
     respond_to do |format|
@@ -55,15 +47,19 @@ class PlacesController < ApplicationController
 
   # @route GET /places/:id (place)
   def show
+    authorize! @place
   end
 
   # @route GET /places/:id/edit (edit_place)
   def edit
+    authorize! @place
   end
 
   # @route PATCH /places/:id (place)
   # @route PUT /places/:id (place)
   def update
+    authorize! @place
+
     respond_to do |format|
       if @place.update(place_params)
         format.html { redirect_to place_url(@place), notice: 'Le lieu a été mis à jour.' }
@@ -79,11 +75,30 @@ class PlacesController < ApplicationController
 
   # @route DELETE /places/:id (place)
   def destroy
+    authorize! @place
+
     @place.destroy
 
     respond_to do |format|
       format.html { redirect_to places_url, notice: 'Le lieu a été supprimé.' }
       format.json { head :no_content }
+    end
+  end
+
+  # @route GET /places/daily (daily_places)
+  def daily
+    authorize! Place
+
+    date = params[:date].presence || Date.current
+
+    @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
+    @steps = @daily_quest.steps.where('arrival_at > ?', Time.current - DailyQuest::WAITING_TIME.minutes)
+
+    @missions = @steps.map(&:mission)
+    @places = @missions.map(&:place).uniq
+
+    respond_to do |format|
+      format.json { render :index }
     end
   end
 

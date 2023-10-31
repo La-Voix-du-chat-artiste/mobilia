@@ -3,16 +3,21 @@ class SettingsController < ApplicationController
 
   # @route GET /settings (settings)
   def show
+    authorize! @setting
   end
 
   # @route GET /settings/edit (edit_settings)
   def edit
+    authorize! @setting
+
     @setting.build_address if @setting.address.blank?
   end
 
   # @route PATCH /settings (settings)
   # @route PUT /settings (settings)
   def update
+    authorize! @setting
+
     respond_to do |format|
       if @setting.update(setting_params)
         format.html { redirect_to @setting, notice: 'Les paramètres ont bien été mis à jour.' }

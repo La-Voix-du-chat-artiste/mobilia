@@ -1,6 +1,7 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Modifier un client
 
-  = link_to '<< Retour au client', customer_path(@customer), class: 'btn-back'
+  - if allowed_to?(:show?, @customer)
+    = link_to '<< Retour au client', customer_path(@customer), class: 'btn-back'
 
 = render 'form', customer: @customer

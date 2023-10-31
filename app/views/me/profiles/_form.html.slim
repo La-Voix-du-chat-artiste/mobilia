@@ -11,6 +11,20 @@
     = f.input :phone, as: :string,
               wrapper_html: { class: 'w-full' }
 
+  - if current_user.is_a?(Transporter)
+    = f.simple_fields_for :address do |ff|
+      = ff.input :label,
+                 input_html: { \
+                   data: { \
+                     controller: 'address', \
+                     address_search_url_value: addresses_search_path \
+                   } \
+                 },
+                 collection: [ff.object.label].compact,
+                 prompt: 'Chercher une adresse',
+                 include_blank: false,
+                 wrapper_html: { class: 'w-full' }
+
   .flex.flex-col.lg:flex-row.items-start.justify-between.gap-5
     = f.input :photo, as: :file
     - if f.object.photo.attached?

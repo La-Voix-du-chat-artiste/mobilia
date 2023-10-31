@@ -5,6 +5,8 @@ module DailyQuests
 
     # @route POST /daily_quests/:daily_quest_id/transporters/send_all_plannings (send_all_plannings_daily_quest_transporters)
     def send_all_plannings
+      authorize! Transporter, context: { daily_quest: @daily_quest }
+
       transporters = company.daily_quests.with_attached_photo.includes(:absences)
       transporters = transporters.reject do |transporter|
         transporter.off?(@daily_quest.started_on)
@@ -21,7 +23,7 @@ module DailyQuests
         notice = "Les plannings du jour sont en train d'être envoyés aux différents chauffeurs"
 
         format.html do
-          redirect_to daily_quest_path(started_on: @daily_quest.started_on), notice: notice
+          redirect_to daily_quest_path(date: @daily_quest.started_on), notice: notice
         end
         format.turbo_stream { flash.now[:notice] = notice }
       end
@@ -29,6 +31,8 @@ module DailyQuests
 
     # @route POST /daily_quests/:daily_quest_id/transporters/:id/send_planning (send_planning_daily_quest_transporter)
     def send_planning
+      authorize! @transporter, context: { daily_quest: @daily_quest }
+
       TransporterMailer
         .with(transporter: @transporter, daily_quest: @daily_quest)
         .send_planning
@@ -38,7 +42,7 @@ module DailyQuests
         notice = "Le planning a bien été envoyé par email à #{@transporter.full_name}"
 
         format.html do
-          redirect_to daily_quest_path(started_on: @daily_quest.started_on), notice: notice
+          redirect_to daily_quest_path(date: @daily_quest.started_on), notice: notice
         end
         format.turbo_stream { flash.now[:notice] = notice }
       end

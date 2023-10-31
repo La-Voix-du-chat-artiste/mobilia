@@ -2,14 +2,19 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl= l(@daily_quest.started_on, format: :complete_slash)
 
   .flex.items-center.gap-3
-    = link_to '<< Retour au planning',
-              daily_quests_path(date: @daily_quest.started_on),
-              class: 'btn-back'
-    = link_to 'Gérer les missions', daily_quest_missions_path(@daily_quest), class: 'btn-edit'
-    = button_to 'Supprimer', @daily_quest,
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous supprimer ce planning ?' }
+    - if allowed_to?(:index?, @daily_quest)
+      = link_to '<< Retour au planning',
+                daily_quests_path(date: @daily_quest.started_on),
+                class: 'btn-back'
+
+    - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: @daily_quest })
+      = link_to 'Gérer les missions', daily_quest_missions_path(@daily_quest), class: 'btn-edit'
+
+    - if allowed_to?(:destroy?, @daily_quest)
+      = button_to 'Supprimer', @daily_quest,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce planning ?' }
 
 div id=dom_id(@daily_quest)
   .flex.flex-col.lg:flex-row.justify-between.gap-6

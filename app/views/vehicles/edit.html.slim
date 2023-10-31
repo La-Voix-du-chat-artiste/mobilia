@@ -1,6 +1,7 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Modifier un véhicule
 
-  = link_to '<< Retour aux véhicules', vehicles_path, class: 'btn-back'
+  - if allowed_to?(:update?, @vehicle)
+    = link_to '<< Retour aux véhicules', vehicles_path, class: 'btn-back'
 
 = render 'form', vehicle: @vehicle

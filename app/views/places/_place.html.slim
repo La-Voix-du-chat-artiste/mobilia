@@ -9,12 +9,17 @@ details.row id=dom_id(place) class=('opacity-50' unless place.enabled?)
           p.italic.text-gray-500= place.address.label
 
     .flex.items-center.gap-3
-      = link_to 'Fiche lieu', place_path(place), class: 'btn-show', data: { turbo_frame: :_top }
-      = link_to 'Modifier', edit_place_path(place), class: 'btn-edit', data: { turbo_frame: :_top }
-      = button_to 'Supprimer', place,
-                  class: 'btn-destroy',
-                  method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce lieu ?' }
+      - if allowed_to?(:show?, place)
+        = link_to 'Fiche lieu', place_path(place), class: 'btn-show', data: { turbo_frame: :_top }
+
+      - if allowed_to?(:update?, place)
+        = link_to 'Modifier', edit_place_path(place), class: 'btn-edit', data: { turbo_frame: :_top }
+
+      - if allowed_to?(:destroy?, place)
+        = button_to 'Supprimer', place,
+                    class: 'btn-destroy',
+                    method: :delete,
+                    data: { turbo_confirm: 'Voulez-vous supprimer ce lieu ?' }
 
   .p-2.border-t.dark:border-gray-600
     p

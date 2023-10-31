@@ -1,12 +1,14 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Véhicules
 
-  = link_to 'Ajouter un véhicule', new_vehicle_path, class: 'btn-add'
+  - if allowed_to?(:create?, Vehicle)
+    = link_to 'Ajouter un véhicule', new_vehicle_path, class: 'btn-add'
 
-details.panel-info.mb-5 open=options.show_help?
-  summary.cursor-pointer Explications à lire
+- unless current_user.standard?
+  details.panel-info.mb-5 open=options.show_help?
+    summary.cursor-pointer Explications à lire
 
-  p.mt-3 Les différents véhicules sont à renseigner sur cette page. Les véhicules peuvent ensuite être associés à un chauffeur.
+    p.mt-3 Les différents véhicules sont à renseigner sur cette page. Les véhicules peuvent ensuite être associés à un chauffeur.
 
 - if @vehicles.any?
   == pagy_nav(@pagy) if @pagy.pages > 1
@@ -19,4 +21,6 @@ details.panel-info.mb-5 open=options.show_help?
 - else
   p.panel-warning.p-4
     | Il n'y a pas encore de véhicules -
-    =< link_to 'Ajouter le premier', new_vehicle_path, class: 'underline'
+
+    - if allowed_to?(:create?, Vehicle)
+      =< link_to 'Ajouter le premier', new_vehicle_path, class: 'underline'
