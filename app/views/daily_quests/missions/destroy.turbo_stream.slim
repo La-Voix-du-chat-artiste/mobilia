@@ -1,0 +1,6 @@
+= render_turbo_stream_flash_messages
+= turbo_stream.remove dom_id(@mission)
+
+- if @mission.steps.empty?
+  = turbo_stream.update :empty_missions do
+    = render 'empty_missions', daily_quest: @daily_quest

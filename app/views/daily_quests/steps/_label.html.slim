@@ -1,0 +1,10 @@
+- klass = "!inline-block !text-xs !px-2 !py-1"
+
+div
+  - if step.customer_to_place?
+    p.panel-info class=klass Trajet aller
+  - elsif step.place_to_customer?
+    p.panel-warning class=klass Trajet retour
+  - else
+    p.panel-error class=klass
+      = step.role

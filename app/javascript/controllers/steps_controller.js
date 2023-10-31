@@ -1,6 +1,17 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
+  connect() {
+    const anchor = document.querySelector('#steps')
+    anchor.scrollIntoView()
+  }
+
+  close(e) {
+    e.preventDefault()
+
+    document.getElementById('steps').innerHTML = ''
+  }
+
   highlight(e) {
     const index = e.currentTarget.dataset.index
 

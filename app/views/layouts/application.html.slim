@@ -18,7 +18,7 @@ html class=options.theme
     = javascript_importmap_tags
 
   body class="dark:bg-slate-800"
-    main.mx-auto.px-5.mb-8 class=('container' unless params[:controller] == 'daily_quests')
+    main.mx-auto.px-5.mb-8 class=('container' unless params[:controller].include?('daily_quests'))
       .mb-6= render 'header'
 
       = turbo_stream_from :flash

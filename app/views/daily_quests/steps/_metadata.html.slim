@@ -1,0 +1,33 @@
+.space-y-3
+  .flex.items-center.gap-2
+    p.panel-success= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"
+
+    div
+      p.text-xs.text-gray-400= step.departure_address.label
+
+  .row.flex.items-center.justify-center.gap-5.p-2.text-xs
+    <svg class="w-3 h-3 text-orange-500 animate-bounce" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 12">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 7 4 4 4-4M1 1l4 4 4-4"/>
+    </svg>
+
+    div
+      - if step.transporter.present?
+        .flex.items-center.justify-center.gap-1.mb-1
+          - if step.transporter.photo.attached?
+            = image_tag url_for(step.transporter.photo), class: 'w-5 rounded-full'
+          p.dark:text-white= step.transporter.full_name
+
+      p
+        span= distance_of_time_in_words(step.duration * 60)
+        |>< /
+        span= number_to_human(step.distance * 1_000, units: :distance)
+
+    <svg class="w-3 h-3 text-orange-500 animate-bounce" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 12">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 7 4 4 4-4M1 1l4 4 4-4"/>
+    </svg>
+
+  .flex.items-center.gap-2
+    p.panel-success= step.arrival_at ? l(step.arrival_at.round, format: '%Hh%M') : "XXX"
+
+    div
+      p.text-xs.text-gray-400= step.arrival_address.label

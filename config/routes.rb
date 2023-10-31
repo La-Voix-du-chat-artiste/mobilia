@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :daily_quests, except: %i[create] do
+  resources :daily_quests, only: %i[index show] do
     member do
       post :reset
       post :duplicate_week
@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     end
 
     scope module: :daily_quests do
+      resources :missions
+
       resources :steps, only: %i[edit update destroy] do
         member do
           post 'optimize'

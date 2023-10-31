@@ -1,26 +1,10 @@
-ul.mb-3 data-controller="steps"
-  - steps.each_with_index do |step, index|
-    li.row.p-2.mb-2.cursor-pointer data-index=index data-action="mouseover->steps#highlight mouseout->steps#unhighlight"
-      div
-        - if step.customer_to_place?
-          p.mb-2.inline-block.bg-blue-400.text-white.rounded-lg.text-xs.px-2.py-1 Trajet aller
-        - elsif step.place_to_customer?
-          p.mb-2.inline-block.bg-orange-400.text-white.rounded-lg.text-xs.px-2.py-1 Trajet retour
+.mb-3.space-y-3 data-controller="steps"
+  = render partial: 'daily_quests/missions/step', collection: steps
 
-        p.mb-1
-          span.font-bold= "Etape #{index + 1}: "
-          span.text-gray-500.ml-2
-            = " [ #{step.duration} mn |  #{step.distance} km ]"
-
-      .flex.items-center.gap-3
-        div
-          .flex.items-center.gap-2
-            p.panel-success= step.started_at ? l(step.started_at, format: '%Hh%M') : "XXX"
-
-        = step.title
-
-        div
-          .flex.items-center.gap-2
-            p.panel-success= step.arrival_at ? l(step.arrival_at, format: '%Hh%M') : "XXX"
-
-      .text-sm.text-gray-400== step.description
+  = link_to 'Fermer',
+            daily_quest_missions_path(steps.first.mission.daily_quest),
+            class: 'block underline text-sm text-center dark:text-white',
+            data: { \
+              controller: 'steps', \
+              action: 'click->steps#close' \
+            }

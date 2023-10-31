@@ -1,0 +1,47 @@
+= turbo_frame_tag mission do
+  - daily_quest = mission.daily_quest
+  - customer = mission.customer
+  - place = mission.place
+  - steps = mission.steps
+
+  .flex.flex-col.justify-between.row.p-3.hover:bg-gray-50.dark:hover:bg-gray-700/75.transition-colors.gap-3 class="!mb-0"
+    .space-y-5
+      .flex.items-center.gap-3
+        - if customer.photo.attached?
+          = image_tag url_for(customer.photo), class: 'w-16 rounded-full object-cover'
+        .space-y-1
+          p= customer.full_name
+          p.text-gray-500.text-xs= customer.address.label
+
+      .flex.items-center.gap-3
+        - if place.photo.attached?
+          = image_tag url_for(place.photo), class: 'w-16 rounded-full object-cover'
+        .space-y-1
+          p= place.name
+          p.text-gray-500.text-xs= place.address.label
+
+      - steps.each.with_index do |step, index|
+        p.border-b.dark:border-gray-600.dark:text-gray-300
+          - if steps.count == 1
+            | Trajet unique
+          - elsif index == 0
+            | Départ
+          - else
+            | Retour
+
+        = render 'daily_quests/steps/metadata', step: step
+
+    footer.flex.items-center.justify-between.gap-1.mt-3
+      = link_to 'Détails',
+                daily_quest_mission_steps_path(daily_quest, mission),
+                data: { turbo_frame: :steps },
+                class: 'btn-show w-full'
+
+      = link_to 'Modifier',
+                edit_daily_quest_mission_path(daily_quest, mission),
+                class: 'btn-edit w-full'
+
+      = link_to 'Supprimer',
+                daily_quest_mission_path(daily_quest, mission),
+                class: 'btn-destroy w-full',
+                data: { turbo_method: :delete, turbo_confirm: 'Voulez-vous supprimer cette mission ?' }

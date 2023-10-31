@@ -21,10 +21,7 @@
 
   .border.mb-6.p-2
     .mx-auto.mb-4.bprder-b style="display: -webkit-box"
-      - if step.customer_to_place?
-        p.inline-block.rounded-lg.text-xs.px-2.py-1 style="background-color: #3399FF; color: white" Trajet aller
-      - elsif step.place_to_customer?
-        p.inline-block.rounded-lg.text-xs.px-2.py-1 style="background-color: #FF9933; color: white" Trajet retour
+      = render partial: 'daily_quests/steps/label', locals: { step: step }, formats: [:html]
 
       p.font-bold.w-full.ml-2= step.title
 
