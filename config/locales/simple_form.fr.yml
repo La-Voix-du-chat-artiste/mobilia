@@ -42,7 +42,8 @@ fr:
       customer:
         phone: "Format: 0123456789"
       mission:
-        drop_duration: Durée en minutes
+        drop_duration_hours: Partie heures
+        drop_duration_minutes: Partie minutes
 
     hints:
       company:
@@ -75,11 +76,12 @@ fr:
           label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
         vehicle: Quel véhicule est assigné à ce transporteur ?
 
-      missions:
+      mission:
         customer: Le client à aller chercher
         place: Le lieu où le déposer
         drop_time: L'heure à laquelle chercher le client chez lui sera déterminée automatiquement par l'algorithme
-        drop_duration: Permet de déterminer automatiquement l'heure à laquelle le client doit être recherché (à spécifier en minutes)
+        drop_duration_hours: "Spécifiez la partie <strong>heures</strong> de la durée (exemple: pour <strong>1h30</strong> indiquez <strong>1</strong> dans ce champs et <strong>30</strong> dans le champ dédié aux <strong>minutes</strong>)"
+        drop_duration_minutes: "Spécifiez la partie <strong>minutes</strong> de la durée (voir l'exemple précédent)"
         round_trip: Cocher la case si un trajet retour est à prévoir pour cette mission
 
       step:

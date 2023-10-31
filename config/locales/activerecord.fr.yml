@@ -50,7 +50,8 @@ fr:
         customer: Client
         place: Lieu
         drop_time: Heure à déposer au lieu de rendez-vous
-        drop_duration: Durée de la consultation
+        drop_duration_hours: Temps de consultation (partie heures)
+        drop_duration_minutes: Temps de consultation (partie minutes)
         round_trip: Trajet retour ?
 
       vehicle:

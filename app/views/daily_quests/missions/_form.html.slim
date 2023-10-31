@@ -45,11 +45,21 @@
                   } \
                 }
 
-      = f.input :drop_duration,
-                wrapper_html: { \
-                  class: 'w-full mt-6', \
-                  data: { round_trip_target: 'durationInput' } \
-                }
+
+      div data-round-trip-target="durationInput"
+        = f.input :drop_duration_hours,
+                  as: :integer,
+                  wrapper_html: { class: 'w-full mt-5' },
+                  input_html: { \
+                    value: value_for_drop_duration_hours(f.object) \
+                  }
+        = f.input :drop_duration_minutes,
+                  as: :integer,
+                  include_blank: false,
+                  wrapper_html: { class: 'w-full mt-5' },
+                  input_html: { \
+                    value: value_for_drop_duration_minutes(f.object) \
+                  }
 
     = f.button :submit, 'Enregistrer', class: 'btn-add w-full'
 
