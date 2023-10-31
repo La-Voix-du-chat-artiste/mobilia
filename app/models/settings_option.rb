@@ -5,6 +5,7 @@ class SettingsOption
   THEMES = %w[light dark].freeze
 
   attribute :map_refresh_interval, :integer, default: -> { REFRESH_INTERVAL[0] }
+  attribute :map_gesture_handling, :boolean, default: true
   attribute :theme, :string, default: -> { THEMES[1] }
   attribute :delta_jam, :integer, default: 8
   attribute :delta_loading, :integer, default: 5
@@ -14,6 +15,7 @@ class SettingsOption
   attribute :show_help, :boolean, default: true
 
   validates :map_refresh_interval, presence: true, inclusion: REFRESH_INTERVAL
+  validates :map_gesture_handling, allow_blank: false, inclusion: [true, false]
   validates :theme, presence: true, inclusion: THEMES
   validates :delta_jam, presence: true,
                         numericality: {

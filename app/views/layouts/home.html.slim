@@ -16,8 +16,8 @@ html class=options.theme
 
     = javascript_importmap_tags
 
-  body class="dark:bg-slate-800"
+  body.dark:bg-slate-800
     = render 'header', fixed: true
 
-    main.h-screen.relative
+    main
       = yield

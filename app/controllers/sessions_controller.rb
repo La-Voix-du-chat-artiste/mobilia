@@ -15,8 +15,6 @@ class SessionsController < ApplicationController
     if @user
       # authorize! :dashboard, to: :show?
 
-      flash[:notice] = 'Vous êtes connecté'
-
       redirect_to root_path
     else
       flash.now[:alert] = 'Erreur lors de la connexion'

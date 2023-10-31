@@ -31,7 +31,7 @@ class OptimizerJob < ApplicationJob
       end
 
       Turbo::StreamsChannel.broadcast_update_to(
-        :flash,
+        [daily_quest.company, :flash],
         target: 'flashes',
         partial: 'flash',
         locals: {
@@ -45,7 +45,7 @@ class OptimizerJob < ApplicationJob
 
     # This broadcast is only meant to reload the page once job is completed.
     Turbo::StreamsChannel.broadcast_append_to(
-      :page_reload,
+      [daily_quest.company, :page_reload],
       target: 'page_reload',
       partial: 'page_reload',
       locals: { url: daily_quests_path(date: daily_quest.started_on) }

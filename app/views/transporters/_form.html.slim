@@ -57,16 +57,16 @@
                     }
 
   = f.simple_fields_for :availabilities, f.object.availabilities do |ff|
-    .flex.items-center.gap-3.mb-3
-      = ff.input :monday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
-      = ff.input :tuesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
-      = ff.input :wednesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
-      = ff.input :thursday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+    .flex.flex-col.lg:flex-row.items-center.gap-3.mb-3
+      = ff.input :monday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
+      = ff.input :tuesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
+      = ff.input :wednesday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
+      = ff.input :thursday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
 
-    .flex.items-center.gap-3
-      = ff.input :friday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
-      = ff.input :saturday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
-      = ff.input :sunday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false
+    .flex.flex-col.lg:flex-row.items-center.gap-3.mb-3
+      = ff.input :friday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
+      = ff.input :saturday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
+      = ff.input :sunday, collection: AvailabilitiesOption::AVAILABILITIES, include_blank: false, wrapper_html: { class: 'w-full' }
 
   .flex.flex-col.lg:flex-row.justify-between.gap-6.mb-6.mt-6
     = f.input :details, as: :rich_text_area,
