@@ -1,3 +1,13 @@
+@import './components/buttons';
+@import './components/flash';
+@import './components/form';
+@import './components/map';
+@import './components/menu';
+@import './components/panels';
+@import './components/progress';
+@import './plugins/bullet';
+@import './plugins/leaflet';
+@import './plugins/pagy';
 @import './plugins/slim-select';
 
 @tailwind base;
@@ -11,15 +21,7 @@
   }
 }
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
-
-*/
+/* Base */
 
 html {
   scroll-behavior: smooth;
@@ -29,225 +31,8 @@ header h1, h2 {
   @apply dark:text-white;
 }
 
-/* Trix editor */
-
-.dark .rich_text_area {
-  @apply text-white;
-}
-
-.dark trix-toolbar .trix-button {
-  @apply bg-white;
-}
-
-/* Menu */
-
-nav#menu a.active {
-  @apply bg-green-700 text-white p-2 rounded-lg;
-}
-
-/* Map */
-
-#map {
-  @apply z-[10] rounded-lg;
-}
-
-.map {
-  @apply h-[70vh] lg:h-screen;
-}
-
-/* Leaflet */
-
-path.leaflet-interactive {
-  @apply transition-all;
-}
-
-path.leaflet-interactive:hover,
-path.leaflet-interactive.active {
-  @apply stroke-[5px] stroke-[#333333] opacity-100;
-}
+/* Misc */
 
 .mission.active {
   @apply bg-green-500 !text-white dark:border-green-500;
-}
-
-.leaflet-popup-content {
-  @apply !m-0 !p-2 rounded-lg;
-}
-
-.leaflet-popup-content img {
-  @apply hover:scale-105 transition-transform;
-}
-
-.leaflet-popup-content p {
-  @apply !m-0;
-}
-
-.leaflet-popup-content p:not(:last-child) {
-  @apply !mb-1;
-}
-
-.leaflet-popup-content-wrapper {
-  @apply dark:bg-slate-700/[0.95] dark:text-white;
-}
-
-.leaflet-popup-tip {
-  @apply dark:bg-slate-700/[0.95];
-}
-
-.dark .leaflet-layer,
-.dark .leaflet-control-zoom-in,
-.dark .leaflet-control-zoom-out,
-.dark .leaflet-control-attribution {
-  filter: invert(1) hue-rotate(180deg);
-}
-
-/* buttons */
-
-.btn-base {
-  @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white;
-}
-
-.btn-add {
-  @apply btn-base bg-green-700 hover:bg-green-800 focus:ring-green-300;
-}
-
-.btn-show {
-  @apply btn-base bg-blue-700 px-4 py-2 hover:bg-blue-800 focus:ring-blue-300;
-}
-
-.btn-edit {
-  @apply btn-base bg-orange-700 hover:bg-orange-800 focus:ring-orange-300;
-}
-
-.btn-destroy {
-  @apply btn-base bg-red-700 hover:bg-red-800 focus:ring-red-300;
-}
-
-.btn-back {
-  @apply btn-base bg-gray-200 !text-black hover:bg-gray-300 focus:ring-gray-300 dark:!text-white dark:bg-gray-700 dark:hover:bg-gray-600;
-}
-
-/* Pagy pagination style */
-
-.pagy-nav {
-  @apply flex space-x-2 justify-center my-8;
-}
-
-.pagy-nav .page a,
-.pagy-nav .page.active,
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled {
-  @apply block rounded px-3 py-1 text-sm text-black hover:text-secondary-color dark:text-white;
-}
-
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled {
-  @apply text-gray-400 cursor-default;
-  &:hover {
-    @apply text-gray-400 bg-gray-200;
-  }
-  &:active {
-    @apply text-gray-400 bg-gray-200;
-  }
-}
-
-.pagy-nav .page.active {
-  @apply text-white cursor-default bg-secondary-color hover:text-white hover:bg-primary-color;
-
-  &:active {
-    @apply text-white bg-primary-color;
-  }
-}
-
-/* Form */
-
-form label {
-  @apply dark:text-white;
-}
-
-form label:not(.boolean) {
-  @apply mb-2;
-}
-
-input.string, input.password, input.numeric,
-input.date, input.time, select.select,
-textarea.text, input.file {
-  @apply rounded-lg dark:bg-slate-700/25 dark:text-white;
-}
-
-.error, .error_notification {
-  @apply block text-red-500 italic text-sm mt-2;
-}
-
-.error_notification {
-  @apply mb-3;
-}
-
-.field_with_errors input,
-.field_with_errors textarea {
-  @apply border-red-500;
-}
-
-.field_with_errors input:focus,
-.field_with_errors textarea:focus {
-  @apply border-red-500 ring-red-500;
-}
-
-.hint {
-  @apply inline-block mt-2 panel-info;
-}
-
-.hint:before {
-  content: 'ℹ️ ';
-  @apply mr-0.5;
-}
-
-input.boolean, input.check_boxes {
-  @apply inline-block w-4 mr-1;
-}
-
-.panel-info {
-  @apply border text-blue-500 bg-blue-50 border-blue-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-blue-400;
-}
-
-.panel-warning {
-  @apply border text-orange-500 bg-orange-50 border-orange-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-orange-400;
-}
-
-.panel-success {
-  @apply border text-green-500 bg-green-50 border-green-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
-}
-
-.panel-error {
-  @apply border text-red-500 bg-red-50 border-red-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
-}
-
-.row {
-  @apply border mb-3 rounded-lg border-gray-300 bg-gray-100 dark:bg-slate-700/50 dark:text-white dark:border-gray-600;
-}
-
-/* Flash */
-
-.flash-notice {
-  @apply border text-green-500 bg-green-50 border-green-500 p-4 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
-}
-
-.flash-alert {
-  @apply border text-red-500 bg-red-50 border-red-500 p-4 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
-}
-
-/* Progress bar */
-
-.progress {
-  @apply w-full bg-gray-600 rounded-full mt-3;
-}
-
-.progress .progress-label {
-  @apply bg-green-600 text-xs font-medium text-white text-center p-1 leading-none rounded-full;
-}
-
-/* Bullet */
-
-#bullet-footer {
-  @apply dark:!bg-black;
 }

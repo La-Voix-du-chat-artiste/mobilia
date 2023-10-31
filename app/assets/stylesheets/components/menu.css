@@ -1,0 +1,5 @@
+/* Menu */
+
+nav#menu a.active {
+  @apply bg-green-700 text-white p-2 rounded-lg;
+}

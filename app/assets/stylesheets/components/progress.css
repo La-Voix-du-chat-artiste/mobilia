@@ -1,0 +1,9 @@
+/* Progress bar */
+
+.progress {
+  @apply w-full bg-gray-600 rounded-full mt-3;
+}
+
+.progress .progress-label {
+  @apply bg-green-600 text-xs font-medium text-white text-center p-1 leading-none rounded-full;
+}

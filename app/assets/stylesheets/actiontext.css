@@ -29,3 +29,11 @@
   padding: 0 !important;
   max-width: 100% !important;
 }
+
+.dark .rich_text_area {
+  color: white;
+}
+
+.dark trix-toolbar .trix-button {
+  background-color: white;
+}
