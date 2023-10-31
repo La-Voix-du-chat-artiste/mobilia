@@ -69,8 +69,8 @@ module DailyQuests
 
     def mission_params
       params.require(:mission).permit(
-        :drop_time, :drop_duration, :round_trip,
-        :customer_id, :place_id
+        :drop_time, :round_trip, :drop_duration_hours,
+        :drop_duration_minutes, :customer_id, :place_id
       )
     end
 

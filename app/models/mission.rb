@@ -1,16 +1,30 @@
 class Mission < ApplicationRecord
+  attr_accessor :drop_duration_hours, :drop_duration_minutes
+
   belongs_to :daily_quest
   belongs_to :customer
   belongs_to :place
   has_many :steps, dependent: :destroy
 
   validates :drop_time, presence: true
-  validates :drop_duration, presence: true, if: :round_trip?
+  validates :drop_duration_hours,
+            presence: true,
+            if: -> { round_trip? && drop_duration_minutes.blank? }
+  validates :drop_duration_minutes,
+            presence: true,
+            if: -> { round_trip? && drop_duration_hours.blank? }
+  validates :drop_duration_hours,
+            allow_blank: true,
+            numericality: { greater_than_or_equal_to: 0, less_than: 24 }
+  validates :drop_duration_minutes,
+            allow_blank: true,
+            numericality: { greater_than_or_equal_to: 0, less_than: 60 }
+
   default_scope -> { order(:drop_time) }
-  # acts_as_list scope: :daily_quest
 
   scope :by_position, -> { order(:position) }
 
+  before_validation :assign_drop_duration
   after_create :generate_steps
   after_update :regenerate_steps
 
@@ -21,6 +35,10 @@ class Mission < ApplicationRecord
   end
 
   private
+
+  def assign_drop_duration
+    self.drop_duration = (drop_duration_hours.to_i * 60) + drop_duration_minutes.to_i
+  end
 
   def generate_steps
     GenerateSteps.call(daily_quest, self)
