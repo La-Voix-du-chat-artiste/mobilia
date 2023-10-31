@@ -1,0 +1,6 @@
+p.panel-warning.p-4
+  | Il n'y a pas encore de missions -
+  =< link_to 'Ajouter la première',
+             new_daily_quest_mission_path(@daily_quest),
+             class: 'underline',
+             data: { turbo_frame: dom_id(Mission.new) }

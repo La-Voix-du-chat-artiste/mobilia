@@ -1,0 +1,5 @@
+= turbo_stream.prepend :missions do
+  = render 'mission', mission: @mission
+
+= turbo_stream.update dom_id(Mission.new), ''
+= turbo_stream.update :empty_missions, ''

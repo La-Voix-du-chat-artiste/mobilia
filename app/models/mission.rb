@@ -12,16 +12,23 @@ class Mission < ApplicationRecord
   scope :by_position, -> { order(:position) }
 
   after_create :generate_steps
-
-  def generate_steps(regen: true)
-    steps.destroy_all if regen
-    GenerateSteps.call(daily_quest, self)
-  end
+  after_update :regenerate_steps
 
   def drop_datetime
     hour = drop_time.hour.hour
     minute = drop_time.min.minute
     daily_quest.started_on + hour + minute
+  end
+
+  private
+
+  def generate_steps
+    GenerateSteps.call(daily_quest, self)
+  end
+
+  def regenerate_steps
+    steps.destroy_all
+    generate_steps
   end
 end
 

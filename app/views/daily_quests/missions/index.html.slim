@@ -1,0 +1,44 @@
+details.panel-info.mb-5 open=options.show_help?
+  summary.cursor-pointer Explications à lire
+
+  .mt-3
+    p.mb-3 Cette page permet de configurer les missions de transport pour la journée du <strong>#{l(@daily_quest.started_on)}</strong>:
+
+    .mb-3
+      p.mb-1 Pour chaque mission, spécifiez:
+      ul.list-disc.list-inside.mb-2
+        li le <strong>client</strong> à transporter
+        li le <strong>lieu</strong> où il doit être déposé
+        li l'<strong>heure</strong> à laquelle il doit être déposé
+        li la <strong>durée</strong> de la consultation en minutes
+
+      p Note: L'heure à laquelle chercher le client chez lui et l'heure de retour seront automatiquement calculées par l'algorithme.
+
+  p Pour ajouter une nouvelle mission, cliquer sur le bouton <span class="btn-add !text-xs">Ajouter une mission +</span> puis enregistrez.
+  p Pour modifier une mission, cliquez sur le lien <span class="btn-edit !text-xs">Modifier</span> en bas de la carte de la mission.
+  p Pour supprimer une mission, cliquez sur le lien <span class="btn-destroy !text-xs">Supprimer</span> en bas de la carte de la mission.
+
+header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
+  h1.text-3xl Missions du #{l(@daily_quest.started_on, format: :complete_slash)}
+
+  .flex.flex-row.items-center.gap-2
+    = link_to '<< Retour au planning',
+              daily_quests_path(date: @daily_quest.started_on),
+              class: 'btn-back'
+    = link_to 'Ajouter une mission +',
+              new_daily_quest_mission_path(@daily_quest),
+              class: 'btn-add',
+              data: { turbo_frame: dom_id(Mission.new) }
+
+    = link_to "<< #{l(@daily_quest.started_on - 1.day)}", daily_quest_missions_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
+    = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quest_missions_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
+
+= turbo_frame_tag dom_id(Mission.new)
+= turbo_frame_tag :steps
+
+- if @missions.empty?
+  #empty_missions
+    = render 'empty_missions', daily_quest: @daily_quest
+
+#missions.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-4.gap-4
+  = render @missions

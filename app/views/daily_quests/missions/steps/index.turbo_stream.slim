@@ -1,5 +1,4 @@
 = turbo_stream.update :steps do
-  = render 'daily_quests/missions/steps', steps: @steps
-
-= turbo_stream.replace :map do
-  = render 'daily_quests/missions/map', mission: @mission
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-3 data-controller="step"
+    .lg:w-1/3= render 'daily_quests/missions/steps', steps: @steps
+    .lg:w-2/3= render 'daily_quests/missions/map', mission: @mission

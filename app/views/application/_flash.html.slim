@@ -1,2 +1,2 @@
-.flash__message.p-4.my-4.text-sm.rounded-lg class="#{flash_type == 'notice' ? 'flash-notice ' : 'flash-alert'}"
+.flash__message.my-4 class="#{flash_type == 'notice' ? 'flash-notice ' : 'flash-alert'}"
   == simple_format message, {}, { sanitize_options: { attributes: %w[class style] } }

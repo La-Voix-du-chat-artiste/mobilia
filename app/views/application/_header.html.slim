@@ -24,7 +24,8 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
         = image_tag company.logo, class: 'w-20 rounded-full mb-1 mx-auto'
 
     = link_to 'Véhicules', vehicles_path, class: ('active' if params[:controller] == 'vehicles')
-    = link_to 'Planning', daily_quests_path, class: ('active' if params[:controller] == 'daily_quests' || params[:controller] == 'daily_quests/transporters/steps')
+    = link_to 'Planning', daily_quests_path,
+              class: ('active' if params[:controller].include?('daily_quests'))
 
     - if allowed_to?(:update?, current_user, with: ProfilePolicy)
       = link_to 'Mon profil', me_profile_path, class: 'md:hidden'

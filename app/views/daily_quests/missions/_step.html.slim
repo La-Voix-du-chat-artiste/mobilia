@@ -1,0 +1,8 @@
+.row.p-2.cursor-pointer.space-y-2 class="!mb-0" data-index=step_counter data-action="mouseover->steps#highlight mouseout->steps#unhighlight"
+  = render 'daily_quests/steps/label', step: step
+
+  p.text-sm= step.title
+
+  = render 'daily_quests/steps/metadata', step: step
+
+  .text-sm.text-gray-400== step.description

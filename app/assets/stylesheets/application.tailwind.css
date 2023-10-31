@@ -21,6 +21,10 @@
 
 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 header h1, h2 {
   @apply dark:text-white;
 }
@@ -225,11 +229,11 @@ input.boolean, input.check_boxes {
 /* Flash */
 
 .flash-notice {
-  @apply border text-green-500 bg-green-50 border-green-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
+  @apply border text-green-500 bg-green-50 border-green-500 p-4 rounded-lg text-sm dark:bg-gray-800 dark:text-green-400;
 }
 
 .flash-alert {
-  @apply border text-red-500 bg-red-50 border-red-500 p-2 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
+  @apply border text-red-500 bg-red-50 border-red-500 p-4 rounded-lg text-sm dark:bg-gray-800 dark:text-red-400;
 }
 
 /* Progress bar */
