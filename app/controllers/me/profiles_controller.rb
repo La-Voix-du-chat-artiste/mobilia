@@ -30,7 +30,7 @@ module Me
 
     def user_params
       params.require(:user).permit(
-        :first_name, :last_name, :email, :photo, :remove_photo
+        :first_name, :last_name, :email, :phone, :photo, :remove_photo
       )
     end
   end
