@@ -28,14 +28,10 @@ class Step < ApplicationRecord
 
   has_rich_text :description
 
-  # scope :by_position, -> { order(:position) }
   default_scope -> { order(:started_at) }
   scope :single, -> { where.missing(:transporter) }
 
   before_save :generate_route, if: ->(step) { step.route.blank? }
-  # before_save :set_role, if: ->(step) { step.route.present? }
-
-  # validates :title, presence: true
 
   def self.routing(departure_address:, arrival_address:, overview: 'false', geometries: 'polyline')
     coords_string = "#{departure_address.longitude},#{departure_address.latitude};#{arrival_address.longitude},#{arrival_address.latitude}"
@@ -186,14 +182,14 @@ class Step < ApplicationRecord
   end
 
   def broadcast_pending_placement
-    broadcast_replace_to :steps,
+    broadcast_replace_to [mission.daily_quest.company, :steps],
                          target: "mission_step_#{id}",
                          partial: 'daily_quests/step',
                          locals: { pending_placement: true }
   end
 
   def broadcast_remove_from_unassigned_bucket
-    broadcast_remove_to :steps,
+    broadcast_remove_to [mission.daily_quest.company, :steps],
                         target: "mission_step_#{id}"
   end
 

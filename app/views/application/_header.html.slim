@@ -1,6 +1,6 @@
 header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
   .flex.items-center.justify-center.gap-6.md:hidden.px-3.py-2.border-b.relative.z-20.bg-white/75.dark:bg-slate-700.dark:border-gray-600
-    = link_to 'Carte du jour', root_path, class: 'btn-show'
+    = link_to 'Carte du jour', root_path, class: 'panel-success'
 
     = link_to root_path do
       - if company.logo.attached?
@@ -13,34 +13,44 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
       svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
         path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"
 
-  nav#menu.hidden.flex.md:flex.flex-col.md:flex-row.items-center.justify-center.gap-3.md:gap-5.py-3.absolute.left-0.w-full.md:relative.border-b.bg-white.z-50.dark:bg-slate-700.lg:dark:bg-slate-700/75.dark:text-white.dark:border-gray-600 role="navigation"
-    = link_to 'Carte', root_path, class: ('active' if params[:controller] == 'homes')
-    = link_to 'Clients', customers_path, class: ('active' if params[:controller] == 'customers')
-    = link_to 'Lieux', places_path, class: ('active' if params[:controller] == 'places')
-    = link_to Transporter.model_name.human.pluralize.capitalize, transporters_path, class: ('active' if params[:controller] == 'transporters')
+  nav#menu.hidden.flex.md:flex.flex-col.md:flex-row.items-center.justify-center.gap-0.md:gap-5.md:py-3.absolute.left-0.w-full.md:relative.border-b.bg-white.z-50.dark:bg-slate-700.lg:dark:bg-slate-700/75.dark:text-white.dark:border-gray-600.divide-y.lg:divide-y-0.dark:divide-gray-600 role="navigation"
+    - menu_item = 'py-3 w-full text-center lg:w-auto lg:text-left'
+
+    = link_to 'Carte', root_path, class: "#{menu_item} #{'active' if params[:controller] == 'homes'}"
+    = link_to 'Clients', customers_path, class: "#{menu_item} #{'active' if params[:controller] == 'customers'}"
+    = link_to 'Lieux', places_path, class: "#{menu_item} #{'active' if params[:controller] == 'places'}"
+    = link_to Transporter.model_name.human.pluralize.capitalize, transporters_path, class: "#{menu_item} #{'active' if params[:controller] == 'transporters'}"
 
     - if company.logo.attached?
       = link_to root_path, class: 'hidden md:block text-center text-sm' do
         = image_tag company.logo, class: 'w-20 rounded-full mb-1 mx-auto'
 
-    = link_to 'Véhicules', vehicles_path, class: ('active' if params[:controller] == 'vehicles')
+    = link_to 'Véhicules',
+              vehicles_path,
+              class: "#{menu_item} #{'active' if params[:controller] == 'vehicles'}"
+
     = link_to 'Planning', daily_quests_path,
-              class: ('active' if params[:controller].include?('daily_quests'))
+              class: "#{menu_item} #{'active' if params[:controller] == 'daily_quests'}"
 
     - if allowed_to?(:update?, current_user, with: ProfilePolicy)
-      = link_to 'Mon profil', me_profile_path, class: 'md:hidden'
+      = link_to 'Mon profil',
+                me_profile_path,
+                class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'profiles'}"
 
     - if allowed_to?(:update?, company)
-      = link_to 'Mon entreprise', edit_companies_path, class: 'md:hidden'
+      = link_to 'Mon entreprise',
+                edit_companies_path,
+                class: "#{menu_item} md:hidden #{'active' if params[:controller].include?('companies')}"
 
     = link_to 'Paramètres',
               settings_path,
-              class: ('active' if params[:controller] == 'settings'),
-              class: 'md:hidden'
+              class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'settings'}"
 
     = link_to sessions_path,
               data: { turbo_method: :delete },
-              class: 'md:hidden' do
+              class: "#{menu_item} md:hidden" do
+      - if current_user.photo.attached?
+        = image_tag url_for(current_user.photo), class: 'w-10 mx-auto rounded-full mb-1'
       span= current_user.full_name
       br
       span.underline Déconnexion

@@ -1,5 +1,5 @@
-div data-controller="global-map" data-global-map-customers-url-value=daily_customers_path(date: params[:date]) data-global-map-places-url-value=daily_places_path(date: params[:date]) data-global-map-transporters-url-value=daily_transporters_path(date: params[:date]) data-global-map-refresh-transporters-value=@refresh.to_s data-global-map-refresh-transporters-delay-value=(@refresh_map_interval.seconds.to_i * 1000 if @refresh) data-global-map-latitude-value=company.setting.address&.latitude data-global-map-longitude-value=company.setting.address&.longitude
-  #map.w-screen.h-screen.absolute.inset-0 data-global-map-target="map"
+div data-controller="global-map" data-global-map-customers-url-value=daily_customers_path(date: params[:date]) data-global-map-places-url-value=daily_places_path(date: params[:date]) data-global-map-transporters-url-value=daily_transporters_path(date: params[:date]) data-global-map-refresh-transporters-value=@refresh.to_s data-global-map-refresh-transporters-delay-value=(@refresh_map_interval.seconds.to_i * 1000 if @refresh) data-global-map-latitude-value=company.setting.address&.latitude data-global-map-longitude-value=company.setting.address&.longitude data-global-map-gesture-handling-value=options.map_gesture_handling.to_s
+  #map.h-screen.w-screen.fixed data-global-map-target="map"
 
   section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20.dark:bg-gray-700.dark:text-white.dark:border-gray-600
     - date = params[:date] ? params[:date].to_date : Date.current
@@ -25,5 +25,3 @@ div data-controller="global-map" data-global-map-customers-url-value=daily_custo
         = link_to "Voir demain (#{l(date.tomorrow, format: :complete_slash)}) >>", root_path(date: Date.tomorrow), class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
       - else
         = link_to "<< Voir aujourd'hui (#{l(date.yesterday, format: :complete_slash)})", root_path, class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
-
-= turbo_frame_tag :marker_details, class: 'absolute right-0 bottom-0 lg:bottom-20 lg:max-w-[350px] z-20'

@@ -27,6 +27,7 @@ fr:
       setting:
         options:
           map_refresh_interval: Interval de rafraîchissement de la carte
+          map_gesture_handling: Désactive le scroll sur la carte
           theme: Thème
           delta_jam: Delta embouteillage
           delta_loading: Delta de chargement/déchargement
@@ -100,6 +101,7 @@ fr:
       setting:
         options:
           map_refresh_interval: Interval de rafraîchissement de la position des chauffeurs (en secondes)
+          map_gesture_handling: Si coché, le scroll sera désactivé par défaut sur la carte. Il faudra utiliser une touche du clavier (bureau) ou deux doigts (mobile) pour intéragir avec la carte.
           theme: Thème du site
           delta_jam: Temps à prendre en compte par l'algorithme pour anticiper d'éventuels embouteillages (en minutes)
           delta_loading: Temps à prendre en compte pour le chargement / déchargement des personnes en fauteuil roulant (en minutes)

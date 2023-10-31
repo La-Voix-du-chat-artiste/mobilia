@@ -5,6 +5,7 @@ import 'leaflet-gesture-handling'
 export default class extends ApplicationController {
   static targets = ['map']
   static values = {
+    gestureHandling: { type: Boolean, default: true },
     customersUrl: String,
     placesUrl: String,
     transportersUrl: String,
@@ -41,7 +42,7 @@ export default class extends ApplicationController {
     }
 
     this.map = L.map(this.mapTarget, {
-      gestureHandling: false,
+      gestureHandling: this.gestureHandlingValue,
       attributionControl: false,
       zoomControl: false
     })

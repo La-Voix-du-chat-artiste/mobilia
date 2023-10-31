@@ -6,12 +6,13 @@ import 'leaflet-gesture-handling'
 
 export default class extends Controller {
   static values = {
+    gestureHandling: { type: Boolean, default: true },
     steps: Array
   }
 
   connect() {
     this.map = L.map(this.element, {
-      gestureHandling: false,
+      gestureHandling: this.gestureHandlingValue,
       attributionControl: false
     })
 

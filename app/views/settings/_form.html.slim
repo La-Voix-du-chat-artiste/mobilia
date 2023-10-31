@@ -20,24 +20,23 @@
     .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
       = ff.input :map_refresh_interval,
                  collection: SettingsOption::REFRESH_INTERVAL,
-                 include_blank: false,
-                 wrapper_html: { class: 'mb-3' }
+                 include_blank: false
 
-      = ff.input :delta_jam,
-                  wrapper_html: { class: 'mb-3' }
+      = ff.input :delta_jam
+      = ff.input :delta_loading
 
-      = ff.input :delta_loading,
-                  wrapper_html: { class: 'mb-3' }
-
+    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
       = ff.input :theme,
                  collection: settings_theme_select_options,
                  include_blank: false,
-                 wrapper_html: { class: 'mb-3' }
+                 wrapper_html: { class: 'w-full' }
+
+      = ff.input :map_gesture_handling
 
     .flex.flex-col.lg:flex-row.items-start.justify-between.gap-5
-      = ff.input :enable_customers_map, as: :boolean
-      = ff.input :enable_places_map, as: :boolean
-      = ff.input :enable_transporters_map, as: :boolean
-      = ff.input :show_help, as: :boolean
+      = ff.input :enable_customers_map
+      = ff.input :enable_places_map
+      = ff.input :enable_transporters_map
+      = ff.input :show_help
 
   = f.button :submit, class: 'mt-6'

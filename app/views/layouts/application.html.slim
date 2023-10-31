@@ -18,16 +18,21 @@ html class=options.theme
     = javascript_importmap_tags
 
   body class="dark:bg-slate-800"
-    main.mx-auto.px-5.mb-8 class=('container' unless params[:controller].include?('daily_quests'))
-      .mb-6= render 'header'
+    .mb-6= render 'header'
 
+    main.mx-auto.px-5.mb-20 class=('container' unless params[:controller].include?('daily_quests'))
+
+      / TODO: Find a way to broadcast in a stream scoped to current company
+      / = turbo_stream_from [company, :flash]
       = turbo_stream_from :flash
       #flashes= render 'flashes'
 
       = yield
 
       / Workaround that refresh page after optimze steps job has ended
-      = turbo_stream_from :page_reload
+      = turbo_stream_from [company, :page_reload]
       #page_reload
 
       = render 'turbo_confirm'
+
+    = render 'footer'

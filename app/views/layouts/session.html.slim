@@ -13,7 +13,9 @@ html.dark
     = javascript_importmap_tags
 
   body.h-screen.dark:bg-slate-800
-    main.md:w-2/3.lg:w-2/5.mx-auto.p-6
+    main.md:w-2/3.lg:w-2/5.mx-auto.p-6.lg:mb-20
       #flashes= render 'flashes'
 
       = yield
+
+    = render 'footer'
