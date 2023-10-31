@@ -1,0 +1,27 @@
+/* Buttons */
+
+.btn-base {
+  @apply inline-flex items-center px-4 py-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:outline-none text-white;
+}
+
+@layer components {
+  .btn-add {
+    @apply btn-base bg-green-700 hover:bg-green-800 focus:ring-green-300;
+  }
+
+  .btn-show {
+    @apply btn-base bg-blue-700 px-4 py-2 hover:bg-blue-800 focus:ring-blue-300;
+  }
+
+  .btn-edit {
+    @apply btn-base bg-orange-700 hover:bg-orange-800 focus:ring-orange-300;
+  }
+
+  .btn-destroy {
+    @apply btn-base bg-red-700 hover:bg-red-800 focus:ring-red-300;
+  }
+
+  .btn-back {
+    @apply btn-base bg-gray-200 !text-black hover:bg-gray-300 focus:ring-gray-300 dark:!text-white dark:bg-gray-700 dark:hover:bg-gray-600;
+  }
+}

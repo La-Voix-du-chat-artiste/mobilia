@@ -1,0 +1,9 @@
+/* Map */
+
+#map {
+  @apply z-[10] rounded-lg;
+}
+
+.map {
+  @apply h-[70vh] lg:h-screen;
+}

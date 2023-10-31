@@ -1,0 +1,41 @@
+/* Leaflet */
+
+path.leaflet-interactive {
+  @apply transition-all;
+}
+
+path.leaflet-interactive:hover,
+path.leaflet-interactive.active {
+  @apply stroke-[5px] stroke-[#333333] opacity-100;
+}
+
+.leaflet-popup-content {
+  @apply !m-0 !p-2 rounded-lg;
+}
+
+.leaflet-popup-content img {
+  @apply hover:scale-105 transition-transform;
+}
+
+.leaflet-popup-content p {
+  @apply !m-0;
+}
+
+.leaflet-popup-content p:not(:last-child) {
+  @apply !mb-1;
+}
+
+.leaflet-popup-content-wrapper {
+  @apply dark:bg-slate-700/[0.95] dark:text-white;
+}
+
+.leaflet-popup-tip {
+  @apply dark:bg-slate-700/[0.95];
+}
+
+.dark .leaflet-layer,
+.dark .leaflet-control-zoom-in,
+.dark .leaflet-control-zoom-out,
+.dark .leaflet-control-attribution {
+  filter: invert(1) hue-rotate(180deg);
+}
