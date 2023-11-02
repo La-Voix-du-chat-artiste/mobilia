@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   end
 
   resources :customers do
-    get :search
     member do
       delete :archive
     end
@@ -33,6 +32,7 @@ Rails.application.routes.draw do
       get :daily
     end
   end
+
   resources :transporters do
     collection do
       get :daily
@@ -58,7 +58,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :transporters do
+      resources :transporters, only: [] do
         collection do
           post :send_all_plannings
         end
