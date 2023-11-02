@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
 
   enum kind: { walker: 0, wheelchair: 1, wheelchair_auto: 2 }, _default: :wheelchair
 
+  normalizes :email, with: -> { _1.strip.downcase }
+
   belongs_to :company
   belongs_to :favorite_trip_transporter, class_name: 'Transporter', optional: true
   belongs_to :favorite_trip_back_transporter, class_name: 'Transporter', optional: true

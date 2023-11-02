@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   enum role: { standard: 0, admin: 1, super_admin: 2 }, _default: :standard
 
+  normalizes :email, with: -> { _1.strip.downcase }
+
   attr_accessor :remove_photo
 
   belongs_to :company

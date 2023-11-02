@@ -1,6 +1,8 @@
 class Place < ApplicationRecord
   include Archivable
 
+  normalizes :email, with: -> { _1.strip.downcase }
+
   belongs_to :company
   has_one :address, as: :addressable, dependent: :destroy
   has_many :missions, dependent: :destroy
