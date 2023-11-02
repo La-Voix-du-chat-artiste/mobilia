@@ -2,7 +2,7 @@
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-  .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
+  .space-y-5
     = f.simple_fields_for :address do |ff|
       = ff.input :label,
                  input_html: { \
@@ -16,27 +16,29 @@
                  prompt: 'Chercher une adresse',
                  include_blank: false
 
-  = f.simple_fields_for :options, f.object.options do |ff|
-    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
-      = ff.input :map_refresh_interval,
-                 collection: SettingsOption::REFRESH_INTERVAL,
-                 include_blank: false
+    = f.simple_fields_for :options, f.object.options do |ff|
+      .space-y-5
+        .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
+          = ff.input :map_refresh_interval,
+                     collection: SettingsOption::REFRESH_INTERVAL,
+                     include_blank: false
 
-      = ff.input :delta_jam
-      = ff.input :delta_loading
+          = ff.input :delta_jam
+          = ff.input :delta_loading
 
-    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5.mb-6
-      = ff.input :theme,
-                 collection: settings_theme_select_options,
-                 include_blank: false,
-                 wrapper_html: { class: 'w-full' }
+        .flex.flex-col.lg:flex-row.items-center.justify-between.gap-5
+          = ff.input :theme,
+                     collection: settings_theme_select_options,
+                     include_blank: false,
+                     wrapper_html: { class: 'w-full' }
 
-      = ff.input :map_gesture_handling
+          = ff.input :map_gesture_handling
+          = ff.input :big_screen_planning_show_all_transporters
 
-    .flex.flex-col.lg:flex-row.items-start.justify-between.gap-5
-      = ff.input :enable_customers_map
-      = ff.input :enable_places_map
-      = ff.input :enable_transporters_map
-      = ff.input :show_help
+        .flex.flex-col.lg:flex-row.items-start.justify-between.gap-5
+          = ff.input :enable_customers_map
+          = ff.input :enable_places_map
+          = ff.input :enable_transporters_map
+          = ff.input :show_help
 
   = f.button :submit, class: 'mt-6'

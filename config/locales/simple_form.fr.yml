@@ -35,6 +35,7 @@ fr:
           enable_places_map: Activer la carte des lieux ?
           enable_transporters_map: Activer la carte des chauffeurs ?
           show_help: Afficher les explications ?
+          big_screen_planning_show_all_transporters: Afficher tous les chauffeurs en même temps sur le planning ?
 
       user:
         remove_photo: Supprimer la photo ?
@@ -109,6 +110,7 @@ fr:
           enable_places_map: Si coché, une carte des lieux sera affiché sur la page lieux (n'affecte pas la carte globale)
           enable_transporters_map: Si coché, une carte des chauffeurs sera affiché sur la page chauffeurs (n'affecte pas la carte globale)
           show_help: Si coché, le bandeau d'aides et explications sera ouvert automatiquement sur les pages où il est présent. Autrement il sera fermé.
+          big_screen_planning_show_all_transporters: Si coché, tous les chauffeurs seront affichés ensemble sur la page planning du jour, sans scroll horizontal, sur les grands écrans (à partir de 1536px de largeur). A noter que si vous avez beaucoup de chauffeurs en même temps, la largeur des colonnes sera réduite pour que tout le monde puisse apparaître et l'expérience ne sera pas très bonne.
 
       address:
         label: Si vous renseignez une adresse, la carte sera automatiquement centrée dessus s'il n'y a pas de marqueur dessus.
