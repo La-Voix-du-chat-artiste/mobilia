@@ -23,6 +23,7 @@ class ApplicationJob < ActiveJob::Base
       :alert,
       message,
       stream: :flash,
-      disappear: false)
+      disappear: false
+    )
   end
 end
