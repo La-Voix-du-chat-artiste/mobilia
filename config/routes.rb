@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'homes#show'
 
+  mount GoodJob::Engine => 'good_job'
+
   resource :sessions, only: %i[new create destroy]
   resources :password_resets, only: %i[new create edit update]
 
