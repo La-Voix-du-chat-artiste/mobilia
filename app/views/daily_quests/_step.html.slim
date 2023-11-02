@@ -1,9 +1,20 @@
 - daily_quest = step.mission.daily_quest
 
-.step.handle.border.rounded-lg.p-2.hover:bg-gray-100.transition-all.hover:border-green-500.relative.dark:bg-slate-700/50.dark:text-white.place-self-start.w-full data-step-path=daily_quest_mission_step_path(daily_quest, step.mission, step) id=dom_id(step, 'mission') class=colour_for_step(step) class=('animate-pulse' if defined?(pending_placement) && pending_placement) class=('opacity-25 hover:opacity-100' if step.achieved?)
+.step.handle.border-2.dark:border-gray-600.rounded-lg.p-2.hover:bg-gray-100.transition-all.hover:border-green-500.hover:dark:bg-slate-700/75.relative.dark:bg-slate-700/50.dark:text-white.place-self-start.w-full data-step-path=daily_quest_mission_step_path(daily_quest, step.mission, step) id=dom_id(step, 'mission') class=colour_for_step(step) class=('animate-pulse' if defined?(pending_placement) && pending_placement) class=('opacity-25 hover:opacity-100' if step.achieved?)
   header.flex.items-start.justify-between.mb-2
     = render 'daily_quests/steps/label', step: step
-    = render 'daily_quests/step_menu', step: step
+
+    .flex.items-center.gap-2
+      - if step.single? && daily_quest.started_on >= Date.current
+        = link_to 'Placer',
+                  optimize_daily_quest_step_path(daily_quest, step),
+                  class: 'btn-add !py-1',
+                  data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement cette mission ?' }
+
+      = link_to 'X',
+                daily_quest_step_path(daily_quest, step),
+                data: { turbo_method: :delete, turbo_confirm: "Voulez-vous retirer cette mission pour la journée du #{l(daily_quest.started_on, format: :complete_slash)} ?" },
+                class: 'btn-destroy !py-1'
 
   details open=!step.achieved?
     summary.text-sm class=(step.achieved? ? 'cursor-pointer' : 'cursor-move')

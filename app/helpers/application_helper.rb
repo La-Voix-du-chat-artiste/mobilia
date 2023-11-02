@@ -99,13 +99,9 @@ module ApplicationHelper
 
   def colour_for_step(step)
     if step.conflict?
-      'border-2 border-orange-300 dark:border-orange-600'
+      'border-orange-300 dark:border-orange-600'
     elsif step.impossible?
-      'border-2 border-red-300 dark:border-red-600'
-    elsif step.customer_to_place?
-      'border-2 border-blue-400'
-    else
-      'border-2 border-blue-700'
+      'border-red-300 dark:border-red-600'
     end
   end
 end
