@@ -20,7 +20,8 @@ class GenerateQuestDemo < ApplicationService
 
       mission = Mission.new(
         drop_time: "#{delta}:00",
-        drop_duration: duration,
+        drop_duration_hours: duration / 60,
+        drop_duration_minutes: duration % 60,
         customer: client,
         place: @company.places.enabled.sample
       )

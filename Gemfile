@@ -10,6 +10,7 @@ gem 'bootsnap', require: false
 gem 'dotenv-rails'
 gem 'faker'
 gem 'geocoder'
+gem 'good_job'
 gem 'human_attributes'
 gem 'image_processing', '~> 1.2'
 gem 'importmap-rails'
