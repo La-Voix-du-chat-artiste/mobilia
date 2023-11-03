@@ -7,6 +7,7 @@ gem 'rails', '~> 7.1.0'
 gem 'action_policy'
 gem 'acts_as_list'
 gem 'bootsnap', require: false
+gem 'business'
 gem 'dotenv-rails'
 gem 'faker'
 gem 'geocoder'
