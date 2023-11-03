@@ -32,16 +32,19 @@
         = render 'daily_quests/steps/metadata', step: step
 
     footer.flex.items-center.justify-between.gap-1.mt-3
-      = link_to 'Détails',
-                daily_quest_mission_steps_path(daily_quest, mission),
-                data: { turbo_frame: :steps },
-                class: 'btn-show w-full'
+      - if allowed_to?(:show?, mission, context: { daily_quest: daily_quest })
+        = link_to 'Détails',
+                  daily_quest_mission_steps_path(daily_quest, mission),
+                  data: { turbo_frame: :steps },
+                  class: 'btn-show w-full'
 
-      = link_to 'Modifier',
-                edit_daily_quest_mission_path(daily_quest, mission),
-                class: 'btn-edit w-full'
+      - if allowed_to?(:update?, mission, context: { daily_quest: daily_quest })
+        = link_to 'Modifier',
+                  edit_daily_quest_mission_path(daily_quest, mission),
+                  class: 'btn-edit w-full'
 
-      = link_to 'Supprimer',
-                daily_quest_mission_path(daily_quest, mission),
-                class: 'btn-destroy w-full',
-                data: { turbo_method: :delete, turbo_confirm: 'Voulez-vous supprimer cette mission ?' }
+      - if allowed_to?(:destroy?, mission, context: { daily_quest: daily_quest })
+        = link_to 'Supprimer',
+                  daily_quest_mission_path(daily_quest, mission),
+                  class: 'btn-destroy w-full',
+                  data: { turbo_method: :delete, turbo_confirm: 'Voulez-vous supprimer cette mission ?' }

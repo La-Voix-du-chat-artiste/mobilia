@@ -14,6 +14,7 @@ class SettingsOption
   attribute :enable_transporters_map, :boolean, default: true
   attribute :show_help, :boolean, default: true
   attribute :big_screen_planning_show_all_transporters, :boolean, default: false
+  attribute :transporters_can_see_each_others, :boolean, default: true
 
   validates :map_refresh_interval, presence: true, inclusion: REFRESH_INTERVAL
   validates :map_gesture_handling, allow_blank: false, inclusion: [true, false]
@@ -33,4 +34,5 @@ class SettingsOption
   validates :enable_transporters_map, allow_blank: false, inclusion: [true, false]
   validates :show_help, allow_blank: false, inclusion: [true, false]
   validates :big_screen_planning_show_all_transporters, allow_blank: false, inclusion: [true, false]
+  validates :transporters_can_see_each_others, allow_blank: false, inclusion: [true, false]
 end

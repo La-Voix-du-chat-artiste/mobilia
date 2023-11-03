@@ -2,12 +2,17 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl= @transporter.full_name
 
   .flex.items-center.gap-2
-    = link_to '<< Retour aux transporteurs', transporters_path, class: 'btn-back'
-    = link_to 'Modifier', edit_transporter_path(@transporter), class: 'btn-edit'
-    = button_to 'Supprimer', @transporter,
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous supprimer ce transporteur ?' }
+    - if allowed_to?(:index?, Transporter)
+      = link_to '<< Retour aux transporteurs', transporters_path, class: 'btn-back'
+
+    - if allowed_to?(:update?, @transporter)
+      = link_to 'Modifier', edit_transporter_path(@transporter), class: 'btn-edit'
+
+    - if allowed_to?(:destroy?, @transporter)
+      = button_to 'Supprimer', @transporter,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce transporteur ?' }
 
 .row.p-4.mb-3 id=dom_id(@transporter)
   / - if @transporter.photo.attached?
@@ -57,8 +62,10 @@ section.mb-6.dark:text-white
   header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
     h2.text-xl Les présences / absences
 
-    = link_to 'Ajouter une présence / absence', new_transporter_absence_path(@transporter), class: 'btn-show'
-
+    - if allowed_to?(:create?, Absence, namespace: Transporters, context: { transporter: @transporter })
+      = link_to 'Ajouter une présence / absence',
+                new_transporter_absence_path(@transporter),
+                class: 'btn-show'
 
   - if @absences.any?
     == pagy_nav(@pagy) if @pagy.pages > 1

@@ -7,15 +7,21 @@ class DailyQuestsController < ApplicationController
 
   # @route GET /daily_quests (daily_quests)
   def index
+    authorize! DailyQuest
+
     # Planning redirect to tomorrow if todays missions are ended
     redirect_to daily_quests_path(date: Date.tomorrow) if params[:date].blank? && Time.current.hour >= MAX_HOUR
 
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
-    @transporters = company.transporters.all.with_attached_photo.includes(:absences).sort_by_courses_for(@daily_quest)
+
+    transporters = authorized_scope(company.transporters.includes(:absences))
+    @transporters = transporters.sort_by_courses_for(@daily_quest)
   end
 
   # @route GET /daily_quests/:id (daily_quest)
   def show
+    authorize! @daily_quest
+
     @mission = if params[:currentMissionId].present?
       @daily_quest.missions.find(params[:currentMissionId])
     else
@@ -25,6 +31,8 @@ class DailyQuestsController < ApplicationController
 
   # @route POST /daily_quests/:id/optimize (optimize_daily_quest)
   def optimize
+    authorize! @daily_quest
+
     steps = @daily_quest.missions.map(&:steps).flatten.select(&:single?).compact
 
     OptimizerJob.perform_later(steps.map(&:id))
@@ -34,6 +42,8 @@ class DailyQuestsController < ApplicationController
 
   # @route POST /daily_quests/:id/duplicate_week (duplicate_week_daily_quest)
   def duplicate_week
+    authorize! @daily_quest
+
     DuplicateWeekJob.perform_later(@daily_quest)
 
     redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes.'
@@ -41,6 +51,8 @@ class DailyQuestsController < ApplicationController
 
   # @route POST /daily_quests/:id/reset (reset_daily_quest)
   def reset
+    authorize! @daily_quest
+
     ResetDailyQuest.call(@daily_quest)
 
     redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'Le planning du jour a bien été réinitialisé'

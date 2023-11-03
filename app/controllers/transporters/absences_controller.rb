@@ -5,11 +5,15 @@ module Transporters
 
     # @route GET /transporters/:transporter_id/absences/new (new_transporter_absence)
     def new
+      authorize! Absence, context: { transporter: @transporter }
+
       @absence = @transporter.absences.new
     end
 
     # @route POST /transporters/:transporter_id/absences (transporter_absences)
     def create
+      authorize! Absence, context: { transporter: @transporter }
+
       @absence = @transporter.absences.new(absence_params)
 
       respond_to do |format|
@@ -23,11 +27,14 @@ module Transporters
 
     # @route GET /transporters/:transporter_id/absences/:id/edit (edit_transporter_absence)
     def edit
+      authorize! @absence, context: { transporter: @transporter }
     end
 
     # @route PATCH /transporters/:transporter_id/absences/:id (transporter_absence)
     # @route PUT /transporters/:transporter_id/absences/:id (transporter_absence)
     def update
+      authorize! @absence, context: { transporter: @transporter }
+
       respond_to do |format|
         if @absence.update(absence_params)
           format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été modifiée" }
@@ -39,6 +46,8 @@ module Transporters
 
     # @route DELETE /transporters/:transporter_id/absences/:id (transporter_absence)
     def destroy
+      authorize! @absence, context: { transporter: @transporter }
+
       @absence.destroy
 
       respond_to do |format|

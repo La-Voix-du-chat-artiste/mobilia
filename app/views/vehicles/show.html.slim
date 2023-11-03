@@ -3,11 +3,15 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
   .flex.items-center.gap-2
     = link_to '<< Retour aux véhicules', vehicles_path, class: 'btn-back'
-    = link_to 'Modifier', edit_vehicle_path(@vehicle), class: 'btn-edit'
-    = button_to 'Supprimer', @vehicle,
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+
+    - if allowed_to?(:update?, @vehicle)
+      = link_to 'Modifier', edit_vehicle_path(@vehicle), class: 'btn-edit'
+
+    - if allowed_to?(:destroy?, @vehicle)
+      = button_to 'Supprimer', @vehicle,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
 
 .row.p-4 id=dom_id(@vehicle)
   - if @vehicle.photo.attached?

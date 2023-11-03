@@ -1,11 +1,13 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Lieux
 
-  = link_to 'Ajouter un lieu', new_place_path, class: 'btn-add'
+  - if allowed_to?(:create?, Place)
+    = link_to 'Ajouter un lieu', new_place_path, class: 'btn-add'
 
-details.panel-info.mb-5 open=options.show_help?
-  summary.cursor-pointer Explications à lire
-  p.mt-3 Les lieux représentent les différents endroits où les clients sont déposés. Ce peut-être un institut médical, un hôpital, une entreprise, ...
+- unless current_user.standard?
+  details.panel-info.mb-5 open=options.show_help?
+    summary.cursor-pointer Explications à lire
+    p.mt-3 Les lieux représentent les différents endroits où les clients sont déposés. Ce peut-être un institut médical, un hôpital, une entreprise, ...
 
 - if @places.any?
   = simple_form_for :search,
@@ -33,4 +35,6 @@ details.panel-info.mb-5 open=options.show_help?
 - else
   p.panel-warning.p-4
     | Il n'y a pas encore de lieux -
-    =< link_to 'Ajouter le premier', new_place_path, class: 'underline'
+
+    - if allowed_to?(:create?, Place)
+      =< link_to 'Ajouter le premier', new_place_path, class: 'underline'

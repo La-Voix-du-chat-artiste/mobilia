@@ -185,7 +185,10 @@ class Step < ApplicationRecord
     broadcast_replace_to [mission.daily_quest.company, :steps],
                          target: "mission_step_#{id}",
                          partial: 'daily_quests/step',
-                         locals: { pending_placement: true }
+                         locals: {
+                           pending_placement: true,
+                           current_user: nil
+                         }
   end
 
   def broadcast_remove_from_unassigned_bucket

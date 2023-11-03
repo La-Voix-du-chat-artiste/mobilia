@@ -2,5 +2,5 @@
   - if @customers.any?
     = render 'customers', customers: @customers, pagy: @pagy
   - else
-    .panel-info.mb-5
+    .panel-warning.mb-5
       p Il n'y a aucun client correspondant à cette recherche

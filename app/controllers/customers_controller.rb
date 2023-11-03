@@ -3,46 +3,35 @@ class CustomersController < ApplicationController
 
   # @route GET /customers (customers)
   def index
-    customers = company.customers.includes(:address).with_attached_photo.with_all_rich_text.order(created_at: :desc)
+    authorize! Customer
 
     query = params.dig(:search, :query)
-    customers = customers.by_query(query) if query.present?
-
     @archived = params[:archived].present? && params[:archived] == 'true'
 
-    respond_to do |format|
-      format.html do
-        customers = @archived ? customers.archived : customers.available
-        @pagy, @customers = pagy(customers)
-      end
+    customers = authorized_scope(
+      company.customers,
+      scope_options: { search_query: query, archived: @archived }
+    )
 
-      format.json { @customers = customers.available }
+    respond_to do |format|
+      format.json { @customers = customers }
+      format.html { @pagy, @customers = pagy(customers) }
       format.turbo_stream { @pagy, @customers = pagy(customers) }
-    end
-  end
-
-  # @route GET /customers/daily (daily_customers)
-  def daily
-    date = params[:date].presence || Date.current
-
-    @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
-    @steps = @daily_quest.steps.where('arrival_at > ?', Time.current - DailyQuest::WAITING_TIME.minutes)
-    @missions = @steps.map(&:mission)
-    @customers = @missions.map(&:customer).uniq.reject(&:archived?)
-
-    respond_to do |format|
-      format.json { render :index  }
     end
   end
 
   # @route GET /customers/new (new_customer)
   def new
+    authorize! Customer
+
     @customer = company.customers.new
     @customer.build_address
   end
 
   # @route POST /customers (customers)
   def create
+    authorize! Customer
+
     @customer = company.customers.new(customer_params)
 
     respond_to do |format|
@@ -60,16 +49,21 @@ class CustomersController < ApplicationController
 
   # @route GET /customers/:id (customer)
   def show
+    authorize! @customer
   end
 
   # @route GET /customers/:id/edit (edit_customer)
   def edit
+    authorize! @customer
+
     @customer.build_address if @customer.address.blank?
   end
 
   # @route PATCH /customers/:id (customer)
   # @route PUT /customers/:id (customer)
   def update
+    authorize! @customer
+
     respond_to do |format|
       if @customer.update(customer_params)
         format.html { redirect_to customer_path(@customer), notice: 'Le client a bien été mis à jour' }
@@ -85,6 +79,8 @@ class CustomersController < ApplicationController
 
   # @route DELETE /customers/:id (customer)
   def destroy
+    authorize! @customer
+
     @customer.destroy
 
     respond_to do |format|
@@ -95,6 +91,8 @@ class CustomersController < ApplicationController
 
   # @route DELETE /customers/:id/archive (archive_customer)
   def archive
+    authorize! @customer
+
     if @customer.available?
       @customer.archive!
       flash[:notice] = 'Le client a bien été archivé'
@@ -104,6 +102,22 @@ class CustomersController < ApplicationController
     end
 
     redirect_to customers_path
+  end
+
+  # @route GET /customers/daily (daily_customers)
+  def daily
+    authorize! Customer
+
+    date = params[:date].presence || Date.current
+
+    @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
+    @steps = @daily_quest.steps.where('arrival_at > ?', Time.current - DailyQuest::WAITING_TIME.minutes)
+    @missions = @steps.map(&:mission)
+    @customers = @missions.map(&:customer).uniq.reject(&:archived?)
+
+    respond_to do |format|
+      format.json { render :index }
+    end
   end
 
   private

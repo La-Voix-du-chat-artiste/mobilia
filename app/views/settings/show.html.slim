@@ -1,7 +1,8 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Paramètres
 
-  = link_to 'Modifier les paramètres', edit_settings_path, class: 'btn-add'
+  - if allowed_to?(:update?, @setting)
+    = link_to 'Modifier les paramètres', edit_settings_path, class: 'btn-add'
 
 .text-white.mb-3
   - if @setting.address

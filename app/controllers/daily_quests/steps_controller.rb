@@ -5,11 +5,14 @@ module DailyQuests
 
     # @route GET /daily_quests/:daily_quest_id/steps/:id/edit (edit_daily_quest_step)
     def edit
+      authorize! @step, context: { daily_quest: @daily_quest }
     end
 
     # @route PATCH /daily_quests/:daily_quest_id/steps/:id (daily_quest_step)
     # @route PUT /daily_quests/:daily_quest_id/steps/:id (daily_quest_step)
     def update
+      authorize! @step, context: { daily_quest: @daily_quest }
+
       if @step.update(step_params)
         render partial: 'daily_quests/step', locals: { step: @step }
       else
@@ -19,6 +22,8 @@ module DailyQuests
 
     # @route DELETE /daily_quests/:daily_quest_id/steps/:id (daily_quest_step)
     def destroy
+      authorize! @step, context: { daily_quest: @daily_quest }
+
       @step.destroy
 
       respond_to do |format|
@@ -31,6 +36,8 @@ module DailyQuests
 
     # @route POST /daily_quests/:daily_quest_id/steps/:id/optimize (optimize_daily_quest_step)
     def optimize
+      authorize! @step, context: { daily_quest: @daily_quest }
+
       Optimizer.call(@step)
 
       redirect_to daily_quests_path(date: @daily_quest.started_on)

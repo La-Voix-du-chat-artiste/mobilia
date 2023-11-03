@@ -6,18 +6,21 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
       | Clients disponibles
 
   .flex.items-center.gap-3
-    = link_to 'Ajouter un client', new_customer_path, class: 'btn-add'
+    - if allowed_to?(:create?, Customer)
+      = link_to 'Ajouter un client', new_customer_path, class: 'btn-add'
+
     - if @archived
       = link_to 'Clients disponibles', customers_path, class: 'btn-show'
     - else
       = link_to 'Clients archivés', customers_path(archived: true), class: 'btn-show'
 
-details.panel-info.mb-5 open=options.show_help?
-  summary.cursor-pointer Explications à lire
+- unless current_user.standard?
+  details.panel-info.mb-5 open=options.show_help?
+    summary.cursor-pointer Explications à lire
 
-  .mt-3
-    p Les clients représentent les personnes à transporter aux différents lieux.
-    p Vous pouvez renseigner autant de clients que nécessaires et utiliser la fonction de recherche pour filtrer les clients selon les critères.
+    .mt-3
+      p Les clients représentent les personnes à transporter aux différents lieux.
+      p Vous pouvez renseigner autant de clients que nécessaires et utiliser la fonction de recherche pour filtrer les clients selon les critères.
 
 - if @customers.any?
   = simple_form_for :search,
@@ -29,6 +32,7 @@ details.panel-info.mb-5 open=options.show_help?
                       controller: 'search', \
                       action: 'keyup->search#submit' \
                     } do |f|
+    = f.hidden_field :archived, value: @archived, name: :archived
     = f.input :query,
               label: false,
               placeholder: 'Rechercher un client par prénom, nom, téléphone ou adresse',
@@ -45,4 +49,6 @@ details.panel-info.mb-5 open=options.show_help?
 - else
   p.panel-warning.p-4
     | Il n'y a pas encore de clients -
-    =< link_to 'Ajouter le premier', new_customer_path, class: 'underline'
+
+    - if allowed_to?(:create?, Customer)
+      =< link_to 'Ajouter le premier', new_customer_path, class: 'underline'

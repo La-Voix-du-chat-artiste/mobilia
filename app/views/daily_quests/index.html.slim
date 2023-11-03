@@ -11,27 +11,7 @@ header.mb-3
 
       = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quests_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
-details.panel-info.mb-3 open=options.show_help?
-  summary.cursor-pointer Explications à lire
-
-  .mt-2
-    p Cette page permet d'assigner les différentes missions aux chauffeurs en activité pour la journée du #{l(@daily_quest.started_on, format: :complete_slash)}.
-    p.mb-3 Commencez par configurer la ou les mission(s) de transport de la journée en cliquant sur le bouton "Ajouter une mission".
-
-  .mb-3
-    p.mb-1.font-bold Une fois cette étape effectuée, vous aurez quatres possibilités:
-    ul.list-disc.list-inside
-      li Assigner manuellement par glisser/déposer une mission à un chauffeur
-      li Assigner manuellement en sélectionnant un chauffeur dans la liste déroulante
-      li Cliquer sur le bouton "Placer" pour laisser l'algorithme affecter cette mission au chauffeur le plus adapté
-      li Cliquer sur le bouton "Tout placer sur le planning" pour que l'algorithme répartisse automatiquement toutes les missions à tous les chauffeurs déterminés comme étant les plus adaptés
-
-  div
-    p.mb-1.font-bold Notes:
-    ul.list-disc.list-inside
-      li Vous pouvez toujours réaffecter des missions placées automatiquement par l'algorithme manuellement si des changements sont nécessaires. Un code couleur avertira d'un potentiel conflit de durée ou de distance.
-      li Renseigner de manière la plus précise possible les informations du véhicule, les absences des chauffeurs, les informations complémentaires des clients et des lieux permet à l'algorithme de créer un planning précis et de générer moins de stress pour les chauffeurs.
-      li Chaque chauffeur a automatiquement un PDF contenant toutes les missions de sa journée avec toutes les informations nécessaires intégrées dessus.
+= render 'instructions' unless current_user.standard?
 
 - if @transporters.any?(&:no_vehicle?)
   .panel-warning.mb-3
@@ -67,27 +47,28 @@ details.panel-info.mb-3 open=options.show_help?
               | )
 
 
-.w-full data-controller="sortable"
-  .border-2.border-dashed.border-yellow-600.p-2.rounded-lg.mb-6
-    .flex.flex-col.lg:flex-row.items-center.justify-between.gap-2.bg-yellow-600.text-white.rounded-lg.p-3
-      p ⚠️ Missions sans transporteur
+.w-full data-controller=('sortable' unless current_user.standard?)
+  - unless current_user.standard?
+    .border-2.border-dashed.border-yellow-600.p-2.rounded-lg.mb-6
+      .flex.flex-col.lg:flex-row.items-center.justify-between.gap-2.bg-yellow-600.text-white.rounded-lg.p-3
+        p ⚠️ Missions sans transporteur
 
-      - if @daily_quest.started_on >= Date.current
-        = link_to 'Tout placer sur le planning', optimize_daily_quest_path(@daily_quest), class: 'btn-edit', data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement toutes les missions ?' }
+        - if allowed_to?(:optimize, @daily_quest)
+          = link_to 'Tout placer sur le planning', optimize_daily_quest_path(@daily_quest), class: 'btn-edit', data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement toutes les missions ?' }
 
-    - steps = @daily_quest.steps.single
+      - steps = @daily_quest.steps.single
 
-    - if @daily_quest.steps.any? && steps.empty?
-      p.panel-success.mt-2
-        | Félicitations, vous avez assigné toutes les missions en attente !
-    - elsif @daily_quest.steps.blank?
-      p.panel-warning.mt-2
-        | Vous n'avez pas encore ajouté de missions -
-        =< link_to 'Ajouter une mission', daily_quest_missions_path(@daily_quest), class: 'underline'
+      - if @daily_quest.steps.any? && steps.empty?
+        p.panel-success.mt-2
+          | Félicitations, vous avez assigné toutes les missions en attente !
+      - elsif @daily_quest.steps.blank?
+        p.panel-warning.mt-2
+          | Vous n'avez pas encore ajouté de missions -
+          =< link_to 'Ajouter une mission', daily_quest_missions_path(@daily_quest), class: 'underline'
 
-    .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2.content-start class="min-h-[300px]" id="backlog"
-      - steps.includes(:transporter, mission: :daily_quest).each do |step|
-        = render 'step', step: step
+      .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2.content-start class="min-h-[300px]" id="backlog"
+        - steps.includes(:transporter, mission: :daily_quest).each do |step|
+          = render 'step', step: step
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.flex-nowrap.overflow-x-auto
     - transporters_count = 0
@@ -102,32 +83,4 @@ details.panel-info.mb-3 open=options.show_help?
     - @transporters.each do |transporter|
       - next if transporter.off?(@daily_quest.started_on)
 
-      .w-full.lg:flex-none.lg:w-1/3.lg:w-1/4.border-2.border-dashed.border-teal-500.p-2.rounded-lg class=("2xl:w-[#{@percentage}%]" if options.big_screen_planning_show_all_transporters?)
-        header.flex.justify-between.text-center.bg-gray-700.text-white.rounded-t-lg.p-2.items-center
-          .flex.items-center.gap-2
-            - if transporter.photo.attached?
-              = image_tag transporter.photo, class: 'w-10 rounded-full'
-              .text-left
-                p
-                  span.font-bold= transporter.full_name
-                  span.text-sm=< "[#{transporter.periods_for?(@daily_quest.started_on).join('h -> ')}h]"
-
-                - if transporter.vehicle.present?
-                  p.text-sm
-                    = "#{transporter.vehicle.name} / #{transporter.vehicle.number_plate}"
-        .flex.items-center.justify-center.gap-3.bg-gray-100.p-2.rounded-b-lg.dark:bg-slate-700/75.dark:text-white
-          = link_to 'Trajets du jour', daily_quest_transporter_steps_path(@daily_quest, transporter), class: 'text-sm underline'
-
-          = link_to daily_quest_transporter_steps_path(@daily_quest, transporter, format: :pdf), target: :_blank, title: 'Exporter en PDF' do
-            <svg class="w-6 h-6 hover:text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 18a.969.969 0 0 0 .933 1h12.134A.97.97 0 0 0 15 18M1 7V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2v5M6 1v4a1 1 0 0 1-1 1H1m0 9v-5h1.5a1.5 1.5 0 1 1 0 3H1m12 2v-5h2m-2 3h2m-8-3v5h1.375A1.626 1.626 0 0 0 10 13.375v-1.75A1.626 1.626 0 0 0 8.375 10H7Z"/>
-            </svg>
-
-          = link_to send_planning_daily_quest_transporter_path(@daily_quest, transporter), data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer le planning du jour à ce chauffeur par email ?' }, class: 'text-xs underline', title: 'Envoyer par email au chauffeur' do
-            <svg class="w-6 h-6 hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-              <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-              <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-            </svg>
-
-        .sortable_steps.space-y-2.mt-2 class="min-h-[300px]" data-transporter-id=transporter.id id=dom_id(transporter, 'mission')
-          = render 'transporter_missions', daily_quest: @daily_quest, transporter: transporter
+      = render 'transporter_column', daily_quest: @daily_quest, transporter: transporter, percentage: @percentage

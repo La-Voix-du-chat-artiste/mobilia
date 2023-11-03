@@ -3,16 +3,22 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
   .flex.items-center.gap-2
     = link_to '<< Retour aux clients', customers_path, class: 'btn-back'
-    = link_to 'Modifier', edit_customer_path(@customer), class: 'btn-edit'
-    = button_to (@customer.available? ? 'Archiver' : 'Désarchiver'),
-                archive_customer_path(@customer),
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
-    = button_to 'Supprimer', @customer,
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous supprimer ce client ?' }
+
+    - if allowed_to?(:update?, @customer)
+      = link_to 'Modifier', edit_customer_path(@customer), class: 'btn-edit'
+
+    - if allowed_to?(:archive?, @customer)
+      = button_to (@customer.available? ? 'Archiver' : 'Désarchiver'),
+                  archive_customer_path(@customer),
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
+
+    - if allowed_to?(:destroy?, @customer)
+      = button_to 'Supprimer', @customer,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer ce client ?' }
 
 .row.p-4 id=dom_id(@customer) class=('border-orange-500' if @customer.archived?)
   / - if @customer.photo.attached?

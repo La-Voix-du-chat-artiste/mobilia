@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  pg_fabelia:
+  pg_mobilia:
     image: postgres:16-alpine
     shm_size: 1g
     environment:

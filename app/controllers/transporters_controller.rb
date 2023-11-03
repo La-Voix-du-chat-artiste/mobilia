@@ -3,7 +3,9 @@ class TransportersController < ApplicationController
 
   # @route GET /transporters (transporters)
   def index
-    transporters = company.transporters.includes(:address, :vehicle).with_attached_photo.with_all_rich_text
+    authorize! Transporter
+
+    transporters = authorized_scope(company.transporters)
 
     respond_to do |format|
       format.html { @pagy, @transporters = pagy(transporters) }
@@ -11,8 +13,79 @@ class TransportersController < ApplicationController
     end
   end
 
+  # @route GET /transporters/new (new_transporter)
+  def new
+    authorize! Transporter
+
+    @transporter = company.transporters.new
+    @transporter.build_address
+  end
+
+  # @route POST /transporters (transporters)
+  def create
+    authorize! Transporter
+
+    @transporter = company.transporters.new(transporter_params)
+
+    respond_to do |format|
+      if @transporter.save
+        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été créé.' }
+        format.json { render :show, status: :created, location: @transporter }
+      else
+        @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
+
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @transporter.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # @route GET /transporters/:id (transporter)
+  def show
+    authorize! @transporter
+
+    @pagy, @absences = pagy(@transporter.absences.order(started_on: :desc))
+  end
+
+  # @route GET /transporters/:id/edit (edit_transporter)
+  def edit
+    authorize! @transporter
+
+    @transporter.build_address if @transporter.address.blank?
+  end
+
+  # @route PATCH /transporters/:id (transporter)
+  # @route PUT /transporters/:id (transporter)
+  def update
+    authorize! @transporter
+
+    respond_to do |format|
+      if @transporter.update(transporter_params)
+        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été mis à jour.' }
+      else
+        @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
+
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # @route DELETE /transporters/:id (transporter)
+  def destroy
+    authorize! @transporter
+
+    @transporter.destroy
+
+    respond_to do |format|
+      format.html { redirect_to transporters_url, notice: 'Le chauffeur a bien été supprimé.' }
+      format.json { head :no_content }
+    end
+  end
+
   # @route GET /transporters/daily (daily_transporters)
   def daily
+    authorize! Transporter
+
     date = params[:date].presence || Date.current
 
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
@@ -72,63 +145,6 @@ class TransportersController < ApplicationController
 
     respond_to do |format|
       format.json { render :index }
-    end
-  end
-
-  # @route GET /transporters/new (new_transporter)
-  def new
-    @transporter = company.transporters.new
-    @transporter.build_address
-  end
-
-  # @route POST /transporters (transporters)
-  def create
-    @transporter = company.transporters.new(transporter_params)
-
-    respond_to do |format|
-      if @transporter.save
-        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été créé.' }
-        format.json { render :show, status: :created, location: @transporter }
-      else
-        @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
-
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @transporter.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # @route GET /transporters/:id (transporter)
-  def show
-    @pagy, @absences = pagy(@transporter.absences.order(started_on: :desc))
-  end
-
-  # @route GET /transporters/:id/edit (edit_transporter)
-  def edit
-    @transporter.build_address if @transporter.address.blank?
-  end
-
-  # @route PATCH /transporters/:id (transporter)
-  # @route PUT /transporters/:id (transporter)
-  def update
-    respond_to do |format|
-      if @transporter.update(transporter_params)
-        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été mis à jour.' }
-      else
-        @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
-
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # @route DELETE /transporters/:id (transporter)
-  def destroy
-    @transporter.destroy
-
-    respond_to do |format|
-      format.html { redirect_to transporters_url, notice: 'Le chauffeur a bien été supprimé.' }
-      format.json { head :no_content }
     end
   end
 

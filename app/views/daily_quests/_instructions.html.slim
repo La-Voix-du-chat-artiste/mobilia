@@ -1,0 +1,21 @@
+details.panel-info.mb-3 open=options.show_help?
+  summary.cursor-pointer Explications à lire
+
+  .mt-2
+    p Cette page permet d'assigner les différentes missions aux chauffeurs en activité pour la journée spécifiée.
+    p.mb-3 Commencez par configurer la ou les mission(s) de transport de la journée en cliquant sur le bouton "Ajouter une mission".
+
+  .mb-3
+    p.mb-1.font-bold Une fois cette étape effectuée, vous aurez quatres possibilités:
+    ul.list-disc.list-inside
+      li Assigner manuellement par glisser/déposer une mission à un chauffeur
+      li Assigner manuellement en sélectionnant un chauffeur dans la liste déroulante
+      li Cliquer sur le bouton "Placer" pour laisser l'algorithme affecter cette mission au chauffeur le plus adapté
+      li Cliquer sur le bouton "Tout placer sur le planning" pour que l'algorithme répartisse automatiquement toutes les missions à tous les chauffeurs déterminés comme étant les plus adaptés
+
+  div
+    p.mb-1.font-bold Notes:
+    ul.list-disc.list-inside
+      li Vous pouvez toujours réaffecter des missions placées automatiquement par l'algorithme manuellement si des changements sont nécessaires. Un code couleur avertira d'un potentiel conflit de durée ou de distance.
+      li Renseigner de manière la plus précise possible les informations du véhicule, les absences des chauffeurs, les informations complémentaires des clients et des lieux permet à l'algorithme de créer un planning précis et de générer moins de stress pour les chauffeurs.
+      li Chaque chauffeur a automatiquement un PDF contenant toutes les missions de sa journée avec toutes les informations nécessaires intégrées dessus.

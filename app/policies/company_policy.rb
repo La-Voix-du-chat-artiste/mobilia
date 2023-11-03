@@ -1,5 +1,5 @@
 class CompanyPolicy < ApplicationPolicy
-  pre_check :allow_admins
+  pre_check :admin_up?
 
   def new?
     create?
@@ -14,6 +14,6 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def update?
-    true
+    user.company == record
   end
 end

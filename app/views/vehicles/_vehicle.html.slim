@@ -19,12 +19,15 @@ details.row id=dom_id(vehicle) class=('opacity-50' unless vehicle.enabled?)
             span.text-orange-500 ⚠️ Véhicule sans chauffeur
 
     .flex.items-center.gap-3
-      = link_to 'Fiche véhicule', vehicle_path(vehicle), class: 'btn-show'
-      = link_to 'Modifier', edit_vehicle_path(vehicle), class: 'btn-edit'
-      = button_to 'Supprimer', vehicle,
-                  class: 'btn-destroy',
-                  method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+      - if allowed_to?(:show?, vehicle)
+        = link_to 'Fiche véhicule', vehicle_path(vehicle), class: 'btn-show'
+      - if allowed_to?(:update?, vehicle)
+        = link_to 'Modifier', edit_vehicle_path(vehicle), class: 'btn-edit'
+      - if allowed_to?(:destroy?, vehicle)
+        = button_to 'Supprimer', vehicle,
+                    class: 'btn-destroy',
+                    method: :delete,
+                    data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
 
   .p-2.border-t.dark:border-gray-600
     p

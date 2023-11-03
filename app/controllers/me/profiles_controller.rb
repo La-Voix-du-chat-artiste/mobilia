@@ -29,8 +29,9 @@ module Me
     private
 
     def user_params
-      params.require(:user).permit(
-        :first_name, :last_name, :email, :phone, :photo, :remove_photo
+      params.require(:transporter).permit(
+        :first_name, :last_name, :email, :phone, :photo, :remove_photo,
+        address_attributes: %i[id label]
       )
     end
   end

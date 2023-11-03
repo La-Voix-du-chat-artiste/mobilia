@@ -6,6 +6,10 @@ module DailyQuests
 
       # @route GET /daily_quests/:daily_quest_id/transporters/:transporter_id/steps (daily_quest_transporter_steps)
       def index
+        authorize! @transporter,
+                   with: DailyQuests::Transporters::StepPolicy,
+                   context: { daily_quest: @daily_quest }
+
         @steps = @daily_quest.steps.with_all_rich_text.where(transporter: @transporter)
 
         respond_to do |format|

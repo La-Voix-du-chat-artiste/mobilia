@@ -1,31 +1,40 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
-  .flex.items-center.gap-2
+  .flex.items-center.gap-2.dark:text-white
     - if @transporter.photo.attached?
-      = image_tag(@transporter.photo, class: 'w-12 h-12 object-cover rounded-full')
-    .dark:text-white
-      .flex
-        p.italic.text-gray-500=< @transporter.full_name
-        = @transporter.periods_for?(@daily_quest.started_on)
+      = image_tag @transporter.photo, class: 'w-10 rounded-full'
+      .text-left
+        p
+          span.font-bold= @transporter.full_name
+          span.text-sm=< "[#{@transporter.periods_for?(@daily_quest.started_on).join('h -> ')}h]"
 
-      p= @daily_quest.title
+        - if @transporter.vehicle.present?
+          p.text-sm
+            = "#{@transporter.vehicle.name} / #{@transporter.vehicle.number_plate}"
 
   .flex.items-center.justify-between.gap-3
-    = link_to '<< Retour au planning',
-              daily_quests_path(date: @daily_quest.started_on),
-              class: 'btn-back'
-    = link_to 'Exporter en PDF', daily_quest_transporter_steps_path(@daily_quest, @transporter, format: :pdf), target: :_blank, class: 'btn-show'
-    = link_to 'Modifier', edit_daily_quest_path(@daily_quest), class: 'btn-edit'
-    = button_to 'Supprimer', @daily_quest,
-                class: 'btn-destroy',
-                method: :delete,
-                data: { turbo_confirm: 'Voulez-vous supprimer cette queête ?' }
+    - if allowed_to?(:index?, @daily_quest)
+      = link_to '<< Retour au planning',
+                daily_quests_path(date: @daily_quest.started_on),
+                class: 'btn-back'
+
+    - if allowed_to?(:index?, @transporter, with: DailyQuests::Transporters::StepPolicy, context: { daily_quest: @daily_quest })
+      = link_to 'Exporter en PDF',
+                daily_quest_transporter_steps_path(@daily_quest, @transporter, format: :pdf),
+                target: :_blank,
+                class: 'btn-show'
+
+    - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: @daily_quest })
+      = link_to 'Gérer les missions',
+                daily_quest_missions_path(@daily_quest),
+                class: 'btn-edit'
+
+    - if allowed_to?(:destroy?, @daily_quest)
+      = button_to 'Supprimer', @daily_quest,
+                  class: 'btn-destroy',
+                  method: :delete,
+                  data: { turbo_confirm: 'Voulez-vous supprimer cette queête ?' }
 
 div id=dom_id(@daily_quest)
   .flex.flex-col.lg:flex-row.justify-between.gap-3
-    .lg:w-1/2
-      h2.text-xl.mb-3 Etapes
-
-      = turbo_frame_tag :steps do
-        = render 'daily_quests/missions/steps', steps: @steps
-
-    = render 'daily_quests/transporters/steps/map', steps: @steps
+    .lg:w-1/4= render 'daily_quests/missions/steps', steps: @steps
+    .lg:w-3/4= render 'daily_quests/transporters/steps/map', steps: @steps
