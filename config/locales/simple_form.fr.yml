@@ -73,11 +73,11 @@ fr:
           label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
 
       transporter:
-        details: Informations complémentaires à ajouter sur le transporteur
+        details: Informations complémentaires à ajouter sur le chauffeur
         phone: "Téléphone au format 10 chiffres sans espace (ex: 0123456789)"
         address:
           label: "Note: Les adresses correspondantes à la valeur saisie dans le champs s'affichent et s'actualisent automatiquement."
-        vehicle: Quel véhicule est assigné à ce transporteur ?
+        vehicle: Quel véhicule est assigné à ce chauffeur ?
 
       mission:
         customer: Le client à aller chercher

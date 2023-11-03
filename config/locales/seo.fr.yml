@@ -1,0 +1,101 @@
+fr:
+  seo:
+    default:
+      title: Planification de transport et de routage pour les flottes et les individus.
+      description: Mobilia est la nouvelle génération de plan de transport et de routage pour les flottes et les individus.
+
+    companies:
+      new:
+        title: Création de l'entreprise
+      edit:
+        title: Modification de l'entreprise
+
+    customers:
+      index:
+        title: Les clients
+      new:
+        title: Création d'un client
+      show:
+        title: Détails du client
+      edit:
+        title: Modification d'un client
+
+    daily_quests:
+      index:
+        title: Planning du jour
+      show:
+        title: Vue d'ensemble des missions du jour
+
+    daily_quests/missions:
+      index:
+        title: Gestion des missions
+
+    daily_quests/transporters/steps:
+      index:
+        title: Détails des missions chauffeur du jour
+
+    homes:
+      show:
+        title: Carte des missions du jour
+
+    me/profiles:
+      show:
+        title: Mon profil
+      edit:
+        title: Modifier mon profil
+
+    password_resets:
+      new:
+        title: Réinitialisation du mot de passe
+      edit:
+        title: Réinitialisation du mot de passe
+
+    places:
+      index:
+        title: Les lieux
+      new:
+        title: Création d'un lieu
+      show:
+        title: Détails du lieu
+      edit:
+        title: Modification d'un lieu
+
+    sessions:
+      new:
+        title: Connexion
+
+    settings:
+      show:
+        title: Les paramètres
+      edit:
+        title: Modifier les paramètres
+
+    transporters:
+      index:
+        title: Les chauffeurs
+      new:
+        title: Création d'un chauffeur
+      show:
+        title: Détails du chauffeur
+      edit:
+        title: Modification d'un chauffeur
+
+    transporters/absences:
+      new:
+        title: Ajout d'une absence
+      edit:
+        title: Modification d'une absence
+
+    users:
+      new:
+        title: 'Création du compte administrateur'
+
+    vehicles:
+      index:
+        title: Les véhicules
+      new:
+        title: Création d'un véhicule
+      show:
+        title: Détails du véhicule
+      edit:
+        title: Modification d'un véhicule

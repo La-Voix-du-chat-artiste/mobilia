@@ -17,6 +17,8 @@ class User < ApplicationRecord
   encrypts :first_name, :last_name, :phone
   encrypts :email, deterministic: true, downcase: true
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :email, presence: true,
                     format: { with: EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }

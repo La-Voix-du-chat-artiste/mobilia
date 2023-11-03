@@ -1,7 +1,11 @@
 doctype html
 html class=options.theme
   head
-    title= "#{company.name} | Mobilia"
+    = display_meta_tags site: 'Mobilia',
+                        reverse: true,
+                        title: title_for_page,
+                        description: description_for_page
+
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
