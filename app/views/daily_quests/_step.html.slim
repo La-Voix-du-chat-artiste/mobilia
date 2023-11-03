@@ -50,7 +50,8 @@
                         wrapper_html: { class: 'w-full' }
 
     - if step.achieved?
-      .panel-success class="!text-xs" Mission terminée 🎉 (déterminé algorithmiquement)
+      .panel-success.text-center.cursor-help class="!text-xs" title="Déterminé algorithmiquement"
+        | Mission terminée 🎉
     - else
       - if current_user && allowed_to?(:update?, step, namespace: DailyQuests, context: { daily_quest: daily_quest })
         = turbo_frame_tag dom_id(step) do
