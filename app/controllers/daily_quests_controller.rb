@@ -13,12 +13,14 @@ class DailyQuestsController < ApplicationController
     unless calendar.business_day?(date)
       next_business_day = calendar.next_business_day(date)
       redirect_to daily_quests_path(date: next_business_day)
+      return
     end
 
     # Planning redirect to tomorrow if todays missions are ended
     if params[:date].blank? && Time.current.hour >= MAX_HOUR
       next_business_day = calendar.next_business_day(Date.current)
       redirect_to daily_quests_path(date: next_business_day)
+      return
     end
 
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
