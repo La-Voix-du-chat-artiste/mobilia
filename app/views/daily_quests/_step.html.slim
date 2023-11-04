@@ -18,7 +18,7 @@
                 class: 'btn-destroy !text-xs !px-2 !py-1'
 
   details open=!step.achieved?
-    summary.text-sm class=(step.achieved? || current_user.standard? ? 'cursor-pointer' : 'cursor-move')
+    summary.text-sm class=(step.achieved? || current_user&.standard? ? 'cursor-pointer' : 'cursor-move')
       .text-center
         .flex.items-center.justify-center.gap-2.mb-2
           p.panel-success= step.started_at ? l(step.started_at.round, format: '%Hh%M') : "XXX"

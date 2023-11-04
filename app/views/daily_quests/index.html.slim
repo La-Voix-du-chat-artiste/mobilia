@@ -57,7 +57,7 @@ header.mb-3
       .flex.flex-col.lg:flex-row.items-center.justify-between.gap-2.bg-yellow-600.text-white.rounded-lg.p-3
         p ⚠️ Missions sans chauffeur
 
-        - if allowed_to?(:optimize, @daily_quest)
+        - if allowed_to?(:optimize?, @daily_quest)
           = link_to 'Tout placer sur le planning', optimize_daily_quest_path(@daily_quest), class: 'btn-edit', data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement toutes les missions ?' }
 
       - steps = @daily_quest.steps.single

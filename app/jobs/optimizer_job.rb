@@ -36,7 +36,8 @@ class OptimizerJob < ApplicationJob
         partial: 'flash',
         locals: {
           flash_type: 'notice',
-          message: message
+          message: "<div class=\"w-full\">#{message}</div>",
+          disappear: false
         }
       )
 
