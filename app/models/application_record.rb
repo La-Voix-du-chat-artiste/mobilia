@@ -6,14 +6,15 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   # :nocov:
-  def self.broadcast_flash(type, message, stream: :flash)
+  def self.broadcast_flash(type, message, stream: :flash, disappear: false)
     Turbo::StreamsChannel.broadcast_prepend_to(
       stream,
       target: 'flashes',
       partial: 'flash',
       locals: {
         flash_type: type.to_s,
-        message: message
+        message: message,
+        disappear: disappear
       }
     )
   end

@@ -23,5 +23,8 @@ html class=options.theme
   body.dark:bg-slate-800
     = render 'header', fixed: true
 
+    #flashes.absolute.right-3.z-50
+      = render 'flashes', disappear: true
+
     main
       = yield

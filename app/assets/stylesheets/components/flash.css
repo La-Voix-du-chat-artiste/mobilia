@@ -11,3 +11,37 @@
 .flash-alert {
   @apply flash-base text-red-500 bg-red-50 border-red-500 dark:bg-gray-800 dark:text-red-400;
 }
+
+.flash-notice button.close {
+  @apply text-green-500 focus:ring-green-400 hover:bg-green-200 dark:hover:bg-gray-700;
+}
+
+.flash-alert button.close {
+  @apply text-red-500 focus:ring-red-400 hover:bg-red-200 dark:hover:bg-gray-700;
+}
+
+.appear-then-fade {
+  animation: appear-then-fade 10s both;
+}
+
+@keyframes appear-then-fade {
+  0%, 100% {
+    opacity: 0
+  }
+  5%, 60% {
+    opacity: 1
+  }
+}
+
+.fade-out {
+  animation: fade-out 1s both;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
+}

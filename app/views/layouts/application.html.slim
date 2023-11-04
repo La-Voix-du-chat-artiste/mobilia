@@ -29,7 +29,7 @@ html class=options.theme
       / TODO: Find a way to broadcast in a stream scoped to current company
       = turbo_stream_from [company, :flash]
       = turbo_stream_from :flash
-      #flashes= render 'flashes'
+      #flashes= render 'flashes', disappear: false
 
       = yield
 
