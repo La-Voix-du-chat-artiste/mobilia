@@ -1,10 +1,5 @@
 class SettingsController < ApplicationController
-  before_action :set_setting, only: %i[show edit update]
-
-  # @route GET /settings (settings)
-  def show
-    authorize! @setting
-  end
+  before_action :set_setting, only: %i[edit update]
 
   # @route GET /settings/edit (edit_settings)
   def edit
@@ -20,7 +15,7 @@ class SettingsController < ApplicationController
 
     respond_to do |format|
       if @setting.update(setting_params)
-        format.html { redirect_to @setting, notice: 'Les paramètres ont bien été mis à jour.' }
+        format.html { redirect_to root_path, notice: 'Les paramètres ont bien été mis à jour.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
