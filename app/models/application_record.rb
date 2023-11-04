@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # :nocov:
   def self.broadcast_flash(type, message, stream: :flash, disappear: false)
-    Turbo::StreamsChannel.broadcast_prepend_to(
+    Turbo::StreamsChannel.broadcast_update_to(
       stream,
       target: 'flashes',
       partial: 'flash',
