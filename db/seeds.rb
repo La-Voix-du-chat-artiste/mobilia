@@ -6,7 +6,7 @@ puts 'Seeding companies...'
 logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
 background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
 
-Company.create!(
+company = Company.create!(
   name: Faker::Company.name,
   description: Faker::Company.catch_phrase,
   logo: {
@@ -19,8 +19,10 @@ Company.create!(
   }
 )
 
-Company.find_each.with_index(1) do |company, index|
-  puts "[#{company.name}] Seeding places..."
+puts "- #{company.name}"
+
+Company.find_each.with_index(1) do |company, _index|
+  puts "\n[#{company.name}] Seeding places..."
 
   file = File.open('db/addresses.txt')
 
@@ -28,17 +30,19 @@ Company.find_each.with_index(1) do |company, index|
 
   10.times do |_i|
     random_address = random_addresses.sample.strip
-    puts random_address
-    Place.create!(
+
+    place = Place.create!(
       name: Faker::Company.name,
       phone: Array.new(10) { rand(10) }.join,
       email: Faker::Internet.email,
       address: Address.new(label: random_address),
       company: company
     )
+
+    puts "- #{place.name} / #{random_address}"
   end
 
-  puts "[#{company.name}] Seeding vehicles..."
+  puts "\n[#{company.name}] Seeding vehicles..."
 
   8.times do |_i|
     v = Vehicle.create!(
@@ -48,19 +52,19 @@ Company.find_each.with_index(1) do |company, index|
       max_wheelchair_seats: rand(1..6),
       company: company
     )
-    puts v.name
+
+    puts "- #{v.name}"
   end
 
-  puts "[#{company.name}] Seeding transporters..."
+  puts "\n[#{company.name}] Seeding transporters..."
 
   6.times do |_i|
     random_address = random_addresses.sample.strip
-    puts random_address
 
     week_availabilities = %i[morning afternoon morning afternoon morning afternoon all_day]
     saturday_availabilities = %i[no_work morning]
 
-    Transporter.create!(
+    transporter = Transporter.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       phone: Array.new(10) { rand(10) }.join,
@@ -80,15 +84,16 @@ Company.find_each.with_index(1) do |company, index|
         sunday: :no_work
       }
     )
+
+    puts "- #{transporter.email} / #{random_address}"
   end
 
-  puts "[#{company.name}] Seeding customers..."
+  puts "\n[#{company.name}] Seeding customers..."
 
   30.times do |_i|
     random_address = random_addresses.sample.strip
-    puts random_address
 
-    Customer.create!(
+    customer = Customer.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       phone: Array.new(10) { rand(10) }.join,
@@ -98,12 +103,19 @@ Company.find_each.with_index(1) do |company, index|
       favorite_trip_back_transporter: [company.transporters.sample, nil].sample,
       company: company
     )
+
+    puts "- #{customer.full_name} / #{random_address}"
   end
 
-  puts "[#{company.name}] Seeding daily quest..."
+  puts "\n[#{company.name}] Seeding daily quest..."
 
-  [Date.current, Date.tomorrow, 2.days.from_now.to_date].each do |date|
-    puts "  => #{I18n.l(date)}"
+  calendar = Business::Calendar.load_cached('targetfrance')
+  day1 = calendar.next_business_day(Date.current)
+  day2 = calendar.next_business_day(day1)
+  day3 = calendar.next_business_day(day2)
+
+  [day1, day2, day3].each do |date|
+    puts "- #{I18n.l(date)}"
 
     Transporter.find_each do |t|
       t.absences.create(started_on: date, ended_on: date) if rand(8).zero?
@@ -112,15 +124,17 @@ Company.find_each.with_index(1) do |company, index|
     GenerateQuestDemo.call(company, date)
   end
 
-  puts "[#{company.name}] Seeding admin..."
+  puts "\n[#{company.name}] Seeding admin..."
 
-  User.create!(
+  admin = User.create!(
     role: 'admin',
     first_name: 'John',
     last_name: 'Smith',
-    email: "admin#{index}@test.test",
+    email: 'admin@demo.test',
     password: 'password',
     password_confirmation: 'password',
     company: company
   )
+
+  puts "- #{admin.full_name} / #{admin.email}"
 end
