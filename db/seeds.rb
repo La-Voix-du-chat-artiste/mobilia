@@ -110,7 +110,7 @@ Company.find_each.with_index(1) do |company, _index|
   puts "\n[#{company.name}] Seeding daily quest..."
 
   calendar = Business::Calendar.load_cached('targetfrance')
-  day1 = calendar.next_business_day(Date.current)
+  day1 = calendar.business_day?(Date.current) ? Date.current : calendar.next_business_day(Date.current)
   day2 = calendar.next_business_day(day1)
   day3 = calendar.next_business_day(day2)
 
