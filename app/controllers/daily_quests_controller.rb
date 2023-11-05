@@ -57,7 +57,7 @@ class DailyQuestsController < ApplicationController
 
     DuplicateWeekJob.perform_later(@daily_quest)
 
-    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes.'
+    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes. La page sera rafraîchie une fois la copie terminée'
   end
 
   # @route POST /daily_quests/:id/reset (reset_daily_quest)
