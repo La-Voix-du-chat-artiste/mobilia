@@ -6,7 +6,7 @@ puts 'Seeding companies...'
 logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
 background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
 
-company = Company.create!(
+demo_company = Company.create!(
   name: Faker::Company.name,
   description: Faker::Company.catch_phrase,
   logo: {
@@ -19,7 +19,7 @@ company = Company.create!(
   }
 )
 
-puts "- #{company.name}"
+puts "- #{demo_company.name}"
 
 Company.find_each.with_index(1) do |company, _index|
   puts "\n[#{company.name}] Seeding places..."
@@ -110,11 +110,11 @@ Company.find_each.with_index(1) do |company, _index|
   puts "\n[#{company.name}] Seeding daily quest..."
 
   calendar = Business::Calendar.load_cached('targetfrance')
-  day1 = calendar.business_day?(Date.current) ? Date.current : calendar.next_business_day(Date.current)
-  day2 = calendar.next_business_day(day1)
-  day3 = calendar.next_business_day(day2)
+  day_1 = calendar.business_day?(Date.current) ? Date.current : calendar.next_business_day(Date.current)
+  day_2 = calendar.next_business_day(day_1)
+  day_3 = calendar.next_business_day(day_2)
 
-  [day1, day2, day3].each do |date|
+  [day_1, day_2, day_3].each do |date|
     puts "- #{I18n.l(date)}"
 
     Transporter.find_each do |t|

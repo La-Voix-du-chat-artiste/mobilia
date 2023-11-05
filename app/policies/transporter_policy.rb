@@ -2,7 +2,7 @@ class TransporterPolicy < ApplicationPolicy
   pre_check :admin_up?, only: %i[new? create? destroy?]
 
   relation_scope do |scope|
-    query = scope.includes(:address, vehicle: [:company, photo_attachment: :blob]).with_attached_photo.with_all_rich_text
+    query = scope.includes(:address, vehicle: [:company, { photo_attachment: :blob }]).with_attached_photo.with_all_rich_text
 
     next query if super_admin? || admin? || options.transporters_can_see_each_others?
 
