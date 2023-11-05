@@ -1,6 +1,6 @@
 - daily_quest = step.mission.daily_quest
 
-.step.handle.border-2.dark:border-gray-600.rounded-lg.p-2.hover:bg-gray-100.transition-all.hover:border-green-500.hover:dark:bg-slate-700/75.relative.dark:bg-slate-700/50.dark:text-white.place-self-start.w-full data-step-path=daily_quest_mission_step_path(daily_quest, step.mission, step) id=dom_id(step, 'mission') class=colour_for_step(step) class=('animate-pulse' if defined?(pending_placement) && pending_placement) class=('opacity-25 hover:opacity-100' if step.achieved?)
+.row.p-2.step.handle.place-self-start.w-full data-step-path=daily_quest_mission_step_path(daily_quest, step.mission, step) id=dom_id(step, 'mission') class=colour_for_step(step) class=('animate-pulse' if defined?(pending_placement) && pending_placement) class=('opacity-25 hover:opacity-100' if step.achieved?) class="!mb-0"
   header.flex.items-start.justify-between.mb-2
     .flex.items-center.gap-2
       = render 'daily_quests/steps/label', step: step

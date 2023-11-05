@@ -34,5 +34,5 @@ header h1, h2 {
 /* Misc */
 
 .mission.active {
-  @apply bg-green-500 !text-white dark:border-green-500;
+  @apply border-green-500;
 }
