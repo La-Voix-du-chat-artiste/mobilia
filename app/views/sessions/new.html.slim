@@ -7,8 +7,8 @@
     = f.input :email,
               wrapper_html: { class: 'mb-5' },
               autofocus: true,
-              placeholder: 'admin1@test.test',
-              hint: 'Use <strong>admin1@test.test</strong> for demo purposes'.html_safe
+              placeholder: 'admin@demo.test',
+              hint: 'Utiliser <strong>admin@demo.test</strong> pour la démonstration'.html_safe
 
     .relative data-controller="password-visibility"
       = f.input :password,
@@ -18,7 +18,7 @@
                   data: { password_visibility_target: 'input' } \
                 },
                 placeholder: 'password',
-                hint: 'Use <strong>password</strong> for demo purposes'.html_safe
+                hint: 'Utiliser <strong>password</strong> pour la démonstration'.html_safe
 
       button.absolute.h-6.w-6.right-3 class="top-8" type="button" data-action="password-visibility#toggle"
         p data-tooltip="Afficher le mot de passe en clair"

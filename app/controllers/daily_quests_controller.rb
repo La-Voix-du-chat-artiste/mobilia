@@ -9,8 +9,19 @@ class DailyQuestsController < ApplicationController
   def index
     authorize! DailyQuest
 
+    # Planning redirect to next business day if current day is not
+    unless calendar.business_day?(date)
+      next_business_day = calendar.next_business_day(date)
+      redirect_to daily_quests_path(date: next_business_day)
+      return
+    end
+
     # Planning redirect to tomorrow if todays missions are ended
-    redirect_to daily_quests_path(date: Date.tomorrow) if params[:date].blank? && Time.current.hour >= MAX_HOUR
+    if params[:date].blank? && Time.current.hour >= MAX_HOUR
+      next_business_day = calendar.next_business_day(Date.current)
+      redirect_to daily_quests_path(date: next_business_day)
+      return
+    end
 
     @daily_quest = company.daily_quests.find_or_create_by(started_on: date)
 
@@ -46,7 +57,7 @@ class DailyQuestsController < ApplicationController
 
     DuplicateWeekJob.perform_later(@daily_quest)
 
-    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes.'
+    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes. La page sera rafraîchie une fois la copie terminée'
   end
 
   # @route POST /daily_quests/:id/reset (reset_daily_quest)

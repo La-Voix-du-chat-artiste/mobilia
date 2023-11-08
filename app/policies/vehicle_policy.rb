@@ -2,7 +2,7 @@ class VehiclePolicy < ApplicationPolicy
   pre_check :admin_up?
 
   relation_scope do |scope|
-    scope.with_all_rich_text.with_attached_photo
+    scope.with_all_rich_text.with_attached_photo.includes(transporter: [photo_attachment: :blob])
   end
 
   def index?

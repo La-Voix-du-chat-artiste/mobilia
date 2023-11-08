@@ -1,7 +1,11 @@
 doctype html
 html class=options.theme
   head
-    title= "#{company.name} | Mobilia"
+    = display_meta_tags site: 'Mobilia',
+                        reverse: true,
+                        title: title_for_page,
+                        description: description_for_page
+
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
@@ -25,7 +29,7 @@ html class=options.theme
       / TODO: Find a way to broadcast in a stream scoped to current company
       = turbo_stream_from [company, :flash]
       = turbo_stream_from :flash
-      #flashes= render 'flashes'
+      #flashes= render 'flashes', disappear: false
 
       = yield
 

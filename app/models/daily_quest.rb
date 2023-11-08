@@ -11,13 +11,17 @@ class DailyQuest < ApplicationRecord
 
   accepts_nested_attributes_for :missions, reject_if: :all_blank, allow_destroy: true
 
-  def self.clone_week!(using: DailyQuest.find_by(started_on: Date.current))
-    my_week = DailyQuest.joins(:missions)
-                        .where(started_on: (using.started_on.beginning_of_week)..(using.started_on.end_of_week))
+  def self.clone_week!(using:)
+    my_week = using.company
+                   .daily_quests
+                   .joins(:missions)
+                   .where(started_on: (using.started_on.beginning_of_week)..(using.started_on.end_of_week))
 
     my_week.each do |daily|
       started_on = daily.started_on.in(1.week)
-      my_daily_quest = DailyQuest.find_or_create_by(started_on: started_on)
+      my_daily_quest = daily.company.daily_quests.find_or_create_by(
+        started_on: started_on
+      )
       my_daily_quest.save!
 
       Rails.logger.debug my_daily_quest.inspect
@@ -25,6 +29,8 @@ class DailyQuest < ApplicationRecord
       my_daily_quest.missions.delete_all
       daily.missions.each do |mission|
         my_mission = mission.dup
+        my_mission.drop_duration_hours = mission.drop_duration / 60
+        my_mission.drop_duration_minutes = mission.drop_duration % 60
         my_mission.daily_quest_id = my_daily_quest.id
         my_mission.save!
         Rails.logger.debug my_mission.inspect

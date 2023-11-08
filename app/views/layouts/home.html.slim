@@ -1,8 +1,13 @@
 doctype html
 html class=options.theme
   head
-    title= "#{company.name} | Mobilia"
+    = display_meta_tags site: 'Mobilia',
+                        reverse: true,
+                        title: title_for_page,
+                        description: description_for_page
+
     meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="turbo-cache-control" content="no-preview"
     = csrf_meta_tags
     = csp_meta_tag
 
@@ -18,6 +23,9 @@ html class=options.theme
 
   body.dark:bg-slate-800
     = render 'header', fixed: true
+
+    #flashes.absolute.right-3.z-50
+      = render 'flashes', disappear: true
 
     main
       = yield

@@ -1,7 +1,7 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
-  h1.text-3xl Modifier un transporteur
+  h1.text-3xl Modifier un chauffeur
 
   - if allowed_to?(:show?, @transporter)
-    = link_to '<< Retour au transporteur', transporter_path(@transporter), class: 'btn-back'
+    = link_to '<< Retour au chauffeur', transporter_path(@transporter), class: 'btn-back'
 
 = render 'form', transporter: @transporter

@@ -17,6 +17,8 @@ class User < ApplicationRecord
   encrypts :first_name, :last_name, :phone
   encrypts :email, deterministic: true, downcase: true
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :email, presence: true,
                     format: { with: EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
@@ -25,6 +27,8 @@ class User < ApplicationRecord
                        confirmation: true,
                        if: :validate_password?
   validates :password_confirmation, presence: true, if: :validate_password?
+
+  after_create :assign_photo, unless: -> { photo.present? }
 
   def full_name
     "#{first_name} #{last_name}"
@@ -39,6 +43,12 @@ class User < ApplicationRecord
   def validate_password?
     (new_record? && instance_of?(::User)) ||
       changes[:crypted_password] || reset_password_token_changed?
+  end
+
+  def assign_photo
+    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff"
+
+    photo.attach(io: URI.parse(url).open, filename: 'transporter.jpg')
   end
 end
 

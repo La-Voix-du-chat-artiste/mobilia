@@ -57,7 +57,7 @@ To setup the development project, follow these instructions:
 Visit [https://mobilia.flownaely.cafe](https://mobilia.flownaely.cafe) for an online demonstration.
 
 Use following credentials to log in as an administrator:
-- Email: **admin1@test.test**
+- Email: **admin@demo.test**
 - Password: **password**
 
 Note that the database is seed once a day so all data will be dropped and regenerated.

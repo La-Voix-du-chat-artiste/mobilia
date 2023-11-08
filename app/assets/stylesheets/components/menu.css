@@ -1,5 +1,9 @@
 /* Menu */
 
-nav#menu a.active {
-  @apply bg-green-700 text-white p-2 rounded-lg;
+nav#menu > a:not(.logo) {
+  @apply p-2 lg:p-0 w-full text-center lg:w-auto lg:!bg-transparent lg:text-left hover:lg:border-b-2 hover:bg-gray-700/50 dark:hover:bg-gray-600/75 hover:lg:bg-transparent dark:border-gray-600 dark:hover:lg:border-white dark:hover:text-white transition-all;
+}
+
+nav#menu > a:not(.logo).active {
+  @apply bg-gray-700/50 dark:bg-gray-600/75 lg:bg-transparent dark:text-white lg:border-b-2 dark:lg:border-white;
 }

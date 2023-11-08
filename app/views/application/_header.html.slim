@@ -1,5 +1,5 @@
 header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
-  .flex.items-center.justify-center.gap-6.md:hidden.px-3.py-2.border-b.relative.z-20.bg-white/75.dark:bg-slate-700.dark:border-gray-600
+  .flex.items-center.justify-center.gap-6.lg:hidden.px-3.py-2.border-b.relative.z-20.bg-white/75.dark:bg-slate-700.dark:border-gray-600
     = link_to 'Carte du jour', root_path, class: 'panel-success'
 
     = link_to root_path do
@@ -8,65 +8,63 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
       - else
         span.dark:text-white= company.name
 
-    button.flex.items-center.p-1.text-sm.border.border-black.rounded-lg.focus:outline-none.focus:ring-2.focus:border-primary-color.focus:text-primary-color.dark:text-white.dark:border-gray-600 aria-controls="navbar-hamburger" aria-expanded="false" data-controller="menu" data-action="click->menu#toggle" type="button"
+    button.flex.items-center.p-1.text-sm.border.border-black.rounded-lg.focus:outline-none.focus:ring-2.focus:border-primary-color.focus:text-primary-color.dark:text-white.dark:border-white aria-controls="navbar-hamburger" aria-expanded="false" data-controller="menu" data-action="click->menu#toggle" type="button"
       span.sr-only Ouvrir le menu
       svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
         path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"
 
-  nav#menu.hidden.flex.md:flex.flex-col.md:flex-row.items-center.justify-center.gap-0.md:gap-5.md:py-3.absolute.left-0.w-full.md:relative.border-b.bg-white.z-50.dark:bg-slate-700.lg:dark:bg-slate-700/75.dark:text-white.dark:border-gray-600.divide-y.lg:divide-y-0.dark:divide-gray-600 role="navigation"
-    - menu_item = 'py-3 w-full text-center lg:w-auto lg:text-left'
-
-    = link_to 'Carte', root_path, class: "#{menu_item} #{'active' if params[:controller] == 'homes'}"
+  nav#menu.hidden.flex.lg:flex.flex-col.lg:flex-row.items-center.justify-center.gap-0.lg:gap-5.lg:py-3.absolute.left-0.w-full.lg:relative.border-b.bg-white.z-50.dark:bg-slate-700.lg:dark:bg-slate-700/75.dark:text-white.dark:border-gray-600.divide-y.lg:divide-y-0.dark:divide-gray-600 role="navigation"
+    = link_to 'Carte', root_path, class: ('active' if params[:controller] == 'homes')
 
     - if allowed_to?(:index?, Customer)
-      = link_to 'Clients', customers_path, class: "#{menu_item} #{'active' if params[:controller] == 'customers'}"
+      = link_to 'Clients', customers_path, class: ('active' if params[:controller] == 'customers')
 
     - if allowed_to?(:index?, Place)
-      = link_to 'Lieux', places_path, class: "#{menu_item} #{'active' if params[:controller] == 'places'}"
+      = link_to 'Lieux', places_path, class: ('active' if params[:controller] == 'places')
 
     - if allowed_to?(:index?, Transporter, with: TransporterPolicy)
       = link_to Transporter.model_name.human.pluralize.capitalize,
                 transporters_path,
-                class: "#{menu_item} #{'active' if params[:controller] == 'transporters'}"
+                class: ('active' if params[:controller] == 'transporters')
 
     - if company.logo.attached?
-      = link_to root_path, class: 'hidden md:block text-center text-sm' do
+      = link_to root_path, class: 'logo hidden lg:block text-center text-sm' do
         = image_tag company.logo, class: 'w-20 rounded-full mb-1 mx-auto'
 
     - if allowed_to?(:index?, Vehicle)
       = link_to 'Véhicules',
                 vehicles_path,
-                class: "#{menu_item} #{'active' if params[:controller] == 'vehicles'}"
+                class: ('active' if params[:controller] == 'vehicles')
 
     - if allowed_to?(:index?, DailyQuest)
       = link_to 'Planning', daily_quests_path,
-                class: "#{menu_item} #{'active' if params[:controller] == 'daily_quests'}"
+                class: ('active' if params[:controller].include?('daily_quests'))
 
     - if allowed_to?(:update?, current_user, with: ProfilePolicy)
       = link_to 'Mon profil',
                 me_profile_path,
-                class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'profiles'}"
+                class: ("lg:hidden #{'active' if params[:controller] == 'profiles'}")
 
     - if allowed_to?(:update?, company)
       = link_to 'Mon entreprise',
                 edit_companies_path,
-                class: "#{menu_item} md:hidden #{'active' if params[:controller].include?('companies')}"
+                class: ("lg:hidden #{'active' if params[:controller].include?('companies')}")
 
-    - if allowed_to?(:show?, company.setting)
+    - if allowed_to?(:update?, company.setting)
       = link_to 'Paramètres',
-                settings_path,
-                class: "#{menu_item} md:hidden #{'active' if params[:controller] == 'settings'}"
+                edit_settings_path,
+                class: ("lg:hidden #{'active' if params[:controller] == 'settings'}")
 
     = link_to sessions_path,
               data: { turbo_method: :delete },
-              class: "#{menu_item} md:hidden" do
+              class: 'lg:hidden' do
       - if current_user.photo.attached?
         = image_tag url_for(current_user.photo), class: 'w-10 mx-auto rounded-full mb-1'
       span= current_user.full_name
       br
       span.underline Déconnexion
 
-    .group.relative.z-40.hidden.md:block tabindex="-1"
+    .group.relative.z-40.hidden.lg:block tabindex="-1"
       button.inline-flex.w-full.items-center.justify-center.font-medium.leading-5.focus-within:outline.focus-within:outline-2.focus-within:border-transparent.focus-within:outline-primary-color.btn-back[type="button" aria-haspopup="true"]
         span.flex.items-center.gap-2
           - if current_user.photo.attached?
@@ -91,8 +89,8 @@ header class=('fixed z-20 w-full' if defined?(fixed) && fixed)
                         edit_companies_path,
                         class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors'
 
-            - if allowed_to?(:show?, company.setting)
-              = link_to settings_path,
+            - if allowed_to?(:update?, company.setting)
+              = link_to edit_settings_path,
                         class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
                 | Paramètres
 

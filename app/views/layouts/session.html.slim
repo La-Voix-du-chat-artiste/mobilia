@@ -1,7 +1,11 @@
 doctype html
 html.dark
   head
-    title Mobilia - Connexion
+    = display_meta_tags site: 'Mobilia',
+                        reverse: true,
+                        title: title_for_page,
+                        description: description_for_page
+
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
@@ -14,7 +18,7 @@ html.dark
 
   body.h-screen.dark:bg-slate-800
     main.md:w-2/3.lg:w-2/5.mx-auto.p-6.lg:mb-20
-      #flashes= render 'flashes'
+      #flashes= render 'flashes', disappear: false
 
       = yield
 

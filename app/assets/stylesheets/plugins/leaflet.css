@@ -6,7 +6,7 @@ path.leaflet-interactive {
 
 path.leaflet-interactive:hover,
 path.leaflet-interactive.active {
-  @apply stroke-[5px] stroke-[#333333] opacity-100;
+  @apply stroke-[5px] stroke-[#333333] dark:stroke-[#DDDDDD] opacity-100;
 }
 
 .leaflet-popup-content {

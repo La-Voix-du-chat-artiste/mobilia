@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActionPolicy::Unauthorized, with: :unauthorized_access
 
-  helper_method :company, :options
+  helper_method :company, :options, :calendar
 
   private
 
@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
 
   def options
     company.setting.options
+  end
+
+  def calendar
+    @calendar ||= Business::Calendar.load_cached('targetfrance')
   end
 
   def not_authenticated

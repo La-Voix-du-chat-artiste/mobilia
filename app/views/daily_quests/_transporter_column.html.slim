@@ -1,4 +1,4 @@
-.w-full.lg:flex-none.lg:w-1/3.lg:w-1/4.border-2.border-dashed.border-teal-500.p-2.rounded-lg class=("2xl:w-[#{percentage}%]" if options.big_screen_planning_show_all_transporters?)
+.w-full.lg:flex-none.lg:w-1/3.lg:w-1/4.border-2.border-dashed.transition-colors.p-2.rounded-lg.hover:border-blue-600 class=("2xl:w-[#{percentage}%]" if options.big_screen_planning_show_all_transporters?) class=(transporter == current_user ? 'border-blue-500' : 'border-teal-500')
   header.flex.justify-between.text-center.bg-gray-700.text-white.rounded-t-lg.p-2.items-center
     .flex.items-center.gap-2
       - if transporter.photo.attached?

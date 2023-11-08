@@ -18,8 +18,6 @@ class Transporter < User
   validates :phone, presence: true, numericality: true, length: { is: 10 }
   validates :vehicle, allow_blank: true, uniqueness: true
 
-  after_create :assign_photo, unless: -> { photo.present? }
-
   def self.sort_by_courses_for(daily_quest)
     all.sort_by { |t| (t.step_ids & daily_quest.step_ids).count }
   end
@@ -53,14 +51,6 @@ class Transporter < User
 
   def driving?
     !!driving
-  end
-
-  private
-
-  def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff"
-
-    photo.attach(io: URI.parse(url).open, filename: 'transporter.jpg')
   end
 end
 

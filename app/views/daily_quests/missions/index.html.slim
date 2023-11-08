@@ -24,7 +24,7 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl Missions du #{l(@daily_quest.started_on, format: :complete_slash)}
 
-  .flex.flex-row.items-center.gap-2
+  = render 'daily_quests/navigate_planning_days' do
     - if allowed_to?(:index?, @daily_quest)
       = link_to '<< Retour au planning',
                 daily_quests_path(date: @daily_quest.started_on),
@@ -35,9 +35,6 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
                 new_daily_quest_mission_path(@daily_quest),
                 class: 'btn-add',
                 data: { turbo_frame: dom_id(Mission.new) }
-
-    = link_to "<< #{l(@daily_quest.started_on - 1.day)}", daily_quest_missions_path(date: @daily_quest.started_on - 1.day), class: 'btn-back'
-    = link_to "#{l(@daily_quest.started_on + 1.day)} >>", daily_quest_missions_path(date: @daily_quest.started_on + 1.day), class: 'btn-back'
 
 - if allowed_to_create_mission
   = turbo_frame_tag dom_id(Mission.new)

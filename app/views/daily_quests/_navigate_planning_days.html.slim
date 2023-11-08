@@ -1,0 +1,8 @@
+.flex.flex-row.items-center.gap-2
+  = yield
+
+  - previous_business_day = calendar.previous_business_day(@daily_quest.started_on)
+  - next_business_day = calendar.next_business_day(@daily_quest.started_on)
+
+  = link_to "<< #{l(previous_business_day)}", daily_quests_path(date: previous_business_day), class: 'btn-back', title: 'Jour ouvré précédent'
+  = link_to "#{l(next_business_day)} >>", daily_quests_path(date: next_business_day), class: 'btn-back', title: 'Jour ouvré suivant'

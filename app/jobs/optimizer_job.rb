@@ -30,14 +30,11 @@ class OptimizerJob < ApplicationJob
         MESSAGE
       end
 
-      Turbo::StreamsChannel.broadcast_update_to(
-        [daily_quest.company, :flash],
-        target: 'flashes',
-        partial: 'flash',
-        locals: {
-          flash_type: 'notice',
-          message: message
-        }
+      Step.broadcast_flash(
+        :notice,
+        "<div class=\"w-full\">#{message}</div>",
+        stream: [daily_quest.company, :flash],
+        disappear: false
       )
 
       Optimizer.call(step)

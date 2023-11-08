@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resource :sessions, only: %i[new create destroy]
   resources :password_resets, only: %i[new create edit update]
 
-  resource :settings, only: %i[show edit update]
+  resource :settings, only: %i[edit update]
   resolve('Setting') { [:settings] }
 
   resource :companies, only: %i[new create edit update]

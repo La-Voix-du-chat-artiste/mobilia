@@ -1,18 +1,15 @@
-div data-controller="global-map" data-global-map-customers-url-value=daily_customers_path(date: params[:date]) data-global-map-places-url-value=daily_places_path(date: params[:date]) data-global-map-transporters-url-value=daily_transporters_path(date: params[:date]) data-global-map-refresh-transporters-value=@refresh.to_s data-global-map-refresh-transporters-delay-value=(@refresh_map_interval.seconds.to_i * 1000 if @refresh) data-global-map-latitude-value=company.setting.address&.latitude data-global-map-longitude-value=company.setting.address&.longitude data-global-map-gesture-handling-value=options.map_gesture_handling.to_s
+div data-controller="global-map" data-global-map-customers-url-value=daily_customers_path(date: @original_day) data-global-map-places-url-value=daily_places_path(date: @original_day) data-global-map-transporters-url-value=daily_transporters_path(date: @original_day) data-global-map-refresh-transporters-value=@refresh.to_s data-global-map-refresh-transporters-delay-value=(@refresh_map_interval.seconds.to_i * 1000 if @refresh) data-global-map-latitude-value=company.setting.address&.latitude data-global-map-longitude-value=company.setting.address&.longitude data-global-map-gesture-handling-value=options.map_gesture_handling.to_s
   #map.h-screen.w-screen.fixed data-global-map-target="map"
 
-  section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20.dark:bg-gray-700.dark:text-white.dark:border-gray-600
-    - date = params[:date] ? params[:date].to_date : Date.current
+  section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20.dark:bg-gray-700.dark:text-white.dark:border-gray-600.space-y-3
+    p.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center.dark:border-gray-200 class="py-0.5" Planning <strong>#{l(@original_day, format: :complete_slash)}</strong>
 
-    .mb-1
-      p.mb-2.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center.dark:border-gray-200 class="py-0.5" Planning <strong>#{l(date, format: :complete_slash)}</strong>
-
-    .mb-3
-      p.flex.items-center.gap-2.mb-2.cursor-pointer data-action="click->global-map#toggleCustomers"
+    .space-y-2
+      p.flex.items-center.gap-2.cursor-pointer data-action="click->global-map#toggleCustomers"
         span.inline-block.w-6.h-6.border-2.border-white.bg-green-500.rounded-full
         span< Clients
 
-      p.flex.items-center.gap-2.mb-2.cursor-pointer data-action="click->global-map#togglePlaces"
+      p.flex.items-center.gap-2.cursor-pointer data-action="click->global-map#togglePlaces"
         span.inline-block.w-6.h-6.border-2.border-white.bg-blue-500.rounded-full
         span< Lieux
 
@@ -20,8 +17,7 @@ div data-controller="global-map" data-global-map-customers-url-value=daily_custo
         span.inline-block.w-6.h-6.border-2.border-white.bg-orange-500.rounded-full
         span< Chauffeurs
 
-    div
-      - if params[:date].blank? || Date.current == params[:date]&.to_date
-        = link_to "Voir demain (#{l(date.tomorrow, format: :complete_slash)}) >>", root_path(date: Date.tomorrow), class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
-      - else
-        = link_to "<< Voir aujourd'hui (#{l(date.yesterday, format: :complete_slash)})", root_path, class: 'rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
+    - if @original_day == (calendar.business_day?(Date.current) ? Date.current : calendar.next_business_day(Date.current))
+      = link_to "Voir #{l(@next_day, format: :complete_slash)} >>", root_path(date: @next_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
+    - else
+      = link_to "<< Voir #{l(@prev_day, format: :complete_slash)}", root_path(date: @prev_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
