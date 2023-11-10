@@ -13,7 +13,7 @@ class DailyQuestPolicy < ApplicationPolicy
   end
 
   def destroy?
-    same_company?
+    same_company? && record.missions.any?
   end
 
   def optimize?

@@ -2,7 +2,8 @@ class DailyQuestsController < ApplicationController
   MAX_HOUR = 18
 
   before_action :set_daily_quest, only: %i[
-    show optimize duplicate_week reset
+    show destroy
+    optimize duplicate_week reset
   ]
 
   # @route GET /daily_quests (daily_quests)
@@ -38,6 +39,15 @@ class DailyQuestsController < ApplicationController
     else
       @daily_quest.missions.first
     end
+  end
+
+  # @route DELETE /daily_quests/:id (daily_quest)
+  def destroy
+    authorize! @daily_quest
+
+    @daily_quest.missions.destroy_all
+
+    redirect_to daily_quests_path, notice: 'Toutes les missions du jour ont bien été supprimées'
   end
 
   # @route POST /daily_quests/:id/optimize (optimize_daily_quest)

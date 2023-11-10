@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :daily_quests, only: %i[index show] do
+  resources :daily_quests, only: %i[index show destroy] do
     member do
       post :reset
       post :duplicate_week

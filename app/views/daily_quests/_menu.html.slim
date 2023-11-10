@@ -7,6 +7,14 @@
   .invisible.origin-top-right.-translate-y-2.scale-95.transform.opacity-0.transition-all.duration-300.group-focus-within:visible.group-focus-within:translate-y-0.group-focus-within:scale-100.group-focus-within:opacity-100
     .absolute.right-0.mt-2.w-56.origin-top-right.divide-y.divide-gray-100.rounded-md.border.border-gray-200.bg-white.shadow-lg.outline-none.dark:bg-gray-700.dark:border-gray-600.dark:text-white role="menu"
       nav.flex.flex-col.divide-y.dark:divide-gray-600.text-sm
+        - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: daily_quest })
+          = link_to daily_quest_missions_path(daily_quest),
+                    class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors text-green-500' do
+            <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+            | Gérer les missions
+
         - if allowed_to?(:show?, daily_quest)
           = link_to daily_quest,
                     class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
@@ -18,22 +26,14 @@
             </svg>
             | Détails des missions
 
-        - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: daily_quest })
-          = link_to daily_quest_missions_path(daily_quest),
+        - if allowed_to?(:send_all_plannings?, Transporter, namespace: DailyQuests, context: { daily_quest: daily_quest })
+          = link_to send_all_plannings_daily_quest_transporters_path(daily_quest),
+                    data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' },
                     class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
-            <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 2-8.4 7.05a1 1 0 0 1-1.2 0L1 2m18 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1m18 0v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2"/>
             </svg>
-            | Gérer les missions
-
-          - if allowed_to?(:send_all_plannings?, Transporter, namespace: DailyQuests, context: { daily_quest: daily_quest })
-            = link_to send_all_plannings_daily_quest_transporters_path(daily_quest),
-                      data: { turbo_method: :post, turbo_confirm: 'Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?' },
-                      class: 'p-3 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
-              <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 2-8.4 7.05a1 1 0 0 1-1.2 0L1 2m18 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1m18 0v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2"/>
-              </svg>
-              | Envoyer les plannings de tous les chauffeurs par email
+            | Envoyer les plannings de tous les chauffeurs par email
 
         - if allowed_to?(:duplicate_week?, daily_quest)
           = link_to duplicate_week_daily_quest_path(daily_quest),
@@ -52,3 +52,12 @@
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
             | Réinitialiser le planning
+
+        - if allowed_to?(:destroy?, daily_quest)
+          = link_to daily_quest_path(daily_quest),
+                    data: { turbo_method: :delete, turbo_confirm: 'Voulez-vous supprimer toutes les missions du jour ? Attention, cette action est irréversible !' },
+                    class: 'p-3 text-red-700 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors' do
+            <svg class="inline mr-2 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+            | Supprimer les missions du jour
