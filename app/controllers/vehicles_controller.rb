@@ -25,7 +25,10 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.save
-        format.html { redirect_to vehicle_path(@vehicle), notice: 'Le véhicule a bien été créé.' }
+        format.html do
+          redirect_url = params[:mode] == 'save_and_create_new' ? new_vehicle_path : vehicle_path(@vehicle)
+          redirect_to redirect_url, notice: 'Le véhicule a bien été créé.'
+        end
         format.json { render :show, status: :created, location: @vehicle }
       else
         format.html { render :new, status: :unprocessable_entity }

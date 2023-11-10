@@ -29,7 +29,10 @@ class TransportersController < ApplicationController
 
     respond_to do |format|
       if @transporter.save
-        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été créé.' }
+        format.html do
+          redirect_url = params[:mode] == 'save_and_create_new' ? new_transporter_path : transporter_path(@transporter)
+          redirect_to redirect_url, notice: 'Le chauffeur a bien été créé.'
+        end
         format.json { render :show, status: :created, location: @transporter }
       else
         @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))

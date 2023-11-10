@@ -34,7 +34,10 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       if @place.save
-        format.html { redirect_to place_url(@place), notice: 'Le lieu a été créé.' }
+        format.html do
+          redirect_url = params[:mode] == 'save_and_create_new' ? new_place_path : place_path(@place)
+          redirect_to redirect_url, notice: 'Le lieu a été créé.'
+        end
         format.json { render :show, status: :created, location: @place }
       else
         @place.build_address(label: place_params.dig(:address_attributes, :label))

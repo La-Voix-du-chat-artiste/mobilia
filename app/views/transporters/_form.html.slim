@@ -1,7 +1,10 @@
 = simple_form_for(@transporter) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-  = f.object.errors.full_messages.join(", ")
+  - if f.object.errors.any?
+    ul.list-disc.list-inside.panel-error.mb-6
+      - f.object.errors.full_messages.each do |message|
+        li= message
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
     = f.input :first_name, as: :string,
@@ -73,4 +76,8 @@
     = f.input :details, as: :rich_text_area,
               wrapper_html: { class: 'w-full' }
 
-  = f.button :submit
+  .flex.items-center.gap-3
+    = f.button :submit
+
+    - if @transporter.new_record?
+      = f.button :button, 'Valider et créer nouveau chauffeur >>', type: :submit, name: :mode, value: 'save_and_create_new'

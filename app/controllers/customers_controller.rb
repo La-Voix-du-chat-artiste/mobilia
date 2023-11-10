@@ -36,7 +36,10 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to customer_path(@customer), notice: 'Le client a bien été créé' }
+        format.html do
+          redirect_url = params[:mode] == 'save_and_create_new' ? new_customer_path : customer_path(@customer)
+          redirect_to redirect_url, notice: 'Le client a bien été créé'
+        end
         format.json { render :show, status: :created, location: @customer }
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
