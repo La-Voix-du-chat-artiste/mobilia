@@ -28,7 +28,7 @@
     .mx-auto.mb-4 style="display: -webkit-box"
       .text-center class="w-[45%]"
         p.p-1 style="background-color: #22C55E; color: white"
-          = l(step.started_at, format: '%Hh%M')
+          = l(step.started_at.round, format: '%Hh%M')
         p.p-1 style="background-color: #DEDEDE; color: #444;"
           = step.departure_address.label
 
@@ -38,7 +38,7 @@
 
       .text-center class="w-[45%]"
         p.p-1 style="background-color: #22C55E; color: white"
-          = l(step.arrival_at, format: '%Hh%M')
+          = l(step.arrival_at.round, format: '%Hh%M')
         p.p-1 style="background-color: #DEDEDE; color: #444;"
           = step.arrival_address.label
 
@@ -56,6 +56,6 @@
         == mission.customer.details
 
 
-      - if step.description?
+      - if step.description.present?
         p.font-bold.mb-1.mt-3 Informations complémentaires:
         == step.description
