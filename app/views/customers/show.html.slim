@@ -10,7 +10,7 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
     - if allowed_to?(:archive?, @customer)
       = button_to (@customer.available? ? 'Archiver' : 'Désarchiver'),
                   archive_customer_path(@customer),
-                  class: 'btn-destroy',
+                  class: 'btn-archive',
                   method: :delete,
                   data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
 

@@ -17,6 +17,10 @@
     @apply btn-base bg-orange-700 hover:bg-orange-800 focus:ring-orange-300;
   }
 
+  .btn-archive {
+    @apply btn-base bg-purple-700 hover:bg-purple-800 focus:ring-purple-300;
+  }
+
   .btn-destroy {
     @apply btn-base bg-red-700 hover:bg-red-800 focus:ring-red-300;
   }

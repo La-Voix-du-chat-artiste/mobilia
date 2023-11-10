@@ -18,7 +18,7 @@ details.row id=dom_id(customer) class=('opacity-50' unless customer.enabled?) cl
       - if allowed_to?(:archive?, customer)
         = button_to (customer.available? ? 'Archiver' : 'Désarchiver'),
                     archive_customer_path(customer),
-                    class: 'btn-destroy',
+                    class: 'btn-archive',
                     method: :delete,
                     data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
 
