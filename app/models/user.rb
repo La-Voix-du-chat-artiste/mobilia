@@ -41,7 +41,7 @@ class User < ApplicationRecord
   private
 
   def validate_password?
-    (new_record? && instance_of?(::User)) ||
+    new_record? ||
       changes[:crypted_password] || reset_password_token_changed?
   end
 

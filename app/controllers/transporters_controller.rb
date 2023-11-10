@@ -160,6 +160,7 @@ class TransportersController < ApplicationController
   def transporter_params
     params.require(:transporter).permit(
       :first_name, :last_name, :email, :phone,
+      :password, :password_confirmation,
       :started_time, :ended_time, :details, :photo,
       :vehicle_id, availabilities: %i[
                      monday tuesday wednesday thursday

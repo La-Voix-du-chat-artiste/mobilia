@@ -27,11 +27,14 @@
               wrapper_html: { class: 'w-full' }
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
-    /= f.input :started_time, as: :time, html5: true,
-              wrapper_html: { class: 'w-full' }
-    /= f.input :ended_time, as: :time, html5: true,
-              wrapper_html: { class: 'w-full' }
+    = f.input :password, as: :password,
+              wrapper_html: { class: 'w-full' },
+              required: f.object.new_record?
+    = f.input :password_confirmation, as: :password,
+              wrapper_html: { class: 'w-full' },
+              required: f.object.new_record?
 
+  .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
     = f.simple_fields_for :address do |ff|
       = ff.input :label,
                  input_html: { \
