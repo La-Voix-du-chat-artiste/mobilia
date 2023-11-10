@@ -2,7 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def render_turbo_stream_flash_messages
-    turbo_stream.prepend 'flash', partial: 'flashes'
+    turbo_stream.prepend 'flashes', partial: 'flashes', locals: { disappear: false }
   end
 
   def select_options_for(klass, enum_name)
