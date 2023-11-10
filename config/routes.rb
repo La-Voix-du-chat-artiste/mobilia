@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount GoodJob::Engine => 'good_job'
 
   resource :sessions, only: %i[new create destroy]
+  get '/sessions' => redirect('/sessions/new')
+
   resources :password_resets, only: %i[new create edit update]
 
   resource :settings, only: %i[edit update]
