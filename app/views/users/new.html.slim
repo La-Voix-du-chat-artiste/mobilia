@@ -11,8 +11,8 @@
     = f.input :first_name, as: :string
     = f.input :last_name, as: :string
     = f.input :email, as: :email
-    = f.input :password, as: :password
-    = f.input :password_confirmation, as: :password
+    = f.input :password, as: :password, required: true
+    = f.input :password_confirmation, as: :password, required: true
     = f.input :photo, as: :file
     = f.input :details, as: :rich_text_area
 

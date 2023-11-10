@@ -65,9 +65,8 @@ header.mb-3
         p.panel-success.mt-2
           | Félicitations, vous avez assigné toutes les missions en attente !
       - elsif @daily_quest.steps.blank?
-        p.panel-warning.mt-2
-          | Vous n'avez pas encore ajouté de missions -
-          =< link_to 'Ajouter une mission', daily_quest_missions_path(@daily_quest), class: 'underline'
+        .mt-2
+          = render 'daily_quests/missions/empty_missions', daily_quest: @daily_quest
 
       .sortable_steps.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.xl:grid-cols-5.gap-3.mt-2.content-start class="min-h-[300px]" id="backlog"
         - steps.includes(:transporter, mission: :daily_quest).each do |step|

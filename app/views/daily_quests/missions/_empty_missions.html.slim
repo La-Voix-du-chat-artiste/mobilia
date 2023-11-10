@@ -1,6 +1,31 @@
-p.panel-warning.p-4
-  | Il n'y a pas encore de missions -
-  =< link_to 'Ajouter la première',
-             new_daily_quest_mission_path(@daily_quest),
-             class: 'underline',
-             data: { turbo_frame: dom_id(Mission.new) }
+.panel-warning.p-4
+  - if allowed_to?(:create?, Mission, namespace: DailyQuests, context: { daily_quest: daily_quest })
+    p
+      | Il n'y a pas encore de missions,
+      =< link_to 'ajouter la première',
+                 new_daily_quest_mission_path(daily_quest),
+                 class: 'underline',
+                 data: { turbo_frame: dom_id(Mission.new) }
+
+  - else
+    p.mb-2 Avant de pouvoir ajouter une mission, vous devez vous assurer que les éléments suivants sont correctement configurés:
+
+    - if company.customers.enabled.empty?
+      p.mt-1
+        | Il n'y a pas encore de clients,
+        =< link_to 'ajouter le premier', new_customer_path, class: 'underline'
+
+    - if company.places.enabled.empty?
+      p.mt-1
+        | Il n'y a pas encore de lieux,
+        =< link_to 'ajouter le premier', new_place_path, class: 'underline'
+
+    - if company.transporters.empty?
+      p.mt-1
+        | Il n'y a pas encore de chauffeurs,
+        =< link_to 'ajouter le premier', new_transporter_path, class: 'underline'
+
+    - if company.vehicles.enabled.normal.empty?
+      p.mt-1
+        | Il n'y a pas encore de véhicules,
+        =< link_to 'ajouter le premier', new_vehicle_path, class: 'underline'

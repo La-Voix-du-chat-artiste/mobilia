@@ -14,7 +14,8 @@ module DailyQuests
     end
 
     def create?
-      true
+      company.customers.enabled.any? && company.places.enabled.any? &&
+        company.transporters.any? && company.vehicles.enabled.normal.any?
     end
 
     def show?
@@ -36,7 +37,11 @@ module DailyQuests
     private
 
     def same_company?
-      deny! unless daily_quest.company == user.company
+      deny! unless company == user.company
+    end
+
+    def company
+      daily_quest.company
     end
   end
 end
