@@ -94,7 +94,7 @@ end
 # Indexes
 #
 #  index_users_on_company_id            (company_id)
-#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_email_and_company_id  (email,company_id) UNIQUE
 #  index_users_on_remember_me_token     (remember_me_token)
 #  index_users_on_reset_password_token  (reset_password_token)
 #  index_users_on_vehicle_id            (vehicle_id)
