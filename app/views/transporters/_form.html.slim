@@ -17,7 +17,8 @@
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
     = f.input :phone, as: :string,
-              wrapper_html: { class: 'w-full' }
+              wrapper_html: { class: 'w-full' },
+              required: options.validate_phone_for_transporters?
 
     = f.input :email, as: :email,
               wrapper_html: { class: 'w-full' }

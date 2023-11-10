@@ -1,5 +1,6 @@
 class Place < ApplicationRecord
   include Archivable
+  include Optionable
 
   normalizes :email, with: -> { _1.strip.downcase }
 
@@ -13,7 +14,11 @@ class Place < ApplicationRecord
   has_rich_text :details
 
   validates :name, presence: true
-  validates :phone, presence: true, numericality: true, length: { is: 10 }
+  validates :phone, presence: true, if: :mandatory_phone?
+  validates :phone,
+            numericality: true,
+            length: { is: 10 },
+            allow_blank: -> { !mandatory_phone? }
   validates :address, presence: true
 
   scope :enabled, -> { where(enabled: true) }
@@ -31,6 +36,10 @@ class Place < ApplicationRecord
     url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}&background=3b82f6&color=ffffff"
 
     photo.attach(io: URI.parse(url).open, filename: 'place.jpg')
+  end
+
+  def mandatory_phone?
+    options.validate_phone_for_places?
   end
 end
 

@@ -37,6 +37,9 @@ fr:
           show_help: Afficher les explications ?
           big_screen_planning_show_all_transporters: Afficher tous les chauffeurs en même temps sur le planning ?
           transporters_can_see_each_others: Les chauffeurs peuvent se voir ?
+          validate_phone_for_customers: Téléphone clients obligatoire ?
+          validate_phone_for_places: Téléphone des lieux obligatoire ?
+          validate_phone_for_transporters: Téléphone des chauffeurs obligatoire ?
 
       user:
         remove_photo: Supprimer la photo ?
@@ -113,6 +116,9 @@ fr:
           show_help: Si coché, le bandeau d'aides et explications sera ouvert automatiquement sur les pages où il est présent. Autrement il sera fermé.
           big_screen_planning_show_all_transporters: Si coché, tous les chauffeurs seront affichés ensemble sur la page planning du jour, sans scroll horizontal, sur les grands écrans (à partir de 1536px de largeur). A noter que si vous avez beaucoup de chauffeurs en même temps, la largeur des colonnes sera réduite pour que tout le monde puisse apparaître et l'expérience ne sera pas très bonne.
           transporters_can_see_each_others: Si coché, les chauffeurs connectés avec leur propre compte pourront voir les informations des autres chauffeurs (emplacement sur la carte, adresses, clients, ...). Décocher la case pour plus de confidentialité.
+          validate_phone_for_customers: Si coché, le formulaire de création des clients demandera obligatoirement qu'un numéro de téléphone soit renseigné
+          validate_phone_for_places: Si coché, le formulaire de création des lieux demandera obligatoirement qu'un numéro de téléphone soit renseigné
+          validate_phone_for_transporters: Si coché, le formulaire de création des chauffeurs demandera obligatoirement qu'un numéro de téléphone soit renseigné
 
       address:
         label: Si vous renseignez une adresse, la carte sera automatiquement centrée dessus s'il n'y a pas de marqueur dessus.

@@ -1,5 +1,6 @@
 class Customer < ApplicationRecord
   include Archivable
+  include Optionable
 
   EMAIL_REGEX = /\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+/
 
@@ -24,7 +25,11 @@ class Customer < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :phone, presence: true, numericality: true, length: { is: 10 }
+  validates :phone, presence: true, if: :mandatory_phone?
+  validates :phone,
+            numericality: true,
+            length: { is: 10 },
+            allow_blank: -> { !mandatory_phone? }
   validates :email, allow_blank: true, format: { with: EMAIL_REGEX }
   validates :address, presence: true
 
@@ -65,6 +70,10 @@ class Customer < ApplicationRecord
     url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=22c55e&color=ffffff"
 
     photo.attach(io: URI.parse(url).open, filename: 'customer.jpg')
+  end
+
+  def mandatory_phone?
+    options.validate_phone_for_customers?
   end
 end
 

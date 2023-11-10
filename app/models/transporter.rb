@@ -1,5 +1,6 @@
 class Transporter < User
   include Archivable
+  include Optionable
 
   attr_accessor :longitude, :latitude, :driving, :address_label
 
@@ -15,7 +16,11 @@ class Transporter < User
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :address, presence: true
-  validates :phone, presence: true, numericality: true, length: { is: 10 }
+  validates :phone, presence: true, if: :mandatory_phone?
+  validates :phone,
+            numericality: true,
+            length: { is: 10 },
+            allow_blank: -> { !mandatory_phone? }
   validates :vehicle, allow_blank: true, uniqueness: true
 
   def self.sort_by_courses_for(daily_quest)
@@ -51,6 +56,12 @@ class Transporter < User
 
   def driving?
     !!driving
+  end
+
+  private
+
+  def mandatory_phone?
+    options.validate_phone_for_transporters?
   end
 end
 
