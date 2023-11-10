@@ -46,7 +46,7 @@ class User < ApplicationRecord
   end
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff"
+    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff&size=256"
 
     photo.attach(io: URI.parse(url).open, filename: 'transporter.jpg')
   end

@@ -84,10 +84,14 @@ class VehiclesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def vehicle_params
-    params.require(:vehicle).permit(
-      :name, :number_plate, :width, :height, :length, :enabled,
-      :details, :photo, :max_wheelchair_seats, :max_regular_seats,
-      :status, :substitution
-    )
+    permitted_attributes = %i[
+      name number_plate width height length enabled
+      details max_wheelchair_seats max_regular_seats
+      status substitution
+    ]
+
+    permitted_attributes.push(:photo) if options.enable_vehicle_photo?
+
+    params.require(:vehicle).permit(permitted_attributes)
   end
 end

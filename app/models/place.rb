@@ -33,7 +33,7 @@ class Place < ApplicationRecord
   private
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}&background=3b82f6&color=ffffff"
+    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}&background=3b82f6&color=ffffff&size=256"
 
     photo.attach(io: URI.parse(url).open, filename: 'place.jpg')
   end

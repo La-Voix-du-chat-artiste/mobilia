@@ -12,11 +12,12 @@
     = f.input :last_name, as: :string,
               wrapper_html: { class: 'w-full' }
 
-    div
-      = f.input :photo, as: :file
+    - if options.enable_transporter_photo?
+      div
+        = f.input :photo, as: :file
 
-      - if f.object.photo.attached?
-        p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'max-w-[100px] rounded-full object-cover'
+        - if f.object.photo.attached?
+          p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'max-w-[100px] rounded-full object-cover'
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
     = f.input :phone, as: :string,

@@ -158,15 +158,19 @@ class TransportersController < ApplicationController
   end
 
   def transporter_params
-    params.require(:transporter).permit(
+    permitted_attributes = [
       :first_name, :last_name, :email, :phone,
       :password, :password_confirmation,
-      :started_time, :ended_time, :details, :photo,
-      :vehicle_id, availabilities: %i[
-                     monday tuesday wednesday thursday
-                     friday saturday sunday
-                   ],
-                   address_attributes: %i[id label]
-    )
+      :started_time, :ended_time, :details,
+      :vehicle_id, { availabilities: %i[
+                       monday tuesday wednesday thursday
+                       friday saturday sunday
+                     ],
+                     address_attributes: %i[id label] }
+    ]
+
+    permitted_attributes.push(:photo) if options.enable_transporter_photo?
+
+    params.require(:transporter).permit(permitted_attributes)
   end
 end

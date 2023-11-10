@@ -114,10 +114,13 @@ class PlacesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def place_params
-    params.require(:place).permit(
-      :name, :phone, :email, :enabled,
-      :details, :photo,
-      address_attributes: %i[id label]
-    )
+    permitted_attributes = [
+      :name, :phone, :email, :enabled, :details,
+      { address_attributes: %i[id label] }
+    ]
+
+    permitted_attributes.push(:photo) if options.enable_place_photo?
+
+    params.require(:place).permit(permitted_attributes)
   end
 end

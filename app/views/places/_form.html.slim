@@ -34,11 +34,12 @@
     = f.input :details, as: :rich_text_area,
               wrapper_html: { class: 'w-full' }
 
-    div
-      = f.input :photo, as: :file
+    - if options.enable_place_photo?
+      div
+        = f.input :photo, as: :file
 
-      - if f.object.photo.attached?
-        p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'w-32 rounded-full object-cover'
+        - if f.object.photo.attached?
+          p.mt-3.text-center= image_tag url_for(f.object.photo), class: 'w-32 rounded-full object-cover'
 
   = f.input :enabled,
             wrapper_html: { class: 'mb-6' }

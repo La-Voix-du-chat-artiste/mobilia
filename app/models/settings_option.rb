@@ -20,6 +20,11 @@ class SettingsOption
   attribute :validate_phone_for_places, :boolean, default: false
   attribute :validate_phone_for_transporters, :boolean, default: false
 
+  attribute :enable_customer_photo, :boolean, default: true
+  attribute :enable_place_photo, :boolean, default: true
+  attribute :enable_transporter_photo, :boolean, default: true
+  attribute :enable_vehicle_photo, :boolean, default: true
+
   validates :map_refresh_interval, presence: true, inclusion: REFRESH_INTERVAL
   validates :map_gesture_handling, allow_blank: false, inclusion: [true, false]
   validates :theme, presence: true, inclusion: THEMES
@@ -43,4 +48,9 @@ class SettingsOption
   validates :validate_phone_for_customers, allow_blank: false, inclusion: [true, false]
   validates :validate_phone_for_places, allow_blank: false, inclusion: [true, false]
   validates :validate_phone_for_transporters, allow_blank: false, inclusion: [true, false]
+
+  validates :enable_customer_photo, allow_blank: false, inclusion: [true, false]
+  validates :enable_place_photo, allow_blank: false, inclusion: [true, false]
+  validates :enable_transporter_photo, allow_blank: false, inclusion: [true, false]
+  validates :enable_vehicle_photo, allow_blank: false, inclusion: [true, false]
 end

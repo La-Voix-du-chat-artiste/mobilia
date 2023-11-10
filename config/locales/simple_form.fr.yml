@@ -40,6 +40,10 @@ fr:
           validate_phone_for_customers: Téléphone clients obligatoire ?
           validate_phone_for_places: Téléphone des lieux obligatoire ?
           validate_phone_for_transporters: Téléphone des chauffeurs obligatoire ?
+          enable_customer_photo: Activer les photos des clients ?
+          enable_place_photo: Activer les photos des lieux ?
+          enable_transporter_photo: Activer les photos des chauffeurs ?
+          enable_vehicle_photo: Activer les photos des véhicules ?
 
       user:
         remove_photo: Supprimer la photo ?
@@ -119,6 +123,10 @@ fr:
           validate_phone_for_customers: Si coché, le formulaire de création des clients demandera obligatoirement qu'un numéro de téléphone soit renseigné
           validate_phone_for_places: Si coché, le formulaire de création des lieux demandera obligatoirement qu'un numéro de téléphone soit renseigné
           validate_phone_for_transporters: Si coché, le formulaire de création des chauffeurs demandera obligatoirement qu'un numéro de téléphone soit renseigné
+          enable_customer_photo: Si coché, les clients auront la possibilité d'associer leur photo dans leur profil. Si décoché, la photo de l'utilisateur sera définie par ses initiales.
+          enable_place_photo: Si coché, les lieux auront la possibilité d'avoir une photo définie sur leur fiche profil. Si décoché, la photo du lieu sera définie par ses initiales.
+          enable_transporter_photo: Si coché, les chauffeurs auront la possibilité d'avoir une photo définie sur leur fiche profil. Si décoché, la photo du chauffeur sera définie par ses initiales.
+          enable_vehicle_photo: Si coché, les véhicules auront la possibilité d'avoir une photo définie sur leur fiche profil. Si décoché, la photo du véhicule sera définie par ses initiales.
 
       address:
         label: Si vous renseignez une adresse, la carte sera automatiquement centrée dessus s'il n'y a pas de marqueur dessus.

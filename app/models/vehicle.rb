@@ -22,7 +22,7 @@ class Vehicle < ApplicationRecord
   private
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}"
+    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}&size=256"
 
     photo.attach(io: URI.parse(url).open, filename: 'vehicle.jpg')
   end

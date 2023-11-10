@@ -15,8 +15,8 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
                   data: { turbo_confirm: 'Voulez-vous supprimer ce chauffeur ?' }
 
 .row.p-4.mb-3 id=dom_id(@transporter)
-  / - if @transporter.photo.attached?
-  /   p= image_tag url_for(@transporter.photo), class: 'w-32'
+  - if @transporter.photo.attached?
+    p.mb-3= image_tag url_for(@transporter.photo), class: 'w-32'
 
   p
     strong Téléphone:

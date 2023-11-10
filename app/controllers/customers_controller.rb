@@ -132,11 +132,14 @@ class CustomersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def customer_params
-    params.require(:customer).permit(
-      :first_name, :last_name, :phone, :email, :kind, :enabled,
-      :details, :photo,
+    permitted_attributes = [
+      :first_name, :last_name, :phone, :email, :kind, :enabled, :details,
       :favorite_trip_transporter_id, :favorite_trip_back_transporter_id,
-      address_attributes: %i[id label]
-    )
+      { address_attributes: %i[id label] }
+    ]
+
+    permitted_attributes.push(:photo) if options.enable_customer_photo?
+
+    params.require(:customer).permit(permitted_attributes)
   end
 end
