@@ -1,32 +1,41 @@
 require 'csv'
 require 'open-uri'
+require 'stringio'
 
 puts 'Seeding companies...'
 
-logo = Faker::LoremFlickr.image(size: '300x300', search_terms: ['transport'])
-background_cover = Faker::LoremFlickr.grayscale_image(size: '1920x1080', search_terms: ['transport'])
+# The demo images come from a file in the repository rather than Faker::LoremFlickr,
+# which returns a random Flickr photo tagged "transport" — a different, unrelated
+# image on every seed, fetched from a third party at seed time.
+#
+# If the file is ever missing the seed degrades to a logo-less company rather
+# than raising, so a fresh checkout still seeds.
+demo_image = Rails.root.join('app/assets/images/8_1sasa11.jpg')
 
-demo_company = Company.create!(
+company_attributes = {
   name: Faker::Company.name,
-  description: Faker::Company.catch_phrase,
-  logo: {
-    io: URI.parse(logo).open,
-    filename: 'logo.png'
-  },
-  background_cover: {
-    io: URI.parse(background_cover).open,
-    filename: 'background_cover.png'
-  }
-)
+  description: Faker::Company.catch_phrase
+}
+
+if demo_image.exist?
+  company_attributes[:logo] = { io: StringIO.new(File.binread(demo_image)), filename: 'logo.jpg' }
+  company_attributes[:background_cover] = { io: StringIO.new(File.binread(demo_image)), filename: 'background_cover.jpg' }
+else
+  warn "#{demo_image} is missing: seeding the demo company without a logo or cover."
+end
+
+demo_company = Company.create!(**company_attributes)
 
 puts "- #{demo_company.name}"
+
+# Read once, with a block: the previous `File.open` inside the loop never closed
+# the descriptor and re-read the file for every company.
+address_lines = File.readlines('db/addresses.txt')
 
 Company.find_each.with_index(1) do |company, _index|
   puts "\n[#{company.name}] Seeding places..."
 
-  file = File.open('db/addresses.txt')
-
-  random_addresses = file.readlines.sample(300)
+  random_addresses = address_lines.sample(300)
 
   10.times do |_i|
     random_address = random_addresses.sample.strip

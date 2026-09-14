@@ -26,7 +26,8 @@ It handles the management and routing of your fleet and drivers
 
 Mobilia is built with the following technologies:
 
-- [Ruby on Rails 7.1](https://rubyonrails.org)
+- [Ruby 4.0](https://www.ruby-lang.org)
+- [Ruby on Rails 8.1](https://rubyonrails.org)
 - [PostgreSQL](https://www.postgresql.org)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Docker](https://www.docker.com) (facultative)
@@ -34,23 +35,67 @@ Mobilia is built with the following technologies:
 
 ## Setup project
 
-To setup the development project, follow these instructions:
+- Check that Ruby 4.0.4 is installed (`$ ruby -v`)
+- Go to the project folder: `$ cd mobilia`
+- Make sure PostgreSQL and Redis are running (see below)
+- Run `$ bin/setup` — it installs the gems, writes a `.env` with freshly
+  generated secrets, prepares the database and restarts the application
+- Launch the development servers with `$ bin/dev`
 
-- Clone the project
-- Go to project folder: `$ cd mobilia`
-- Run `$ docker-compose up -d` to start PostgreSQL container (facultative)
-- Run `$ bundle install`
-- Run `$ bin/rails db:encryption:init` to generate encryption keys and paste these values to corresponding ENV vars:
+`bin/setup` only writes `.env` when it is missing, so it is safe to re-run.
 
-  ```bash
-  # .env
-  ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=my_primary_key
-  ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=my_deterministic_key
-  ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=my_key_derivation_salt
-  ```
+### Database and Redis
 
-- Run `$ bin/rails db:migrate db:seed`
-- Finally launch the Rails server with `$ bin/dev` !
+`config/database.yml` defaults to PostgreSQL on `127.0.0.1:5432` with the
+`mobilia` role and password — what `docker compose up -d` creates. The role and
+both databases have to exist before `db:prepare`:
+
+```sql
+CREATE ROLE mobilia WITH LOGIN SUPERUSER PASSWORD 'mobilia';
+CREATE DATABASE mobilia_development OWNER mobilia;
+CREATE DATABASE mobilia_test OWNER mobilia;
+```
+
+If your PostgreSQL listens on another port, say so in `.env`:
+
+```bash
+POSTGRES_PORT=5435        # development
+POSTGRES_TEST_PORT=5435   # test
+```
+
+Redis defaults to `redis://127.0.0.1:6379/1` and can be overridden with
+`REDIS_URL`.
+
+### Doing it by hand
+
+```bash
+$ bundle install
+$ cp .env.template .env
+$ bin/rails db:encryption:init   # copy the three keys into .env
+$ bin/rails db:prepare
+$ bin/dev
+```
+
+The application will not boot without the three
+`ACTIVE_RECORD_ENCRYPTION_*` values: they encrypt users' names, phones and
+emails. `bin/rails db:encryption:init` prints fresh ones and works even when
+`.env` is empty or missing, because the check lives in an initializer rather
+than in `config/application.rb`.
+
+## Tests
+
+The suite runs against the `mobilia_test` database described by the committed
+`.env.test` (throwaway keys, no secrets needed) and never touches the network:
+geocoding, the avatar service and OSRM are all stubbed.
+
+```bash
+$ RAILS_ENV=test bin/rails db:create db:schema:load
+$ bundle exec rspec
+```
+
+Use `db:create db:schema:load` rather than `db:prepare`: on a freshly created
+database `db:prepare` also runs `db/seeds.rb`, which calls the geocoding, avatar
+and routing services.
 
 ## Demonstration
 
