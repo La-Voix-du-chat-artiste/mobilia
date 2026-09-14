@@ -9,10 +9,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        # Reads .ruby-version, so the workflow cannot drift from the app.
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       - name: Lint Ruby files
-        run: bin/rubocop --parallel
+        # --parallel is the RuboCop default since 1.72.
+        run: bin/rubocop
+
+  test:
+    runs-on: ubuntu-latest
+    # Credentials match the committed .env.test, so no secrets are needed.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: mobilia
+          POSTGRES_PASSWORD: mobilia
+          POSTGRES_DB: mobilia_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U mobilia"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Prepare database
+        # `db:prepare` would also run db/seeds.rb on a freshly created database,
+        # and seeding reaches out to the geocoding, avatar and OSRM services.
+        run: bin/rails db:create db:schema:load
+      - name: Run the suite
+        run: bundle exec rspec
