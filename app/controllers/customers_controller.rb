@@ -44,8 +44,8 @@ class CustomersController < ApplicationController
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
 
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @customer.errors, status: :unprocessable_content }
       end
     end
   end
@@ -74,8 +74,8 @@ class CustomersController < ApplicationController
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
 
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @customer.errors, status: :unprocessable_content }
       end
     end
   end

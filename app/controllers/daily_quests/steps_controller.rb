@@ -16,7 +16,7 @@ module DailyQuests
       if @step.update(step_params)
         render partial: 'daily_quests/step', locals: { step: @step }
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

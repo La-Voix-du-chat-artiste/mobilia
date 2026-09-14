@@ -29,14 +29,18 @@ class Mission < ApplicationRecord
   after_update :regenerate_steps
 
   def drop_datetime
-    hour = drop_time.hour.hour
-    minute = drop_time.min.minute
-    daily_quest.started_on + hour + minute
+    daily_quest.started_on.in_time_zone.change(hour: drop_time.hour, min: drop_time.min, sec: 0)
   end
 
   private
 
+  # `drop_duration_hours` / `drop_duration_minutes` are virtual attributes: they
+  # are only populated when a form submits them. Recomputing unconditionally
+  # meant that any partial update (mission.update(drop_time: ...)) silently reset
+  # drop_duration to 0.
   def assign_drop_duration
+    return if drop_duration_hours.nil? && drop_duration_minutes.nil? && drop_duration.present?
+
     self.drop_duration = (drop_duration_hours.to_i * 60) + drop_duration_minutes.to_i
   end
 

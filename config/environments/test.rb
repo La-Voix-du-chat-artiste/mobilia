@@ -44,6 +44,13 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Set host to be used by links generated in mailer templates, otherwise
+  # *_url helpers raise "Missing host to link to!".
+  config.action_mailer.default_url_options = { host: 'example.com' }
+
+  # Jobs run inline so tests can assert on their side effects.
+  config.active_job.queue_adapter = :test
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 

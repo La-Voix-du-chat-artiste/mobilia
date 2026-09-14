@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
+  # Rails ships the health check endpoint with a new app; this app never got it.
+  # It also backs config.silence_healthcheck_path and the host_authorization exemption.
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
   root to: 'homes#show'
 
-  mount GoodJob::Engine => 'good_job'
+  # The dashboard exposes every job payload, so outside development it is only
+  # mounted when it can actually be protected. Without GOODJOB_USERNAME /
+  # GOODJOB_PASSWORD the route does not exist at all: a missing environment
+  # variable must not silently publish the job queue.
+  dashboard_credentials = ENV['GOODJOB_USERNAME'].present? && ENV['GOODJOB_PASSWORD'].present?
+  mount GoodJob::Engine => 'good_job' if Rails.env.local? || dashboard_credentials
 
   resource :sessions, only: %i[new create destroy]
   get '/sessions' => redirect('/sessions/new')

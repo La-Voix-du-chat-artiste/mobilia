@@ -27,20 +27,30 @@ class Transporter < User
     all.sort_by { |t| (t.step_ids & daily_quest.step_ids).count }
   end
 
+  # `availabilities` is a json column that defaults to {} and the form only
+  # writes the days it submits, so an entry can legitimately be missing. It used
+  # to raise NoMethodError (undefined method 'to_sym' for nil) out of the
+  # optimizer for any transporter created without availabilities. An undeclared
+  # day is treated as no_work: a driver whose availability nobody has stated is
+  # not auto-assigned.
   def periods_for?(my_date)
     day = my_date.to_date.strftime('%A').downcase
-    period_name = availabilities[day].to_sym
-    AvailabilitiesOption::PERIODS[period_name]
+    period_name = availabilities[day].presence&.to_sym
+
+    AvailabilitiesOption::PERIODS[period_name] || AvailabilitiesOption::PERIODS[:no_work]
   end
 
   def available_at?(started_at, arrival_at)
     periods = periods_for?(started_at)
-    Rails.logger.info [[started_at.hour, periods.first], [arrival_at.hour, periods.second]]
     started_at.hour >= periods.first && arrival_at.hour <= periods.second
   end
 
-  def off?(date = Time.current)
-    absences.present_today?(date)
+  # `absences.present_today?` used to be called here, but present_today? was
+  # defined with `def self.` on Absence: calling it on the association proxy
+  # raised NoMethodError, so every planning screen that filters absent drivers
+  # blew up.
+  def off?(date = Date.current)
+    absences.not_attending.covering(date).exists?
   end
 
   def no_vehicle?
@@ -48,10 +58,7 @@ class Transporter < User
   end
 
   def current_absence(date = Date.current)
-    absences
-      .not_attending
-      .where('started_on <= :date AND ended_on >= :date', date: date)
-      .last
+    absences.not_attending.covering(date).last
   end
 
   def driving?
@@ -85,7 +92,7 @@ end
 #  first_name                          :string
 #  last_name                           :string
 #  phone                               :string
-#  role                                :integer          default("standard"), not null
+#  role                                :integer          default(0), not null
 #  availabilities                      :json             not null
 #  archived_at                         :datetime
 #  vehicle_id                          :bigint(8)

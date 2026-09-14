@@ -1,4 +1,5 @@
-version: '3.5'
+# The top-level `version:` key is obsolete in Compose v2 and only produces a
+# "version is obsolete" warning.
 services:
   pg_mobilia:
     image: postgres:16-alpine

@@ -20,7 +20,7 @@ module Transporters
         if @absence.save
           format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été créé" }
         else
-          format.html { render :new, status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_content }
         end
       end
     end
@@ -39,7 +39,7 @@ module Transporters
         if @absence.update(absence_params)
           format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été modifiée" }
         else
-          format.html { render :edit, status: :unprocessable_entity }
+          format.html { render :edit, status: :unprocessable_content }
         end
       end
     end

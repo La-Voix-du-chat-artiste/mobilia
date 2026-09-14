@@ -3,7 +3,8 @@ inherit_from:
   - .rubocop-disabled.yml
   - .rubocop_todo.yml
 
-require:
+# `require:` is deprecated for extensions since RuboCop 1.72.
+plugins:
   - rubocop-performance
   - rubocop-rails
 

@@ -37,7 +37,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   config.action_mailer.default_url_options = {
-    host: 'http://localhost', port: ENV.fetch('PORT', 3000)
+    host: 'localhost', port: ENV.fetch('PORT', 3000)
   }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
@@ -62,8 +62,18 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # Append comments with runtime information tags to SQL queries in logs.
+  config.active_record.query_log_tags_enabled = true
+
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+
+  # Procfile.dev runs `good_job start`; without this the worker has nothing to
+  # consume because Active Job would default to the in-process :async adapter.
+  config.active_job.queue_adapter = :good_job
+
+  # Highlight code that triggered redirect in logs.
+  config.action_dispatch.verbose_redirect_logs = true
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
@@ -72,7 +82,7 @@ Rails.application.configure do
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
-  # config.action_view.annotate_rendered_view_with_filenames = true
+  config.action_view.annotate_rendered_view_with_filenames = true
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true

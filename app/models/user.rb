@@ -1,9 +1,11 @@
 class User < ApplicationRecord
-  EMAIL_REGEX = /\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+/
+  include PhotoAssignable
 
-  enum role: { standard: 0, admin: 1, super_admin: 2 }, _default: :standard
+  EMAIL_REGEX = URI::MailTo::EMAIL_REGEXP
 
-  normalizes :email, with: -> { _1.strip.downcase }
+  enum :role, { standard: 0, admin: 1, super_admin: 2 }, default: :standard
+
+  normalizes :email, with: -> { it.strip.downcase }
 
   attr_accessor :remove_photo
 
@@ -46,9 +48,13 @@ class User < ApplicationRecord
   end
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=f97316&color=ffffff&size=256"
-
-    photo.attach(io: URI.parse(url).open, filename: 'transporter.jpg')
+    attach_generated_photo(
+      self.class.avatar_url(
+        "#{I18n.transliterate(first_name).first} #{I18n.transliterate(last_name).first}",
+        background: 'f97316'
+      ),
+      'transporter.jpg'
+    )
   end
 end
 
@@ -72,7 +78,7 @@ end
 #  first_name                          :string
 #  last_name                           :string
 #  phone                               :string
-#  role                                :integer          default("standard"), not null
+#  role                                :integer          default(0), not null
 #  availabilities                      :json             not null
 #  archived_at                         :datetime
 #  vehicle_id                          :bigint(8)

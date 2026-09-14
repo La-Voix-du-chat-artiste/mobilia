@@ -1,10 +1,16 @@
+/ `steps` is empty for a driver with nothing planned that day, and steps.first was
+/ then nil, so the whole route sheet answered 500. The controllers that render
+/ this partial always load the daily quest, so fall back to it.
+- close_quest = steps.first&.mission&.daily_quest || @daily_quest
+
 .mb-3.space-y-3 data-controller="steps"
   = render partial: 'daily_quests/missions/step', collection: steps
 
-  = link_to 'Fermer',
-            daily_quest_missions_path(steps.first.mission.daily_quest),
-            class: 'block underline text-sm text-center dark:text-white',
-            data: { \
-              controller: 'steps', \
-              action: 'click->steps#close' \
-            }
+  - if close_quest.present?
+    = link_to 'Fermer',
+              daily_quest_missions_path(close_quest),
+              class: 'block underline text-sm text-center dark:text-white',
+              data: { \
+                controller: 'steps', \
+                action: 'click->steps#close' \
+              }

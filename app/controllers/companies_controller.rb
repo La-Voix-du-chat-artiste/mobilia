@@ -18,7 +18,7 @@ class CompaniesController < ApplicationController
         session[:company_id] = @company.id
         format.html { redirect_to new_user_path, notice: "L'entreprise a bien été créée" }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end
@@ -41,7 +41,7 @@ class CompaniesController < ApplicationController
       if @company.update(company_params)
         format.html { redirect_to root_path, notice: "L'entreprise a bien été mise à jour" }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end

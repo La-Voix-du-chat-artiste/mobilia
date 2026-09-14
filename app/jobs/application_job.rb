@@ -4,26 +4,26 @@ class ApplicationJob < ActiveJob::Base
   private
 
   def broadcast_flash_alert(e)
-    message = <<~MESSAGE
-      [#{e.class.name}]
-      #{e.message}
-    MESSAGE
+    message = "[#{e.class.name}] #{e.message}"
 
     Rails.logger.tagged(e.class) do
-      Rails.logger.error do
-        ActiveSupport::LogSubscriber.new.send(
-          :color,
-          "#{message} // #{e.backtrace}",
-          :red
-        )
-      end
+      # `ActiveSupport::LogSubscriber.new.send(:color, ...)` reached into a
+      # private API just to colour the line red.
+      Rails.logger.error("#{message} // #{e.backtrace&.join("\n")}")
     end
 
     ApplicationRecord.broadcast_flash(
       :alert,
       message,
-      stream: :flash,
+      stream: error_stream,
       disappear: false
     )
+  end
+
+  # Every browser subscribes to the bare `:flash` stream, so this default shows
+  # one tenant's background-job failures to all the others. Jobs that know their
+  # company should override it with `[company, :flash]`.
+  def error_stream
+    :flash
   end
 end

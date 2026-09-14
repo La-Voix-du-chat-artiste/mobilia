@@ -1,31 +1,43 @@
-/* Pagy pagination style */
+/* Pagy pagination style.
+ *
+ * Rewritten for pagy 9's markup. The previous rules targeted pagy 6's
+ * `.pagy-nav .page.active` structure, which pagy 9 no longer emits, so the
+ * pagination rendered as unstyled links. pagy 9 produces:
+ *
+ *   <nav class="pagy nav">
+ *     <a role="link" aria-disabled="true">Prev</a>   <- disabled: no href
+ *     <a href="...">1</a>
+ *     <a role="link" aria-disabled="true" aria-current="page" class="current">2</a>
+ *     <a role="link" aria-disabled="true" class="gap">&hellip;</a>
+ *     <a href="...">Next</a>
+ *   </nav>
+ */
 
-.pagy-nav {
+.pagy {
   @apply flex space-x-2 justify-center my-8;
 }
 
-.pagy-nav .page a,
-.pagy-nav .page.active,
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled {
+.pagy a:not(.gap) {
   @apply block rounded px-3 py-1 text-sm text-black hover:text-secondary-color dark:text-white;
 }
 
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled {
-  @apply text-gray-400 cursor-default;
-  &:hover {
-    @apply text-gray-400 bg-gray-200;
-  }
-  &:active {
-    @apply text-gray-400 bg-gray-200;
-  }
+/* Disabled prev/next links are rendered without an href. */
+.pagy a:not(.gap):not([href]) {
+  @apply text-gray-400 cursor-default bg-gray-200;
 }
 
-.pagy-nav .page.active {
-  @apply text-white cursor-default bg-secondary-color hover:text-white hover:bg-primary-color;
+.pagy a:not(.gap):not([href]):hover {
+  @apply text-gray-400 bg-gray-200;
+}
 
-  &:active {
-    @apply text-white bg-primary-color;
-  }
+.pagy a:not(.gap).current {
+  @apply text-white cursor-default bg-secondary-color;
+}
+
+.pagy a:not(.gap).current:hover {
+  @apply text-white bg-primary-color;
+}
+
+.pagy a.gap {
+  @apply px-3 py-1 text-sm text-gray-400 cursor-default;
 }

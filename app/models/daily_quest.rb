@@ -1,7 +1,7 @@
 class DailyQuest < ApplicationRecord
   WAITING_TIME = 30.minutes # time before hiding steps
 
-  enum status: { not_started: 0, pending: 1, ended: 2 }, _default: :not_started
+  enum :status, { not_started: 0, pending: 1, ended: 2 }, default: :not_started
 
   belongs_to :company
   has_many :missions, dependent: :destroy
@@ -19,21 +19,24 @@ class DailyQuest < ApplicationRecord
 
     my_week.each do |daily|
       started_on = daily.started_on.in(1.week)
-      my_daily_quest = daily.company.daily_quests.find_or_create_by(
-        started_on: started_on
-      )
-      my_daily_quest.save!
 
-      Rails.logger.debug my_daily_quest.inspect
+      # One transaction per day: a failure half way through a day used to leave
+      # the destination quest with the missions deleted and only some of them
+      # recreated.
+      transaction do
+        my_daily_quest = daily.company.daily_quests.find_or_create_by(started_on: started_on)
 
-      my_daily_quest.missions.delete_all
-      daily.missions.each do |mission|
-        my_mission = mission.dup
-        my_mission.drop_duration_hours = mission.drop_duration / 60
-        my_mission.drop_duration_minutes = mission.drop_duration % 60
-        my_mission.daily_quest_id = my_daily_quest.id
-        my_mission.save!
-        Rails.logger.debug my_mission.inspect
+        # delete_all skipped the `dependent: :destroy` on Mission#steps, leaving
+        # steps behind that pointed at missions that no longer existed.
+        my_daily_quest.missions.destroy_all
+
+        daily.missions.each do |mission|
+          my_mission = mission.dup
+          my_mission.drop_duration_hours = mission.drop_duration.to_i / 60
+          my_mission.drop_duration_minutes = mission.drop_duration.to_i % 60
+          my_mission.daily_quest_id = my_daily_quest.id
+          my_mission.save!
+        end
       end
     end
   end
@@ -43,14 +46,12 @@ class DailyQuest < ApplicationRecord
   end
 
   def recompute_missions_position
-    missions.order(drop_time: :asc).each_with_index do |mission, index|
-      mission.update_column :position, index + 1
+    transaction do
+      missions.order(drop_time: :asc).each_with_index do |mission, index|
+        mission.update_column :position, index + 1
+      end
     end
   end
-
-  # def recompute_steps_position
-  # missions.map(&:steps).flatten
-  # end
 end
 
 # == Schema Information
@@ -59,7 +60,7 @@ end
 #
 #  id         :bigint(8)        not null, primary key
 #  started_on :date
-#  status     :integer          default("not_started"), not null
+#  status     :integer          default(0), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  company_id :bigint(8)

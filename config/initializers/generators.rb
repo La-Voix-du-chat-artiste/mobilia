@@ -9,7 +9,7 @@ Rails.application.config.generators do |g|
   g.template_engine :slim
 end
 
-Rails.application.config.generators.after_generate do |files|
-  parsable_files = files.filter { |file| file.end_with?('.rb') }
-  system("bundle exec rubocop -A --fail-level=E #{parsable_files.shelljoin}", exception: true)
-end
+# Rails 8.1 ships this helper: it shells out through RbConfig.ruby instead of
+# interpolating a `bundle exec rubocop` command string, skips files that do not
+# exist, and keeps RuboCop's output quiet.
+Rails.application.config.generators.apply_rubocop_autocorrect_after_generate!

@@ -3,7 +3,13 @@ class OptimizerJob < ApplicationJob
 
   def perform(step_ids)
     @steps = Step.find(step_ids)
-    daily_quest = @steps.first.mission.daily_quest
+
+    # `Step.find([])` returns [] rather than raising, and @steps.first was then
+    # nil: the job died with "undefined method 'mission' for nil" and reported it
+    # to every connected tenant.
+    return if @steps.empty?
+
+    @daily_quest = @steps.first.mission.daily_quest
 
     total_steps = @steps.count
 
@@ -33,7 +39,7 @@ class OptimizerJob < ApplicationJob
       Step.broadcast_flash(
         :notice,
         "<div class=\"w-full\">#{message}</div>",
-        stream: [daily_quest.company, :flash],
+        stream: [@daily_quest.company, :flash],
         disappear: false
       )
 
@@ -42,10 +48,16 @@ class OptimizerJob < ApplicationJob
 
     # This broadcast is only meant to reload the page once job is completed.
     Turbo::StreamsChannel.broadcast_append_to(
-      [daily_quest.company, :page_reload],
+      [@daily_quest.company, :page_reload],
       target: 'page_reload',
       partial: 'page_reload',
-      locals: { url: daily_quests_path(date: daily_quest.started_on) }
+      locals: { url: daily_quests_path(date: @daily_quest.started_on) }
     )
+  end
+
+  private
+
+  def error_stream
+    @daily_quest ? [@daily_quest.company, :flash] : :flash
   end
 end

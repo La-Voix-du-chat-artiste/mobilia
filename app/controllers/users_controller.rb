@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
         format.html { redirect_to root_path, notice: 'Votre compte administrateur a bien été créé' }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end

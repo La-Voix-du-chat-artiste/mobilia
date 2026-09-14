@@ -2,24 +2,35 @@ class Step < ApplicationRecord
   include ActionView::Helpers::AssetUrlHelper
   include Rails.application.routes.url_helpers
 
-  enum role: {
+  # Raised when the OSRM routing service cannot answer, or answers something we
+  # cannot use. Routing used to fail with an opaque TypeError/NoMethodError
+  # ("undefined method '[]' for nil") coming from a nil response body or a nil
+  # `routes` entry, which said nothing about what actually went wrong.
+  class RoutingError < StandardError; end
+
+  OSRM_ENDPOINT = 'https://router.project-osrm.org'.freeze
+
+  # Rails 8 removed the `enum name: {...}` keyword form (it now raises
+  # ArgumentError) and the `_prefix` / `_default` style options. Enums must be
+  # declared positionally.
+  enum :role, {
     transporter_to_customer: 0,
     customer_to_place: 1,
     place_to_customer: 2,
     customer_to_transporter: 3,
     customer_to_customer: 4
   }
-  enum status: {
+  enum :status, {
     possible: 0,
     conflict: 1,
     impossible: 2
   }
-  enum departure_point_icon: {
+  enum :departure_point_icon, {
     starting_line: 0, transporter: 1, customer: 2, place: 3, ending_line: 4
-  }, _prefix: true
-  enum arrival_point_icon: {
+  }, prefix: true
+  enum :arrival_point_icon, {
     starting_line: 0, transporter: 1, customer: 2, place: 3, ending_line: 4
-  }, _prefix: true
+  }, prefix: true
 
   belongs_to :transporter, optional: true
   belongs_to :mission
@@ -33,15 +44,36 @@ class Step < ApplicationRecord
 
   before_save :generate_route, if: ->(step) { step.route.blank? }
 
+  def self.osrm_json(path)
+    response = Faraday.get("#{OSRM_ENDPOINT}#{path}")
+
+    raise RoutingError, "OSRM request failed with HTTP #{response.status} for #{path}" unless response.success?
+
+    JSON.parse(response.body)
+  rescue JSON::ParserError => e
+    raise RoutingError, "OSRM returned a non-JSON body for #{path}: #{e.message}"
+  end
+  private_class_method :osrm_json
+
+  # The distinct road names OSRM reports for the first leg, used by the PDF.
+  def self.roads_from(route)
+    legs = route['legs'] || []
+    steps = legs.first&.fetch('steps', nil) || []
+
+    steps.filter_map { |step| step['name'] }.uniq
+  end
+  private_class_method :roads_from
+
   def self.routing(departure_address:, arrival_address:, overview: 'false', geometries: 'polyline')
     coords_string = "#{departure_address.longitude},#{departure_address.latitude};#{arrival_address.longitude},#{arrival_address.latitude}"
 
-    resp = Faraday.get("https://router.project-osrm.org/route/v1/driving/#{coords_string}?overview=#{overview}&steps=#{!overview.nil?}&geometries=#{geometries}&alternatives=false")
-    json = JSON.parse(resp.body)
+    json = osrm_json("/route/v1/driving/#{coords_string}?overview=#{overview}&steps=#{!overview.nil?}&geometries=#{geometries}&alternatives=false")
 
-    route = json['routes'].first
+    route = json['routes']&.first
 
-    route['roads'] = route.fetch('legs').first&.fetch('steps')&.map { |st| st.fetch('name') }&.select(&:present?)&.compact&.uniq
+    raise RoutingError, "OSRM found no route from #{departure_address.label} to #{arrival_address.label}" if route.nil?
+
+    route['roads'] = roads_from(route)
 
     route.slice('distance', 'duration', 'geometry', 'roads')
   end
@@ -52,13 +84,14 @@ class Step < ApplicationRecord
     stringify_coords = all_coords.map { |c| c.join(',') }.join(';')
 
     trip_params = "#{stringify_coords}?source=first&destination=last&geometries=polyline&steps=true&roundtrip=false&overview=full"
-    Rails.logger.debug { "http://router.project-osrm.org/trip/v1/driving/#{trip_params}" }
-    resp = Faraday.get("http://router.project-osrm.org/trip/v1/driving/#{trip_params}")
-    json = JSON.parse(resp.body)
-    route = json['trips'].first
-    route['roads'] = route.fetch('legs').first&.fetch('steps')&.map { |st| st.fetch('name') }&.select(&:present?)&.compact&.uniq
+    json = osrm_json("/trip/v1/driving/#{trip_params}")
+    route = json['trips']&.first
 
-    route['waypoints_index'] = json['waypoints'].pluck('waypoint_index')
+    raise RoutingError, 'OSRM found no trip for the given addresses' if route.nil?
+
+    route['roads'] = roads_from(route)
+
+    route['waypoints_index'] = json.fetch('waypoints', []).pluck('waypoint_index')
     route.slice('distance', 'duration', 'geometry', 'roads', 'waypoints_index')
   end
 
@@ -147,40 +180,6 @@ class Step < ApplicationRecord
     (route&.fetch('distance').to_i / 1000.to_f).round(1)
   end
 
-  def set_role
-    daily_step_ids = mission.daily_quest.missions.map(&:step_ids).flatten
-    # .where(transporter_id: transporter_id )
-    Step.where(id: (daily_step_ids - [id]))
-    Address.where(latitude: departure_address.latitude, longitude: departure_address.longitude).ids
-    arrival_address_ids = Address.where(latitude: arrival_address.latitude, longitude: arrival_address.longitude).ids
-
-    # same_origin = Step.where(started_at: started_at).where(addresses: Address.where(id: departure_address_ids))
-    # arrival_addresses = same_origin.map(&:arrival_addresses)
-    # routing_match_from_origin = Step.routing_match(arrival_address)
-
-    same_destination = Step.where(arrival_at: arrival_at).where(addresses: Address.where(id: arrival_address_ids))
-    departure_addresses = [Place.first.address] + same_destination.map(&:departure_address) + [arrival_address]
-    routing_match_from_destination = Step.routing_match(departure_addresses)
-
-    return if routing_match_from_destination.blank?
-
-    Rails.logger.debug same_destination.map(&:title)
-
-    waypoints_index = routing_match_from_destination.fetch('waypoints_index')
-
-    Rails.logger.debug waypoints_index
-    sorted_same_destination = []
-
-    same_destination.each_with_index do |dest, i_dest|
-      sorted_same_destination[waypoints_index[i_dest + 1] - 1] = dest
-    end
-
-    sorted_same_destination.each_with_index do |dest, i_dest|
-      end_point_name = i_dest + 1 == sorted_same_destination.count ? dest.mission.place.name : sorted_same_destination[i_dest + 1].mission.customer.full_name
-      dest.title = [dest.mission.customer.full_name, end_point_name].join(' >> ')
-    end
-  end
-
   def broadcast_pending_placement
     broadcast_replace_to [mission.daily_quest.company, :steps],
                          target: "mission_step_#{id}",
@@ -219,15 +218,15 @@ end
 #  title                :string
 #  started_at           :datetime
 #  arrival_at           :datetime
-#  departure_point_icon :integer          default("starting_line"), not null
-#  arrival_point_icon   :integer          default("starting_line"), not null
-#  role                 :integer          default("transporter_to_customer"), not null
+#  departure_point_icon :integer          default(0), not null
+#  arrival_point_icon   :integer          default(0), not null
+#  role                 :integer          default(0), not null
 #  route                :json             not null
 #  transporter_id       :bigint(8)
 #  mission_id           :bigint(8)        not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  status               :integer          default("possible"), not null
+#  status               :integer          default(0), not null
 #
 # Indexes
 #

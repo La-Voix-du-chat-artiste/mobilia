@@ -1,5 +1,7 @@
 class Vehicle < ApplicationRecord
-  enum status: { normal: 0, breakdown: 1, mechanic: 2 }
+  include PhotoAssignable
+
+  enum :status, { normal: 0, breakdown: 1, mechanic: 2 }
 
   belongs_to :company
   has_one :transporter, dependent: :nullify
@@ -10,7 +12,9 @@ class Vehicle < ApplicationRecord
   humanize :status, enum: true
 
   validates :name, presence: true
-  validates :number_plate, presence: true, uniqueness: true
+  # Scoped to the company: the database index was global, so two tenants could
+  # not both register the same plate.
+  validates :number_plate, presence: true, uniqueness: { scope: :company_id }
   validates :max_regular_seats, presence: true, numericality: { only_integer: true }
   validates :max_wheelchair_seats, presence: true, numericality: { only_integer: true }
 
@@ -22,9 +26,10 @@ class Vehicle < ApplicationRecord
   private
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(name)}&size=256"
-
-    photo.attach(io: URI.parse(url).open, filename: 'vehicle.jpg')
+    attach_generated_photo(
+      self.class.avatar_url(I18n.transliterate(name), background: '3b82f6'),
+      'vehicle.jpg'
+    )
   end
 
   def unassign_transporter
@@ -48,7 +53,7 @@ end
 #  length               :float
 #  max_regular_seats    :integer          default(0), not null
 #  max_wheelchair_seats :integer          default(0), not null
-#  status               :integer          default("normal"), not null
+#  status               :integer          default(0), not null
 #  substitution         :boolean          default(FALSE), not null
 #  enabled              :boolean          default(TRUE), not null
 #  created_at           :datetime         not null
@@ -57,6 +62,6 @@ end
 #
 # Indexes
 #
-#  index_vehicles_on_company_id    (company_id)
-#  index_vehicles_on_number_plate  (number_plate) UNIQUE
+#  index_vehicles_on_company_id                   (company_id)
+#  index_vehicles_on_company_id_and_number_plate  (company_id,number_plate) UNIQUE
 #

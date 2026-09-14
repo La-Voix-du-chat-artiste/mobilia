@@ -15,9 +15,13 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+#
+# It reads POSTGRES_TEST_DB, not POSTGRES_DB: sharing one variable meant that
+# any deployment exporting POSTGRES_DB pointed the test suite at the
+# development/production database.
 test:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DB") { "mobilia_test" } %>
+  database: <%= ENV.fetch("POSTGRES_TEST_DB") { "mobilia_test" } %>
   port: <%= ENV.fetch("POSTGRES_TEST_PORT") { "5432" } %>
 
 production:

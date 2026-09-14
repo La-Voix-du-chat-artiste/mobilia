@@ -31,8 +31,8 @@ class VehiclesController < ApplicationController
         end
         format.json { render :show, status: :created, location: @vehicle }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @vehicle.errors, status: :unprocessable_content }
       end
     end
   end
@@ -57,8 +57,8 @@ class VehiclesController < ApplicationController
         format.html { redirect_to vehicle_path(@vehicle), notice: 'Le véhicule a bien été mis à jour.' }
         format.json { render :show, status: :ok, location: @vehicle }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @vehicle.errors, status: :unprocessable_content }
       end
     end
   end

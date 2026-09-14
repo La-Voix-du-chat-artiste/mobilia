@@ -7,7 +7,10 @@ module DailyQuests
     def send_all_plannings
       authorize! Transporter, context: { daily_quest: @daily_quest }
 
-      transporters = company.daily_quests.with_attached_photo.includes(:absences)
+      # This used to read `company.daily_quests.with_attached_photo`, which
+      # raised NoMethodError: DailyQuest has no photo attachment. The intent is
+      # obviously the company's transporters.
+      transporters = company.transporters.with_attached_photo.includes(:absences)
       transporters = transporters.reject do |transporter|
         transporter.off?(@daily_quest.started_on)
       end
@@ -23,7 +26,12 @@ module DailyQuests
         notice = "Les plannings du jour sont en train d'être envoyés aux différents chauffeurs"
 
         format.html do
-          redirect_to daily_quest_path(date: @daily_quest.started_on), notice: notice
+          # `daily_quest_path` is the show route and requires :id. This action is
+          # reached through the nested /daily_quests/:daily_quest_id/... route, so
+          # there is no params[:id] for the helper to fall back on and it raised
+          # UrlGenerationError. Every other redirect in the planning flow goes
+          # back to the board, which is also where the button lives.
+          redirect_to daily_quests_path(date: @daily_quest.started_on), notice: notice
         end
         format.turbo_stream { flash.now[:notice] = notice }
       end
@@ -42,7 +50,8 @@ module DailyQuests
         notice = "Le planning a bien été envoyé par email à #{@transporter.full_name}"
 
         format.html do
-          redirect_to daily_quest_path(date: @daily_quest.started_on), notice: notice
+          # See send_all_plannings: daily_quest_path needs :id.
+          redirect_to daily_quests_path(date: @daily_quest.started_on), notice: notice
         end
         format.turbo_stream { flash.now[:notice] = notice }
       end

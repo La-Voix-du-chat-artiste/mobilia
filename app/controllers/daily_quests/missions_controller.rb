@@ -36,7 +36,7 @@ module DailyQuests
           format.html { redirect_to daily_quest_missions_path(@daily_quest), notice: notice }
           format.turbo_stream { flash.now[:notice] = notice }
         else
-          format.html { render :new, status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_content }
         end
       end
     end
@@ -59,7 +59,7 @@ module DailyQuests
       if @mission.update(mission_params)
         redirect_to daily_quest_mission_path(@daily_quest, @mission), notice: 'La mission a bien été mise à jour.'
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

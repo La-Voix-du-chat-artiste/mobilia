@@ -8,6 +8,13 @@ Rails.application.config.sorcery.submodules = %i[remember_me reset_password]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
+  # Rails 7 replaced `redirect_back` with `redirect_back_or_to`, which collides
+  # with sorcery's own method of the same name. sorcery 0.18 warns about the
+  # override on every call; opting in to the Rails version and calling
+  # `redirect_to_before_login_path` where the "URL the user was heading to"
+  # behaviour is wanted removes the warning without changing behaviour.
+  config.use_redirect_back_or_to_by_rails = true
+
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.

@@ -42,8 +42,8 @@ class PlacesController < ApplicationController
       else
         @place.build_address(label: place_params.dig(:address_attributes, :label))
 
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @place.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @place.errors, status: :unprocessable_content }
       end
     end
   end
@@ -70,8 +70,8 @@ class PlacesController < ApplicationController
       else
         @place.build_address(label: place_params.dig(:address_attributes, :label))
 
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @place.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @place.errors, status: :unprocessable_content }
       end
     end
   end

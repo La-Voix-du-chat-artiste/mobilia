@@ -23,6 +23,9 @@ Rails.application.configure do
   # Enable static file serving from the `/public` folder (turn off if using NGINX/Apache for it).
   config.public_file_server.enabled = true
 
+  # Cache digest-stamped assets for far-future expiry.
+  config.public_file_server.headers = { 'cache-control' => "public, max-age=#{1.year.to_i}" }
+
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
@@ -52,9 +55,7 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new($stdout)
-                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
-                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  config.logger = ActiveSupport::TaggedLogging.logger($stdout)
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -64,6 +65,9 @@ Rails.application.configure do
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
+  # Prevent health checks from clogging up the logs.
+  config.silence_healthcheck_path = '/up'
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
@@ -72,6 +76,13 @@ Rails.application.configure do
   config.active_job.queue_name_prefix = 'mobilia_production'
 
   config.action_mailer.perform_caching = false
+
+  # Required by the *_url helpers used in the mailers (password reset, planning
+  # emails). Without it Rails raises "Missing host to link to!".
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch('MAILER_HOST', 'mobilia.flownaely.cafe'),
+    protocol: 'https'
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -86,6 +97,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Only use :id for inspections in production.
+  config.active_record.attributes_for_inspect = [:id]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [

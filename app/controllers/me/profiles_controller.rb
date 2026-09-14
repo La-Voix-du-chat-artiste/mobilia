@@ -22,7 +22,7 @@ module Me
       if current_user.update(user_params)
         redirect_to me_profile_path, notice: 'Votre profil a bien été mis à jour'
       else
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

@@ -19,7 +19,7 @@ module DailyQuests
 
         return if @step.update(step_params)
 
-        head :unprocessable_entity
+        head :unprocessable_content
       end
 
       private

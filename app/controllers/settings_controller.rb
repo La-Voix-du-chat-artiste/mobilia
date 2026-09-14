@@ -17,7 +17,7 @@ class SettingsController < ApplicationController
       if @setting.update(setting_params)
         format.html { redirect_to root_path, notice: 'Les paramètres ont bien été mis à jour.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end

@@ -1,12 +1,16 @@
 class Customer < ApplicationRecord
   include Archivable
   include Optionable
+  include PhotoAssignable
 
-  EMAIL_REGEX = /\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+/
+  # A 2-3 character TLD cap rejected valid addresses such as .info, .museum or
+  # a +tag in the local part. URI::MailTo::EMAIL_REGEXP is the standard Rails
+  # compromise between permissiveness and typo catching.
+  EMAIL_REGEX = URI::MailTo::EMAIL_REGEXP
 
-  enum kind: { walker: 0, wheelchair: 1, wheelchair_auto: 2 }, _default: :wheelchair
+  enum :kind, { walker: 0, wheelchair: 1, wheelchair_auto: 2 }, default: :wheelchair
 
-  normalizes :email, with: -> { _1.strip.downcase }
+  normalizes :email, with: -> { it.strip.downcase }
 
   belongs_to :company
   belongs_to :favorite_trip_transporter, class_name: 'Transporter', optional: true
@@ -67,9 +71,13 @@ class Customer < ApplicationRecord
   private
 
   def assign_photo
-    url = "https://ui-avatars.com/api/?format=jpg&name=#{I18n.transliterate(first_name).first}+#{I18n.transliterate(last_name).first}&background=22c55e&color=ffffff&size=256"
-
-    photo.attach(io: URI.parse(url).open, filename: 'customer.jpg')
+    attach_generated_photo(
+      self.class.avatar_url(
+        "#{I18n.transliterate(first_name).first} #{I18n.transliterate(last_name).first}",
+        background: '22c55e'
+      ),
+      'customer.jpg'
+    )
   end
 
   def mandatory_phone?
@@ -86,7 +94,7 @@ end
 #  last_name                         :string
 #  phone                             :string
 #  email                             :string
-#  kind                              :integer          default("wheelchair"), not null
+#  kind                              :integer          default(0), not null
 #  enabled                           :boolean          default(TRUE), not null
 #  archived_at                       :datetime
 #  favorite_trip_transporter_id      :bigint(8)

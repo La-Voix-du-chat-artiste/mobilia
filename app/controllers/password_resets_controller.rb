@@ -20,12 +20,12 @@ class PasswordResetsController < ApplicationController
       else
         flash[:alert] = "L'email renseigné n'est pas valide"
 
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_content
       end
     else
       flash[:alert] = 'Veuillez renseigner votre email'
 
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -53,7 +53,7 @@ class PasswordResetsController < ApplicationController
     if @user.change_password(user_params[:password])
       redirect_to(new_sessions_path, notice: 'Le mot de passe a été mis à jour avec succès.')
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

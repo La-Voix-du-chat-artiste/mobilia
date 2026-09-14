@@ -37,8 +37,8 @@ class TransportersController < ApplicationController
       else
         @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
 
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @transporter.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @transporter.errors, status: :unprocessable_content }
       end
     end
   end
@@ -68,7 +68,7 @@ class TransportersController < ApplicationController
       else
         @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
 
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end
@@ -113,7 +113,7 @@ class TransportersController < ApplicationController
     end
 
     @transporters = []
-    transporters_by_ids.each do |_id, step|
+    transporters_by_ids.each_value do |step|
       transporter = step.transporter
       locations = step.route['positions']
 

@@ -22,11 +22,24 @@ class Address < ApplicationRecord
   end
 
   after_validation :geocode, if: :label_changed?
+  after_validation :warn_when_not_geocoded, if: :label_changed?
 
   validates :label, presence: true
 
   def coords
     [longitude, latitude]
+  end
+
+  private
+
+  # Geocoding fails silently: on a network error, a rate limit or an address the
+  # BAN API does not know, latitude/longitude simply stay blank and the record is
+  # saved unusable. The symptom then shows up much later, as a routing error in a
+  # background job. At least leave a trace.
+  def warn_when_not_geocoded
+    return if latitude.present? && longitude.present?
+
+    Rails.logger.warn("[Address] could not geocode #{label.inspect}: latitude/longitude are blank")
   end
 end
 

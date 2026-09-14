@@ -2,6 +2,8 @@ class DuplicateWeekJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
   def perform(daily_quest)
+    @daily_quest = daily_quest
+
     DailyQuest.clone_week!(using: daily_quest)
 
     # This broadcast is only meant to reload the page once job is completed.
@@ -11,5 +13,11 @@ class DuplicateWeekJob < ApplicationJob
       partial: 'page_reload',
       locals: { url: daily_quests_path(date: daily_quest.started_on + 7.days) }
     )
+  end
+
+  private
+
+  def error_stream
+    @daily_quest ? [@daily_quest.company, :flash] : :flash
   end
 end

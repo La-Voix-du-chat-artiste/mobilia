@@ -31,6 +31,9 @@ class ApplicationController < ActionController::Base
     policy_name = e.policy.class.to_s.underscore
     message = t "#{policy_name}.#{e.rule}", scope: 'action_policy', default: :default
 
-    redirect_back_or_to root_path, alert: message
+    # `redirect_back_or_to` is now Rails' own method (see
+    # config/initializers/sorcery.rb); sorcery's "URL the user was trying to
+    # reach" variant is `redirect_to_before_login_path`.
+    redirect_to_before_login_path root_path, alert: message
   end
 end
