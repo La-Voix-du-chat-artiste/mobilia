@@ -9,6 +9,33 @@ module ApplicationHelper
     LOCALE_LABELS[locale.to_sym] || locale.to_s.upcase
   end
 
+  # Strings the Stimulus controllers need. They are injected into the page as
+  # JSON — see javascript_translations_tag and app/javascript/i18n.js — so that
+  # they live in config/locales like every other translation instead of being
+  # hardcoded in JavaScript.
+  def javascript_translations
+    {
+      'search.placeholder' => t('javascript.search.placeholder'),
+      'search.no_results' => t('javascript.search.no_results'),
+      'search.searching' => t('javascript.search.searching'),
+      'select.placeholder' => t('javascript.select.placeholder'),
+      'address.too_short' => t('javascript.address.too_short'),
+      'address.error' => t('javascript.address.error')
+    }
+  end
+
+  # json_escape (rather than an HTML escape) keeps a translation containing
+  # "</script>" from ending the element early: it writes \u003c, which JSON.parse
+  # turns back into "<". The payload is therefore safe by construction, and
+  # html_safe is what stops tag.script from escaping the JSON a second time —
+  # inside a script element an HTML escape would corrupt it, not protect it.
+  def javascript_translations_tag
+    # rubocop:disable-next Rails/OutputSafety
+    payload = ERB::Util.json_escape(javascript_translations.to_json).html_safe
+
+    tag.script payload, type: 'application/json', id: 'js-translations'
+  end
+
   def render_turbo_stream_flash_messages
     turbo_stream.prepend 'flashes', partial: 'flashes', locals: { disappear: false }
   end

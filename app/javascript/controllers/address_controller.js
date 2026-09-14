@@ -1,6 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import { get } from '@rails/request.js'
 import SlimSelect from 'slim-select'
+import { t } from 'i18n'
 
 export default class extends Controller {
   static values = {
@@ -11,16 +12,16 @@ export default class extends Controller {
     new SlimSelect({
       select: this.element,
       settings: {
-        searchPlaceholder: 'Rechercher',
-        searchText: 'Pas de résultat',
-        searchingText: 'Recherche en cours...',
-        placeholderText: 'Sélectionner une option',
+        searchPlaceholder: t('search.placeholder'),
+        searchText: t('search.no_results'),
+        searchingText: t('search.searching'),
+        placeholderText: t('select.placeholder'),
       },
       events: {
         search: (search, currentData) => {
           return new Promise(async (resolve, reject) => {
             if (search.length < 3) {
-              return reject('La recherche doit faire au moins 3 caractères')
+              return reject(t('address.too_short'))
             }
 
             const response = await get(this.searchUrlValue, {
@@ -35,7 +36,7 @@ export default class extends Controller {
 
               return resolve(results)
             } else {
-              return reject('Erreur de récupération des adresses')
+              return reject(t('address.error'))
             }
           })
         }

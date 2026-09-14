@@ -20,3 +20,4 @@ pin 'leaflet.markercluster', to: 'https://ga.jspm.io/npm:leaflet.markercluster@1
 pin 'leaflet-gesture-handling', to: 'https://ga.jspm.io/npm:leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js'
 pin 'polyline.encoded', to: 'polyline.encoded.js'
 pin 'leaflet-routeboxer', to: 'leaflet-routeboxer.js'
+pin 'i18n', to: 'i18n.js'

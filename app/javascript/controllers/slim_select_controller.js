@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import SlimSelect from 'slim-select'
+import { t } from 'i18n'
 
 export default class extends Controller {
   static values = {
@@ -17,10 +18,10 @@ export default class extends Controller {
       select: this.element,
       settings: {
         showSearch: this.showSearchValue,
-        searchPlaceholder: 'Rechercher',
-        searchText: 'Pas de résultat',
-        searchingText: 'Recherche en cours...',
-        placeholderText: 'Sélectionner une option',
+        searchPlaceholder: t('search.placeholder'),
+        searchText: t('search.no_results'),
+        searchingText: t('search.searching'),
+        placeholderText: t('select.placeholder'),
         closeOnSelect: this.closeOnSelectValue,
         allowDeselect: true
       }

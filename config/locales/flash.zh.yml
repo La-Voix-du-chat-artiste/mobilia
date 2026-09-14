@@ -35,6 +35,13 @@ zh:
       profiles:
         update: 您的资料已更新
 
+    # Broadcast by OptimizerJob while it assigns the missions; the job is given
+    # the locale of the person who asked for the optimisation.
+    optimizer:
+      running: 正在分配任务，请稍候，可能需要几分钟。完成后页面会自动刷新。
+      step_progress_html: 正在安排第 <strong>%{index}/%{total}</strong> 个任务，请稍候……
+      reloading: 页面即将刷新……
+
     password_resets:
       instructions_sent: 重置密码的说明已发送。
       invalid_email: 填写的邮箱无效

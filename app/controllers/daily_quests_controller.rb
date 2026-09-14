@@ -56,7 +56,9 @@ class DailyQuestsController < ApplicationController
 
     steps = @daily_quest.missions.map(&:steps).flatten.select(&:single?).compact
 
-    OptimizerJob.perform_later(steps.map(&:id))
+    # The locale travels with the job: it broadcasts progress messages into the
+    # browser, and a job runs outside the request that enqueued it.
+    OptimizerJob.perform_later(steps.map(&:id), locale: I18n.locale.to_s)
 
     head :ok
   end

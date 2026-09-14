@@ -97,6 +97,35 @@ RSpec.describe 'Internationalization', type: :request do
     end
   end
 
+  describe 'the strings JavaScript needs' do
+    it 'are injected in the language of the page' do
+      sign_in(admin)
+
+      get customers_path, params: { locale: :en }
+
+      expect(response.body).to include('"search.no_results":"No results"')
+
+      get customers_path, params: { locale: :zh }
+
+      expect(response.body).to include('"search.no_results":"无结果"')
+    end
+
+    it 'are injected whatever the layout' do
+      # The session layout, on a page that is reachable while signed out.
+      get '/sessions/new', params: { locale: :en }
+      expect(response.body).to include('js-translations')
+
+      sign_in(admin)
+
+      # The home layout, then the application layout.
+      get '/', params: { locale: :en }
+      expect(response.body).to include('js-translations')
+
+      get customers_path, params: { locale: :en }
+      expect(response.body).to include('js-translations')
+    end
+  end
+
   describe 'every authenticated page' do
     before { sign_in(admin) }
 

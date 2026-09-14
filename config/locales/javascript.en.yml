@@ -1,0 +1,15 @@
+en:
+  # Strings the Stimulus controllers need. ApplicationHelper#javascript_translations
+  # injects them into the page as JSON, app/javascript/i18n.js reads them: they
+  # live here rather than in JavaScript so that they follow the locale like the
+  # rest of the interface.
+  javascript:
+    search:
+      placeholder: Search
+      no_results: No results
+      searching: Searching...
+    select:
+      placeholder: Select an option
+    address:
+      too_short: The search must be at least 3 characters long
+      error: Could not fetch the addresses

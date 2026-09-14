@@ -20,6 +20,7 @@ html class=options.theme
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
 
     = javascript_importmap_tags
+    = javascript_translations_tag
 
   body.dark:bg-slate-800
     = render 'header', fixed: true

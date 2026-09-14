@@ -1,7 +1,13 @@
 class OptimizerJob < ApplicationJob
   include Rails.application.routes.url_helpers
 
-  def perform(step_ids)
+  # The job broadcasts its progress into the browser, so it has to speak the
+  # language of the person who asked for the optimisation. A job runs outside
+  # that request, so the locale travels with the arguments instead.
+  def perform(step_ids, locale: I18n.default_locale.to_s)
+    previous_locale = I18n.locale
+    I18n.locale = locale.to_s.to_sym if I18n.available_locales.include?(locale.to_s.to_sym)
+
     @steps = Step.find(step_ids)
 
     # `Step.find([])` returns [] rather than raising, and @steps.first was then
@@ -18,11 +24,11 @@ class OptimizerJob < ApplicationJob
       percentage = (index / total_steps.to_f) * 100
 
       message = <<~MESSAGE.squish
-        Les missions sont en cours d'assignation. Veuillez patienter, cela peut prendre quelques minutes. La page sera automatiquement rafraîchie une fois la tâche accomplie.
+        #{I18n.t('flash.optimizer.running')}
 
         <br />
 
-        Placement de la mission <strong>#{index}/#{total_steps}</strong>, veuillez patienter...
+        #{I18n.t('flash.optimizer.step_progress_html', index: index, total: total_steps)}
 
         <div class="progress">
           <div class="progress-label" style="width: #{percentage.to_i}%">#{percentage.to_i}%</div>
@@ -32,7 +38,7 @@ class OptimizerJob < ApplicationJob
       if last_one
         message += <<~MESSAGE
 
-          La page va être réactualisée dans quelques instants...
+          #{I18n.t('flash.optimizer.reloading')}
         MESSAGE
       end
 
@@ -53,6 +59,9 @@ class OptimizerJob < ApplicationJob
       partial: 'page_reload',
       locals: { url: daily_quests_path(date: @daily_quest.started_on) }
     )
+  ensure
+    # Job threads are reused, so the locale has to go back to what it was.
+    I18n.locale = previous_locale
   end
 
   private

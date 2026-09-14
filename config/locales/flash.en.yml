@@ -35,6 +35,13 @@ en:
       profiles:
         update: Your profile has been updated
 
+    # Broadcast by OptimizerJob while it assigns the missions; the job is given
+    # the locale of the person who asked for the optimisation.
+    optimizer:
+      running: The missions are being assigned. Please wait, this can take a few minutes; the page will refresh automatically once the job is done.
+      step_progress_html: Placing mission <strong>%{index}/%{total}</strong>, please wait...
+      reloading: The page is about to refresh...
+
     password_resets:
       instructions_sent: The instructions to reset your password have been sent.
       invalid_email: That e-mail address is not valid

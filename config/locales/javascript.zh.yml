@@ -1,0 +1,15 @@
+zh:
+  # Strings the Stimulus controllers need. ApplicationHelper#javascript_translations
+  # injects them into the page as JSON, app/javascript/i18n.js reads them: they
+  # live here rather than in JavaScript so that they follow the locale like the
+  # rest of the interface.
+  javascript:
+    search:
+      placeholder: 搜索
+      no_results: 无结果
+      searching: 搜索中……
+    select:
+      placeholder: 请选择一个选项
+    address:
+      too_short: 搜索内容至少需要 3 个字符
+      error: 获取地址失败
