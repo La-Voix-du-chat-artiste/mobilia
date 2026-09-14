@@ -1,0 +1,22 @@
+zh:
+  views:
+    daily_quests:
+      steps:
+        label:
+          outbound: 去程
+          return: 返程
+
+      transporters:
+        steps:
+          index:
+            back_to_planning: "<< 返回排班"
+            manage_missions: 任务管理
+            confirm_delete: 确定要删除此排班吗？
+          index_pdf:
+            title: 路线单
+            late_warning: 如与预定时间相比晚点超过 10 分钟，务必通知客户
+            trip_details: 行程详情：
+            profile: 类别：
+            customer_details: 客户详情：
+            additional_information: 补充信息：
+            duration_distance: " [ %{duration} 分钟 | %{distance} 公里 ]"

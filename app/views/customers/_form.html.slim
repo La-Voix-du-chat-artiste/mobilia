@@ -31,7 +31,7 @@
                  },
                  wrapper_html: { class: 'lg:w-2/3' },
                  collection: [ff.object.label].compact,
-                 prompt: "Saisir l'adresse du client",
+                 prompt: t('views.customers.form.address_prompt'),
                  include_blank: false
 
     = f.input :kind,
@@ -43,7 +43,7 @@
     - transporters = transporters_select_options
     = f.association :favorite_trip_transporter,
                     collection: transporters,
-                    include_blank: 'Pas de chauffeur préféré',
+                    include_blank: t('views.customers.form.no_favorite_transporter'),
                     input_html: { \
                       class: 'w-full', \
                       data: { \
@@ -54,7 +54,7 @@
 
     = f.association :favorite_trip_back_transporter,
                     collection: transporters,
-                    include_blank: 'Pas de chauffeur préféré',
+                    include_blank: t('views.customers.form.no_favorite_transporter'),
                     input_html: { \
                       class: 'w-full', \
                       data: { \
@@ -81,4 +81,4 @@
     = f.button :submit
 
     - if @customer.new_record?
-      = f.button :button, 'Valider et créer un nouveau client >>', type: :submit, name: :mode, value: 'save_and_create_new'
+      = f.button :button, t('views.customers.form.save_and_create'), type: :submit, name: :mode, value: 'save_and_create_new'

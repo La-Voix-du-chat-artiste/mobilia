@@ -1,0 +1,72 @@
+fr:
+  # Strings of the places and vehicles screens. Field labels, vehicle status
+  # labels and form hints live in activerecord.* / simple_form.*; shared
+  # vocabulary (delete, edit, add the first one, ...) lives in common.*.
+  views:
+    places:
+      edit:
+        back: "<< Retour aux lieux"
+        title: Modifier un lieu
+      form:
+        address_prompt: Chercher une adresse
+        submit_and_create_new: "Valider et créer un nouveau lieu >>"
+      index:
+        add: Ajouter un lieu
+        empty: Il n'y a pas encore de lieux -
+        help_text: "Les lieux représentent les différents endroits où les clients sont déposés. Ce peut-être un institut médical, un hôpital, une entreprise, ..."
+        help_title: Explications à lire
+        no_results: Il n'y a aucun lieu correspondant à cette recherche
+        search_placeholder: Rechercher un lieu par nom ou adresse
+        title: Lieux
+      new:
+        back: "<< Retour aux lieux"
+        title: Ajouter un lieu
+      place:
+        confirm_delete: Voulez-vous supprimer ce lieu ?
+        email: "Email:"
+        phone: "Téléphone:"
+        show: Fiche lieu
+      show:
+        address: "Adresse:"
+        back: "<< Retour aux lieux"
+        confirm_delete: Voulez-vous supprimer ce lieu ?
+        details: "Détails:"
+        email: "Email:"
+        phone: "Téléphone:"
+
+    vehicles:
+      edit:
+        back: "<< Retour aux véhicules"
+        title: Modifier un véhicule
+      form:
+        submit_and_create_new: "Valider et créer un nouveau véhicule >>"
+      index:
+        add: Ajouter un véhicule
+        empty: Il n'y a pas encore de véhicules -
+        help_text: "Les différents véhicules sont à renseigner sur cette page. Les véhicules peuvent ensuite être associés à un chauffeur."
+        help_title: Explications à lire
+        title: Véhicules
+      new:
+        back: "<< Retour aux véhicules"
+        title: Ajouter un véhicule
+      show:
+        back: "<< Retour aux véhicules"
+        confirm_delete: Voulez-vous supprimer ce véhicule ?
+        details: "Détails:"
+        height: "Hauteur:"
+        length: "Longueur:"
+        max_regular_seats: "Nombre de places assises:"
+        max_wheelchair_seats: "Nombre de places en fauteuil roulant:"
+        number_plate: "Plaque d'immatriculation:"
+        status: "Status:"
+        substitution: Véhicule de remplacement ?
+      vehicle:
+        confirm_delete: Voulez-vous supprimer ce véhicule ?
+        height: "Hauteur:"
+        length: "Longueur:"
+        max_regular_seats: "Nombre de places assises:"
+        max_wheelchair_seats: "Nombre de places en fauteuil roulant:"
+        no_driver: "⚠️ Véhicule sans chauffeur"
+        show: Fiche véhicule
+        status: "Status:"
+        substitution: Véhicule de remplacement ?

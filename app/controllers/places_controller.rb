@@ -36,7 +36,7 @@ class PlacesController < ApplicationController
       if @place.save
         format.html do
           redirect_url = params[:mode] == 'save_and_create_new' ? new_place_path : place_path(@place)
-          redirect_to redirect_url, notice: 'Le lieu a été créé.'
+          redirect_to redirect_url, notice: t('flash.places.create')
         end
         format.json { render :show, status: :created, location: @place }
       else
@@ -65,7 +65,7 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       if @place.update(place_params)
-        format.html { redirect_to place_url(@place), notice: 'Le lieu a été mis à jour.' }
+        format.html { redirect_to place_url(@place), notice: t('flash.places.update') }
         format.json { render :show, status: :ok, location: @place }
       else
         @place.build_address(label: place_params.dig(:address_attributes, :label))
@@ -83,7 +83,7 @@ class PlacesController < ApplicationController
     @place.destroy
 
     respond_to do |format|
-      format.html { redirect_to places_url, notice: 'Le lieu a été supprimé.' }
+      format.html { redirect_to places_url, notice: t('flash.places.destroy') }
       format.json { head :no_content }
     end
   end

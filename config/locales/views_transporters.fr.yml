@@ -1,0 +1,52 @@
+fr:
+  views:
+    transporters:
+      index:
+        title: Chauffeurs
+        new: Ajouter un chauffeur
+        help:
+          summary: Explications à lire
+          assignment: Les chauffeurs à qui assigner les missions de transport sont à spécifier sur cette page.
+          absences: Vous pouvez configurer les absences des chauffeurs pour une période donnée en cliquant sur "Profil chauffeur". Les absences sont prises en considération dans l'attribution automatique des missions de transport aux chauffeurs.
+        empty: Il n'y a pas encore de chauffeurs -
+      new:
+        title: Ajouter un chauffeur
+        back: "<< Retour aux chauffeurs"
+      edit:
+        title: Modifier un chauffeur
+        back: "<< Retour au chauffeur"
+      show:
+        back: "<< Retour aux chauffeurs"
+        confirm_delete: Voulez-vous supprimer ce chauffeur ?
+        no_vehicle: "⚠️ Chauffeur sans véhicule"
+        no_vehicle_warning: Aucun véhicule n'est configuré pour ce chauffeur. Vous ne pourrez pas lui assigner de missions sans véhicule.
+        select_vehicle: Sélectionner un véhicule
+        absences_title: Les présences / absences
+        add_absence: Ajouter une présence / absence
+        absences_empty: Il n'y a pas encore de présence ou absence de configurée
+        work_hours: Les horaires de travail
+      form:
+        address_prompt: Chercher une adresse
+        select_vehicle: Sélectionner un véhicule
+        save_and_create_new: "Valider et créer nouveau chauffeur >>"
+      transporter:
+        absent: Absent
+        no_vehicle: "⚠️ Chauffeur sans véhicule"
+        select_vehicle: Sélectionner un véhicule
+        profile: Profil chauffeur
+        confirm_delete: Voulez-vous supprimer ce chauffeur ?
+      map_popup:
+        address: "Adresse domicile:"
+        driving: En déplacement
+        stopped: A l'arrêt
+      absences:
+        new:
+          title: "Ajouter une présence / absence pour %{name}"
+          back: "<< Retour au transporter"
+        edit:
+          title: "Modifier une présence / absence pour %{name}"
+          back: "<< Retour au transporter"
+        absence:
+          from: Du
+          to: au
+          confirm_delete: Voulez-vous supprimer cette absence ?

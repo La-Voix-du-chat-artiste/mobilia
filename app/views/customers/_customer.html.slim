@@ -10,33 +10,33 @@ details.row id=dom_id(customer) class=('opacity-50' unless customer.enabled?) cl
 
     .flex.items-center.gap-3
       - if allowed_to?(:show?, customer)
-        = link_to 'Profil client', customer_path(customer), class: 'btn-show', data: { turbo_frame: :_top }
+        = link_to t('views.customers.customer.profile'), customer_path(customer), class: 'btn-show', data: { turbo_frame: :_top }
 
       - if allowed_to?(:update?, customer)
-        = link_to 'Modifier', edit_customer_path(customer), class: 'btn-edit', data: { turbo_frame: :_top }
+        = link_to t('common.edit'), edit_customer_path(customer), class: 'btn-edit', data: { turbo_frame: :_top }
 
       - if allowed_to?(:archive?, customer)
-        = button_to (customer.available? ? 'Archiver' : 'Désarchiver'),
+        = button_to (customer.available? ? t('common.archive') : t('common.unarchive')),
                     archive_customer_path(customer),
                     class: 'btn-archive',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous effectuer cette action sur ce client ?' }
+                    data: { turbo_confirm: t('views.customers.customer.confirm_archive') }
 
       - if allowed_to?(:destroy?, customer)
-        = button_to 'Supprimer', customer,
+        = button_to t('common.delete'), customer,
                     class: 'btn-destroy',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous supprimer ce client ?' }
+                    data: { turbo_confirm: t('views.customers.customer.confirm_delete') }
 
   .p-2.border-t.dark:border-gray-600
     p
-      strong Téléphone:
+      strong= "#{Customer.human_attribute_name(:phone)}:"
       =< formatted_phone_number(customer.phone)
     p
-      strong Email:
+      strong= "#{Customer.human_attribute_name(:email)}:"
       =< customer.email
     p
-      strong Type:
+      strong= "#{Customer.human_attribute_name(:kind)}:"
       =< customer.human_kind
 
     = customer.details

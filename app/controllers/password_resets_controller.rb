@@ -16,14 +16,14 @@ class PasswordResetsController < ApplicationController
       if @user
         @user.deliver_reset_password_instructions!
 
-        redirect_to(new_sessions_path, notice: 'Les instructions pour réinitialiser votre mot de passe ont été envoyées.')
+        redirect_to(new_sessions_path, notice: t('flash.password_resets.instructions_sent'))
       else
-        flash[:alert] = "L'email renseigné n'est pas valide"
+        flash[:alert] = t('flash.password_resets.invalid_email')
 
         render :new, status: :unprocessable_content
       end
     else
-      flash[:alert] = 'Veuillez renseigner votre email'
+      flash[:alert] = t('flash.password_resets.email_required')
 
       render :new, status: :unprocessable_content
     end
@@ -51,7 +51,7 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = user_params[:password_confirmation]
 
     if @user.change_password(user_params[:password])
-      redirect_to(new_sessions_path, notice: 'Le mot de passe a été mis à jour avec succès.')
+      redirect_to(new_sessions_path, notice: t('flash.password_resets.update'))
     else
       render :edit, status: :unprocessable_content
     end

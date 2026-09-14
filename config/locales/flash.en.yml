@@ -1,0 +1,71 @@
+en:
+  # Flash messages raised by controllers, keyed by controller path and action.
+  flash:
+    not_authenticated: You must be signed in to access this page
+
+    companies:
+      create: The company has been created
+      update: The company has been updated
+
+    customers:
+      create: The customer has been created
+      update: The customer has been updated
+      destroy: The customer has been deleted
+      archive: The customer has been archived
+      unarchive: The customer has been unarchived
+
+    daily_quests:
+      destroy: All of today's missions have been deleted
+      duplicate_week: The week is being duplicated. Please wait, this can take a few minutes; the page will refresh once the copy is complete
+      reset: Today's planning has been reset
+
+      missions:
+        create: The mission has been created.
+        update: The mission has been updated.
+        destroy: The mission has been deleted
+
+      steps:
+        destroy: The mission has been deleted
+
+      transporters:
+        send_all_plannings: Today's schedules are being sent to the drivers
+        send_planning: The schedule has been e-mailed to %{name}
+
+    me:
+      profiles:
+        update: Your profile has been updated
+
+    password_resets:
+      instructions_sent: The instructions to reset your password have been sent.
+      invalid_email: That e-mail address is not valid
+      email_required: Please enter your e-mail address
+      update: Your password has been updated.
+
+    places:
+      create: The place has been created.
+      update: The place has been updated.
+      destroy: The place has been deleted.
+
+    sessions:
+      create: Sign-in failed
+
+    settings:
+      update: The settings have been updated.
+
+    transporters:
+      create: The driver has been created.
+      update: The driver has been updated.
+      destroy: The driver has been deleted.
+
+      absences:
+        create: The absence has been created
+        update: The absence has been updated
+        destroy: The absence has been deleted
+
+    users:
+      create: Your administrator account has been created
+
+    vehicles:
+      create: The vehicle has been created.
+      update: The vehicle has been updated.
+      destroy: The vehicle has been deleted.

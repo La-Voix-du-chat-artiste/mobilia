@@ -27,7 +27,7 @@ class VehiclesController < ApplicationController
       if @vehicle.save
         format.html do
           redirect_url = params[:mode] == 'save_and_create_new' ? new_vehicle_path : vehicle_path(@vehicle)
-          redirect_to redirect_url, notice: 'Le véhicule a bien été créé.'
+          redirect_to redirect_url, notice: t('flash.vehicles.create')
         end
         format.json { render :show, status: :created, location: @vehicle }
       else
@@ -54,7 +54,7 @@ class VehiclesController < ApplicationController
 
     respond_to do |format|
       if @vehicle.update(vehicle_params)
-        format.html { redirect_to vehicle_path(@vehicle), notice: 'Le véhicule a bien été mis à jour.' }
+        format.html { redirect_to vehicle_path(@vehicle), notice: t('flash.vehicles.update') }
         format.json { render :show, status: :ok, location: @vehicle }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -70,7 +70,7 @@ class VehiclesController < ApplicationController
     @vehicle.destroy
 
     respond_to do |format|
-      format.html { redirect_to vehicles_path, notice: 'Le véhicule a bien été supprimé.' }
+      format.html { redirect_to vehicles_path, notice: t('flash.vehicles.destroy') }
       format.json { head :no_content }
     end
   end

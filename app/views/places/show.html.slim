@@ -2,34 +2,35 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl= @place.name
 
   .flex.items-center.gap-2
-    = link_to '<< Retour aux lieux', places_path, class: 'btn-back'
+    = link_to t('views.places.show.back'), places_path, class: 'btn-back'
 
     - if allowed_to?(:update?, @place)
-      = link_to 'Modifier', edit_place_path(@place), class: 'btn-edit'
+      = link_to t('common.edit'), edit_place_path(@place), class: 'btn-edit'
 
     - if allowed_to?(:destroy?, @place)
-      = button_to 'Supprimer', places_path,
+      = button_to t('common.delete'), places_path,
                   class: 'btn-destroy',
                   method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce lieu ?' }
+                  data: { turbo_confirm: t('views.places.show.confirm_delete') }
 
 .row.p-4 id=dom_id(@place)
   - if @place.photo.attached?
     p.mb-3= image_tag url_for(@place.photo), class: 'w-32'
 
   p
-    strong Téléphone:
+    strong = t('views.places.show.phone')
     =< formatted_phone_number(@place.phone)
   p
-    strong Email:
+    strong = t('views.places.show.email')
     =< @place.email
 
   - if @place.details?
     div
-      p: strong Détails:
+      p
+        strong = t('views.places.show.details')
       = @place.details
 
   - if @place.address.present?
     p
-      strong Adresse:
+      strong = t('views.places.show.address')
       =< @place.address.label

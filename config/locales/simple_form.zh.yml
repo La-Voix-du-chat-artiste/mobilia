@@ -1,0 +1,132 @@
+zh:
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    required:
+      text: '必填'
+      mark: '*'
+
+    error_notification:
+      default_message: "请检查以下问题："
+
+    labels:
+      session:
+        email: 邮箱
+        password: 密码
+        remember: 记住我？
+      transporter:
+        availabilities:
+          monday: 周一
+          tuesday: 周二
+          wednesday: 周三
+          thursday: 周四
+          friday: 周五
+          saturday: 周六
+          sunday: 周日
+
+      setting:
+        options:
+          map_refresh_interval: 地图刷新间隔
+          map_gesture_handling: 禁用地图滚动
+          theme: 主题
+          delta_jam: 拥堵时间增量
+          delta_loading: 上下车时间增量
+          enable_customers_map: 启用客户地图？
+          enable_places_map: 启用地点地图？
+          enable_transporters_map: 启用司机地图？
+          show_help: 显示说明？
+          big_screen_planning_show_all_transporters: 在大屏排班中同时显示所有司机？
+          transporters_can_see_each_others: 司机之间可以互相看到？
+          validate_phone_for_customers: 客户电话必填？
+          validate_phone_for_places: 地点电话必填？
+          validate_phone_for_transporters: 司机电话必填？
+          enable_customer_photo: 启用客户照片？
+          enable_place_photo: 启用地点照片？
+          enable_transporter_photo: 启用司机照片？
+          enable_vehicle_photo: 启用车辆照片？
+
+      user:
+        remove_photo: 删除照片？
+
+    placeholders:
+      customer:
+        phone: "格式：0123456789"
+      mission:
+        drop_duration_hours: 小时部分
+        drop_duration_minutes: 分钟部分
+
+    hints:
+      company:
+        name: 公司名称
+        logo: 建议上传正方形格式的 Logo，以获得更好的显示效果
+        description: 公司简介
+        virtual_address: 如果您填写地址，地图将自动以该地址为中心显示。
+
+      customer:
+        enabled: 勾选后，该客户可被分配到行程中
+        phone: "电话格式为 10 位数字且不含空格（例如：0123456789）"
+        address:
+          label: "注意：与输入框中内容匹配的地址会自动显示并实时更新。"
+        favorite_trip_transporter: 输入要为该客户在去程（从客户地址到送达地点）默认分配的司机。若已填写（非必填），在没有行程冲突的情况下，算法将遵循此规则。若未指定，系统会自动分配最合适的司机。
+        favorite_trip_back_transporter: 输入要为该客户在返程（从送达地点返回客户处）默认分配的司机。若已填写（非必填），在没有行程冲突的情况下，算法将遵循此规则。若未指定，系统会自动分配最合适的司机。
+        details: 关于该客户的补充信息。这些数据会显示在生成的、提供给司机的 PDF 上。
+
+      place:
+        name: 地点名称（公司、机构等）
+        enabled: 勾选后，该地点可配置到行程中
+        phone: "电话格式为 10 位数字且不含空格（例如：0123456789）"
+        details: 关于该地点的补充信息。这些数据会显示在生成的、提供给司机的 PDF 上。
+        address:
+          label: "注意：与输入框中内容匹配的地址会自动显示并实时更新。"
+
+      transporter:
+        details: 关于该司机的补充信息
+        phone: "电话格式为 10 位数字且不含空格（例如：0123456789）"
+        address:
+          label: "注意：与输入框中内容匹配的地址会自动显示并实时更新。"
+        vehicle: 为该司机分配哪辆车？
+
+      mission:
+        customer: 需要接送的客户
+        place: 客户要送达的地点
+        drop_time: 上门接客户的时间将由算法自动确定
+        drop_duration_hours: "请填写时长的<strong>小时</strong>部分（例如：<strong>1h30</strong> 请在相应栏填写 <strong>1</strong>，并在<strong>分钟</strong>栏填写 <strong>30</strong>）"
+        drop_duration_minutes: "请填写时长的<strong>分钟</strong>部分（参见上一个示例）"
+        round_trip: 如果该任务需要安排返程，请勾选此复选框
+
+      step:
+        description: 面向司机的补充信息（将显示在生成的 PDF 上）
+
+      vehicle:
+        enabled: 勾选后，该车辆可分配给司机
+        substitution: 该车辆是否用作其他车辆的替换车辆？
+        details: 关于该车辆的补充信息。这些数据会显示在生成的、提供给司机的 PDF 上。
+        length: 车辆长度是一项重要信息，有助于规划更精确的行程。运输卡车不一定适合市中心的狭窄道路，该信息可让算法在生成的行程中尽可能避开这些道路。
+        width: 车辆宽度是一项重要信息，有助于规划更精确的行程。运输卡车不一定适合市中心的狭窄道路，该信息可让算法在生成的行程中尽可能避开这些道路。
+        height: 车辆高度是一项重要信息，有助于规划更精确的行程。运输卡车不一定适合有限高的桥梁路段，该信息可让算法在生成的行程中避开这些路段。
+        max_regular_seats: 该信息可帮助算法判断车辆是否仍有能力在行程中搭载可自主行走的乘客，还是已经满载。
+        max_wheelchair_seats: 该信息可帮助算法判断车辆是否仍有能力在行程中搭载轮椅乘客，还是已经满载。
+
+      setting:
+        options:
+          map_refresh_interval: 司机位置的刷新间隔（秒）
+          map_gesture_handling: 勾选后，地图默认禁用滚动。需要使用键盘按键（电脑端）或用两根手指（移动端）才能与地图交互。
+          theme: 网站主题
+          delta_jam: 算法为应对可能的拥堵而预留的时间（分钟）
+          delta_loading: 轮椅乘客上下车所需预留的时间（分钟）
+          enable_customers_map: 勾选后，客户页面会显示客户地图（不影响全局地图）
+          enable_places_map: 勾选后，地点页面会显示地点地图（不影响全局地图）
+          enable_transporters_map: 勾选后，司机页面会显示司机地图（不影响全局地图）
+          show_help: 勾选后，在包含帮助说明的页面上会自动展开帮助说明栏。否则保持收起状态。
+          big_screen_planning_show_all_transporters: 勾选后，在大屏幕（宽度 1536px 及以上）的当日排班页面上，所有司机会同时显示且没有横向滚动。请注意，如果同时有大量司机，列宽会被压缩以便所有人都能显示，体验可能不太理想。
+          transporters_can_see_each_others: 勾选后，使用自己账号登录的司机可以看到其他司机的信息（地图位置、地址、客户等）。取消勾选可获得更好的隐私保护。
+          validate_phone_for_customers: 勾选后，创建客户时必须填写电话号码
+          validate_phone_for_places: 勾选后，创建地点时必须填写电话号码
+          validate_phone_for_transporters: 勾选后，创建司机时必须填写电话号码
+          enable_customer_photo: 勾选后，客户可以在个人资料中设置自己的照片。取消勾选后，用户照片将使用其姓名首字母代替。
+          enable_place_photo: 勾选后，地点可以在其资料页设置照片。取消勾选后，地点照片将使用其名称首字母代替。
+          enable_transporter_photo: 勾选后，司机可以在其资料页设置照片。取消勾选后，司机照片将使用其姓名首字母代替。
+          enable_vehicle_photo: 勾选后，车辆可以在其资料页设置照片。取消勾选后，车辆照片将使用其名称首字母代替。
+
+      address:
+        label: 如果您填写地址，在地图上没有标记的情况下，地图将自动以该地址为中心显示。

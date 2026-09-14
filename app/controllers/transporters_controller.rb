@@ -31,7 +31,7 @@ class TransportersController < ApplicationController
       if @transporter.save
         format.html do
           redirect_url = params[:mode] == 'save_and_create_new' ? new_transporter_path : transporter_path(@transporter)
-          redirect_to redirect_url, notice: 'Le chauffeur a bien été créé.'
+          redirect_to redirect_url, notice: t('flash.transporters.create')
         end
         format.json { render :show, status: :created, location: @transporter }
       else
@@ -64,7 +64,7 @@ class TransportersController < ApplicationController
 
     respond_to do |format|
       if @transporter.update(transporter_params)
-        format.html { redirect_to transporter_url(@transporter), notice: 'Le chauffeur a bien été mis à jour.' }
+        format.html { redirect_to transporter_url(@transporter), notice: t('flash.transporters.update') }
       else
         @transporter.build_address(label: transporter_params.dig(:address_attributes, :label))
 
@@ -80,7 +80,7 @@ class TransportersController < ApplicationController
     @transporter.destroy
 
     respond_to do |format|
-      format.html { redirect_to transporters_url, notice: 'Le chauffeur a bien été supprimé.' }
+      format.html { redirect_to transporters_url, notice: t('flash.transporters.destroy') }
       format.json { head :no_content }
     end
   end

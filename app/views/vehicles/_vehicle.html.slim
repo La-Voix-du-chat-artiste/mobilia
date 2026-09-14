@@ -16,41 +16,41 @@ details.row id=dom_id(vehicle) class=('opacity-50' unless vehicle.enabled?)
                 = image_tag vehicle.transporter.photo, class: 'w-6 h-6 object-cover rounded-full'
               = vehicle.transporter.full_name
           - elsif vehicle.normal?
-            span.text-orange-500 ⚠️ Véhicule sans chauffeur
+            span.text-orange-500= t('views.vehicles.vehicle.no_driver')
 
     .flex.items-center.gap-3
       - if allowed_to?(:show?, vehicle)
-        = link_to 'Fiche véhicule', vehicle_path(vehicle), class: 'btn-show'
+        = link_to t('views.vehicles.vehicle.show'), vehicle_path(vehicle), class: 'btn-show'
       - if allowed_to?(:update?, vehicle)
-        = link_to 'Modifier', edit_vehicle_path(vehicle), class: 'btn-edit'
+        = link_to t('common.edit'), edit_vehicle_path(vehicle), class: 'btn-edit'
       - if allowed_to?(:destroy?, vehicle)
-        = button_to 'Supprimer', vehicle,
+        = button_to t('common.delete'), vehicle,
                     class: 'btn-destroy',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+                    data: { turbo_confirm: t('views.vehicles.vehicle.confirm_delete') }
 
   .p-2.border-t.dark:border-gray-600
     p
-      strong Longueur:
+      strong = t('views.vehicles.vehicle.length')
       =< vehicle.width.presence || '/'
     p
-      strong Hauteur:
+      strong = t('views.vehicles.vehicle.height')
       =< vehicle.height.presence || '/'
 
     p
-      strong Nombre de places assises:
+      strong = t('views.vehicles.vehicle.max_regular_seats')
       =< vehicle.max_regular_seats
 
     p
-      strong Nombre de places en fauteuil roulant:
+      strong = t('views.vehicles.vehicle.max_wheelchair_seats')
       =< vehicle.max_wheelchair_seats
 
     p
-      strong Status:
+      strong = t('views.vehicles.vehicle.status')
       =< vehicle.human_status
 
     p
-      strong Véhicule de remplacement ?
+      strong = t('views.vehicles.vehicle.substitution')
       =< t(vehicle.substitution.to_s)
 
     = vehicle.details

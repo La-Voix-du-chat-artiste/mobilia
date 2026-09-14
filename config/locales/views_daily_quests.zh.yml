@@ -1,0 +1,103 @@
+zh:
+  views:
+    daily_quests:
+      index:
+        absent_drivers_today: "今日缺勤司机"
+        all_missions_assigned: "恭喜，您已分配所有待处理的任务！"
+        confirm_optimize_all: "是否要自动安排所有任务？"
+        drivers_without_vehicle: "⚠️ 未配置车辆的司机"
+        drivers_without_vehicle_details: "部分司机尚未配置车辆。没有车辆，您将无法为他们分配任务"
+        missions_without_driver: "⚠️ 未分配司机的任务"
+        optimize_all: "全部安排到排班"
+        title: "%{day}任务"
+        until: "（截至 %{date}）"
+
+      instructions:
+        first_step: "首先点击“添加任务”按钮，配置当天的运输任务。"
+        intro: "此页面用于将各项任务分配给指定日期在岗的司机。"
+        notes_information: "尽可能准确地填写车辆信息、司机请假信息以及客户和地点的补充信息，可帮助算法生成精确的排班，并减少司机的压力。"
+        notes_pdf: "每位司机都会自动获得一份 PDF，其中包含其当天的所有任务及所需的全部信息。"
+        notes_reassign: "如有需要，您随时可以手动重新分配由算法自动安排的任务。颜色标记会提示可能存在的时长或距离冲突。"
+        notes_title: "注意："
+        option_drag: "通过拖放将任务手动分配给司机"
+        option_place: "点击“安排”按钮，让算法将此任务分配给最合适的司机"
+        option_place_all: "点击“全部安排到排班”按钮，让算法自动将所有任务分配给判定为最合适的所有司机"
+        option_select: "通过下拉列表选择司机进行手动分配"
+        options_intro: "完成此步骤后，您将有四种选择："
+        title: "阅读说明"
+
+      menu:
+        confirm_destroy_missions: "是否要删除今日的所有任务？请注意，此操作不可撤销！"
+        confirm_duplicate_week: "是否要将 %{start_date} 至 %{end_date} 这一周复制到 %{next_start_date} 至 %{next_end_date} 这一周？如果某一天已存在，将被删除并替换为所选周中对应的一天"
+        confirm_reset: "是否要重置今日排班？当前位于各司机列中的所有任务都将被取消分配。"
+        confirm_send_all_plannings: "是否要通过邮件将今日排班发送给所有司机？"
+        destroy_missions: "删除今日任务"
+        duplicate_week: "复制整周"
+        label: "菜单"
+        manage_missions: "管理任务"
+        mission_details: "任务详情"
+        reset: "重置排班"
+        send_all_plannings: "通过邮件发送所有司机的排班"
+
+      show:
+        back_to_planning: "<< 返回排班"
+        confirm_delete: "是否要删除此排班？"
+        loading_steps: "正在加载任务步骤"
+        manage_missions: "管理任务"
+        mission_number: "任务 %{number}："
+
+      step:
+        add_note: "添加备注"
+        assign_driver: "分配司机"
+        confirm_place: "是否要自动安排此任务？"
+        confirm_remove: "是否要移除 %{date} 当天的此任务？"
+        determined_algorithmically: "由算法确定"
+        mission_completed: "任务已完成 🎉"
+        place: "安排"
+        trip_conflict: "⚠️ 行程冲突"
+        trip_impossible: "⚠️ 行程无法完成"
+
+      transporter_column:
+        confirm_send_planning: "是否要通过邮件将今日排班发送给此司机？"
+        send_planning_to_driver: "通过邮件发送给司机"
+        todays_trips: "今日行程"
+
+      missions:
+        edit:
+          title: "编辑任务"
+
+        empty_missions:
+          add_first: "添加第一个"
+          add_first_mission: "添加第一个"
+          no_customers: "还没有客户，"
+          no_drivers: "还没有司机，"
+          no_missions: "还没有任务，"
+          no_places: "还没有地点，"
+          no_vehicles: "还没有车辆，"
+          prerequisites: "在添加任务之前，您必须确保以下内容已正确配置："
+
+        index:
+          add_help_html: '如需添加新任务，请点击 <span class="btn-add !text-xs">添加任务 +</span> 按钮，然后保存。'
+          add_mission: "添加任务 +"
+          back_to_planning: "<< 返回排班"
+          delete_help_html: '如需删除任务，请点击任务卡片底部的 <span class="btn-destroy !text-xs">删除</span> 链接。'
+          edit_help_html: '如需修改任务，请点击任务卡片底部的 <span class="btn-edit !text-xs">编辑</span> 链接。'
+          instructions: "阅读说明"
+          intro_html: "此页面用于配置 <strong>%{date}</strong> 当天的运输任务："
+          note_computed: "注意：上门接客户的时间以及返程时间将由算法自动计算。"
+          specify_customer_html: "要运送的<strong>客户</strong>"
+          specify_duration_html: "就诊的<strong>时长</strong>（分钟）"
+          specify_intro: "请为每个任务指定："
+          specify_place_html: "客户要送达的<strong>地点</strong>"
+          specify_time_html: "客户要送达的<strong>时间</strong>"
+          title: "%{date} 的任务"
+
+        mission:
+          confirm_delete: "是否要删除此任务？"
+          departure: "去程"
+          details: "详情"
+          return: "返程"
+          single_trip: "单程"
+
+        new:
+          title: "新建任务"

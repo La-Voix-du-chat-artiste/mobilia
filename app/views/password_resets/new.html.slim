@@ -1,5 +1,5 @@
 .row.p-5
-  h1.text-3xl.text-center.mb-3 Réinitialiser mon mot de passe
+  h1.text-3xl.text-center.mb-3 = t('views.password_resets.new.title')
 
   = simple_form_for :user, url: password_resets_path, html: { method: :post } do |f|
     = f.input :email,
@@ -7,12 +7,12 @@
               input_html: { class: 'w-full' },
               wrapper_html: { class: 'mb-5' },
               autofocus: true,
-              hint: 'Veuillez saisir votre adresse email actuelle pour recevoir les instructions de réinitialisation du mot de passe.'
+              hint: t('views.password_resets.new.email_hint')
 
     .flex.justify-center.items-center
-      = f.button :submit, 'Réinitialiser mon mot de passe', class: 'bg-green-600 p-2 rounded-lg text-white cursor-pointer'
+      = f.button :submit, t('views.password_resets.new.submit'), class: 'bg-green-600 p-2 rounded-lg text-white cursor-pointer'
 
 
   p.text-center.mt-6
     = link_to new_sessions_path, class: 'text-sm underline' do
-      | J'ai retrouvé mon mot de passe, je me connecte !
+      = t('views.password_resets.new.signed_in')

@@ -1,0 +1,109 @@
+en:
+  activemodel:
+    no_work: Day off
+    morning: Morning 8am-12pm
+    afternoon: Afternoon 2pm-6pm
+    all_day: All day
+
+  activerecord:
+    models:
+      vehicle: Vehicle
+      customer: Customer
+      transporter: Driver
+      place: Place
+
+    attributes:
+      company:
+        name: Name
+        logo: Logo
+        description: Description
+        virtual_address: Address
+
+      address:
+        label: Address
+
+      place:
+        name: Name
+        phone: Phone
+        email: Email
+        details: Details
+        photo: Illustration image
+        enabled: Enabled?
+
+      customer:
+        first_name: First name
+        last_name: Last name
+        phone: Phone
+        email: Email
+        kind: Category
+        details: Details
+        photo: Illustration avatar
+        enabled: Enabled?
+        kinds:
+          walker: Walker
+          wheelchair: Manual wheelchair
+          wheelchair_auto: Electric wheelchair
+        favorite_trip_transporter: Preferred outbound driver
+        favorite_trip_back_transporter: Preferred return driver
+
+      mission:
+        customer: Customer
+        place: Place
+        drop_time: Drop-off time at the appointment
+        drop_duration_hours: Consultation time (hours)
+        drop_duration_minutes: Consultation time (minutes)
+        round_trip: Round trip?
+
+      vehicle:
+        name: Name
+        number_plate: Registration number
+        length: Length
+        width: Width
+        height: Height
+        max_regular_seats: Maximum number of regular seats
+        max_wheelchair_seats: Maximum number of wheelchair seats
+        status: Status
+        photo: Illustration photo
+        details: Additional information
+        substitution: Replacement?
+        enabled: Enabled?
+        statuses:
+          normal: Normal
+          breakdown: Broken down
+          mechanic: At the garage
+
+      absence:
+        started_on: Start
+        ended_on: End
+        reason: Reason
+        reasons:
+          unspecified: Unspecified
+          holidays: Holidays
+          disease: Sick leave
+          other_company: Other company
+          attending: Present
+
+      transporter:
+        first_name: First name
+        last_name: Last name
+        phone: Phone
+        email: Email
+        started_time: Workday start time
+        ended_time: Workday end time
+        details: Details
+        photo: Illustration avatar
+        vehicle: Vehicle
+
+      step:
+        description: Note
+        transporter: Driver
+
+      user:
+        first_name: First name
+        last_name: Last name
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        phone: Phone
+        photo: Avatar
+        details: Details

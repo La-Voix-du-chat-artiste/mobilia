@@ -1,0 +1,68 @@
+zh:
+  views:
+    companies:
+      form:
+        address_search: 搜索地址
+      new:
+        title: 创建我的公司
+        back: "<< 返回"
+      edit:
+        title: 编辑我的公司
+
+    homes:
+      show:
+        planning_html: 排班 <strong>%{date}</strong>
+        clients: 客户
+        places: 地点
+        transporters: 司机
+        next_day: 查看 %{date} >>
+        previous_day: "<< 查看 %{date}"
+
+    me:
+      profiles:
+        form:
+          address_search: 搜索地址
+        show:
+          email: "邮箱："
+          phone: "电话："
+        edit:
+          title: 编辑我的资料
+          back: "<< 返回我的资料"
+
+    password_resets:
+      new:
+        title: 重置我的密码
+        email_hint: 请输入您当前的邮箱地址，以接收密码重置说明。
+        submit: 重置我的密码
+        signed_in: 我想起密码了，直接登录！
+      edit:
+        title: 重置我的密码
+        submit: 更新密码
+
+    sessions:
+      new:
+        title: 登录 Mobilia
+        demo_email_placeholder: admin@demo.test
+        demo_email_hint_html: 使用 <strong>admin@demo.test</strong> 进行演示
+        demo_password_placeholder: password
+        demo_password_hint_html: 使用 <strong>password</strong> 进行演示
+        show_password: 以明文显示密码
+        hide_password: 隐藏密码
+        submit: 登录
+        forgot_password: 忘记密码？
+        or: 或
+        create_company: 创建我的公司
+        create_company_note: "注意：创建公司后，您将获得一个没有任何数据的空白空间。您可以完全从零开始创建所需的全部资源，不会残留任何已有数据。"
+        readme_html: 更多详情请参阅%{link}。
+        readme_link: Mobilia Github README 说明
+
+    settings:
+      form:
+        address_search: 搜索地址
+      edit:
+        title: 编辑设置
+        back: "<< 返回设置"
+
+    users:
+      new:
+        title: 创建您的管理员账户

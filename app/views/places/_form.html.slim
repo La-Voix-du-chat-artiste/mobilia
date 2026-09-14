@@ -20,7 +20,7 @@
                  },
                  wrapper_html: { class: 'w-full' },
                  collection: [ff.object.label].compact,
-                 prompt: 'Chercher une adresse',
+                 prompt: t('views.places.form.address_prompt'),
                  include_blank: false
 
   .flex.flex-col.lg:flex-row.justify-between.gap-3.mb-6
@@ -48,4 +48,4 @@
     = f.button :submit
 
     - if @place.new_record?
-      = f.button :button, 'Valider et créer un nouveau lieu >>', type: :submit, name: :mode, value: 'save_and_create_new'
+      = f.button :button, t('views.places.form.submit_and_create_new'), type: :submit, name: :mode, value: 'save_and_create_new'

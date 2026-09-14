@@ -1,0 +1,68 @@
+en:
+  views:
+    companies:
+      form:
+        address_search: Search for an address
+      new:
+        title: Create my company
+        back: "<< Back"
+      edit:
+        title: Edit my company
+
+    homes:
+      show:
+        planning_html: Planning <strong>%{date}</strong>
+        clients: Customers
+        places: Places
+        transporters: Drivers
+        next_day: See %{date} >>
+        previous_day: "<< See %{date}"
+
+    me:
+      profiles:
+        form:
+          address_search: Search for an address
+        show:
+          email: "Email:"
+          phone: "Phone:"
+        edit:
+          title: Edit my profile
+          back: "<< Back to my profile"
+
+    password_resets:
+      new:
+        title: Reset my password
+        email_hint: Please enter your current email address to receive the password reset instructions.
+        submit: Reset my password
+        signed_in: I remembered my password, sign me in!
+      edit:
+        title: Reset my password
+        submit: Update the password
+
+    sessions:
+      new:
+        title: Mobilia sign in
+        demo_email_placeholder: admin@demo.test
+        demo_email_hint_html: Use <strong>admin@demo.test</strong> for the demo
+        demo_password_placeholder: password
+        demo_password_hint_html: Use <strong>password</strong> for the demo
+        show_password: Show the password in plain text
+        hide_password: Hide the password
+        submit: Sign in
+        forgot_password: Forgot your password?
+        or: or
+        create_company: Create my company
+        create_company_note: "Note: by creating a company you get an empty space with no data at all. You can therefore build every resource you need from scratch without any leftover data."
+        readme_html: Refer to the %{link} for more details.
+        readme_link: Mobilia Github README instructions
+
+    settings:
+      form:
+        address_search: Search for an address
+      edit:
+        title: Edit the settings
+        back: "<< Back to the settings"
+
+    users:
+      new:
+        title: Create your administrator account

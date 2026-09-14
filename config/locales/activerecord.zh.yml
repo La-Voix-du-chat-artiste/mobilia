@@ -1,0 +1,109 @@
+zh:
+  activemodel:
+    no_work: 不工作
+    morning: 上午 8:00-12:00
+    afternoon: 下午 14:00-18:00
+    all_day: 全天
+
+  activerecord:
+    models:
+      vehicle: 车辆
+      customer: 客户
+      transporter: 司机
+      place: 地点
+
+    attributes:
+      company:
+        name: 名称
+        logo: 徽标
+        description: 描述
+        virtual_address: 地址
+
+      address:
+        label: 地址
+
+      place:
+        name: 名称
+        phone: 电话
+        email: 电子邮箱
+        details: 详情
+        photo: 展示图片
+        enabled: 是否启用？
+
+      customer:
+        first_name: 名
+        last_name: 姓
+        phone: 电话
+        email: 电子邮箱
+        kind: 类别
+        details: 详情
+        photo: 头像图片
+        enabled: 是否启用？
+        kinds:
+          walker: 步行
+          wheelchair: 手动轮椅
+          wheelchair_auto: 电动轮椅
+        favorite_trip_transporter: 去程首选司机
+        favorite_trip_back_transporter: 返程首选司机
+
+      mission:
+        customer: 客户
+        place: 地点
+        drop_time: 送达预约地点时间
+        drop_duration_hours: 就诊时长（小时）
+        drop_duration_minutes: 就诊时长（分钟）
+        round_trip: 是否往返？
+
+      vehicle:
+        name: 名称
+        number_plate: 车牌号
+        length: 长度
+        width: 宽度
+        height: 高度
+        max_regular_seats: 最大普通座位数
+        max_wheelchair_seats: 最大轮椅座位数
+        status: 状态
+        photo: 展示照片
+        details: 补充信息
+        substitution: 替换车辆？
+        enabled: 是否启用？
+        statuses:
+          normal: 正常
+          breakdown: 故障
+          mechanic: 在修理厂
+
+      absence:
+        started_on: 开始
+        ended_on: 结束
+        reason: 原因
+        reasons:
+          unspecified: 未指定
+          holidays: 休假
+          disease: 病假
+          other_company: 其他公司
+          attending: 出勤
+
+      transporter:
+        first_name: 名
+        last_name: 姓
+        phone: 电话
+        email: 电子邮箱
+        started_time: 上班时间
+        ended_time: 下班时间
+        details: 详情
+        photo: 头像图片
+        vehicle: 车辆
+
+      step:
+        description: 备注
+        transporter: 司机
+
+      user:
+        first_name: 名
+        last_name: 姓
+        email: 电子邮箱
+        password: 密码
+        password_confirmation: 确认密码
+        phone: 电话
+        photo: 头像
+        details: 详情

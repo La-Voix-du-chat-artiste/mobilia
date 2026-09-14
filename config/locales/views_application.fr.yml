@@ -1,0 +1,26 @@
+fr:
+  views:
+    application:
+      header:
+        customers: Clients
+        map: Carte
+        my_company: Mon entreprise
+        my_profile: Mon profil
+        open_menu: Ouvrir le menu
+        places: Lieux
+        planning: Planning
+        settings: Paramètres
+        sign_out: Déconnexion
+        todays_map: Carte du jour
+        vehicles: Véhicules
+      footer:
+        built_with: Développé avec
+        by: par
+        github: Mobilia sur GitHub
+      flash:
+        close: Fermer
+      locale_switcher:
+        label: Langue
+      turbo_confirm:
+        are_you_sure: Êtes-vous sûr ?
+        close_modal: Fermer la modale

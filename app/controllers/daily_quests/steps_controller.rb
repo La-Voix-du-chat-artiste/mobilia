@@ -27,7 +27,7 @@ module DailyQuests
       @step.destroy
 
       respond_to do |format|
-        notice = 'La mission a bien été supprimée'
+        notice = t('flash.daily_quests.steps.destroy')
 
         format.html { redirect_to daily_quests_path(date: @daily_quest.started_on), notice: notice }
         format.turbo_stream { flash.now[:notice] = notice }

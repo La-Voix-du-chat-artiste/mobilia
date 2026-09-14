@@ -1,0 +1,18 @@
+en:
+  # Vocabulary shared by more than one screen. Anything used by a single screen
+  # belongs in that screen's config/locales/views_*.en.yml instead, and the i18n
+  # lint spec fails on a key that no template uses.
+  common:
+    add_first: Add the first one
+    archive: Archive
+    back: Back
+    cancel: Cancel
+    close: Close
+    confirm: Confirm
+    delete: Delete
+    edit: Edit
+    export_pdf: Export as PDF
+    next_business_day: Next business day
+    previous_business_day: Previous business day
+    save: Save
+    unarchive: Unarchive

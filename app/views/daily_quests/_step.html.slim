@@ -6,15 +6,15 @@
       = render 'daily_quests/steps/label', step: step
 
       - if current_user && allowed_to?(:optimize?, step, namespace: DailyQuests, context: { daily_quest: daily_quest })
-        = link_to 'Placer',
+        = link_to t('views.daily_quests.step.place'),
                   optimize_daily_quest_step_path(daily_quest, step),
                   class: 'btn-add !font-light !text-xs !px-2 !py-1',
-                  data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement cette mission ?' }
+                  data: { turbo_method: :post, turbo_confirm: t('views.daily_quests.step.confirm_place') }
 
     - if current_user && allowed_to?(:destroy?, step, namespace: DailyQuests, context: { daily_quest: daily_quest })
       = link_to 'X',
                 daily_quest_step_path(daily_quest, step),
-                data: { turbo_method: :delete, turbo_confirm: "Voulez-vous retirer cette mission pour la journée du #{l(daily_quest.started_on, format: :complete_slash)} ?" },
+                data: { turbo_method: :delete, turbo_confirm: t('views.daily_quests.step.confirm_remove', date: l(daily_quest.started_on, format: :complete_slash)) },
                 class: 'btn-destroy !text-xs !px-2 !py-1'
 
   details open=!step.achieved?
@@ -36,7 +36,7 @@
         - scope = company.transporters.with_attached_photo.includes(:absences, :address).reject { |t| t.off?(daily_quest.started_on) }
         = f.association :transporter,
                         collection: transporters_select_options(scope),
-                        include_blank: 'Assigner un chauffeur',
+                        include_blank: t('views.daily_quests.step.assign_driver'),
                         input_html: { \
                           class: 'w-full', \
                           data: { \
@@ -50,16 +50,16 @@
                         wrapper_html: { class: 'w-full' }
 
     - if step.achieved?
-      .panel-success.text-center.cursor-help class="!text-xs" title="Déterminé algorithmiquement"
-        | Mission terminée 🎉
+      .panel-success.text-center.cursor-help class="!text-xs" title=t('views.daily_quests.step.determined_algorithmically')
+        = t('views.daily_quests.step.mission_completed')
     - else
       - if current_user && allowed_to?(:update?, step, namespace: DailyQuests, context: { daily_quest: daily_quest })
         = turbo_frame_tag dom_id(step) do
-          = link_to 'Ajouter une remarque', edit_daily_quest_step_path(step.mission.daily_quest, step), class: 'underline text-sm'
+          = link_to t('views.daily_quests.step.add_note'), edit_daily_quest_step_path(step.mission.daily_quest, step), class: 'underline text-sm'
 
     - if step.conflict?
       p.mt-2.text-center.panel-warning
-        | ⚠️ Trajet en conflit
+        = t('views.daily_quests.step.trip_conflict')
     - elsif step.impossible?
       p.mt-2.text-center.panel-error
-        | ⚠️ Trajet impossible
+        = t('views.daily_quests.step.trip_impossible')

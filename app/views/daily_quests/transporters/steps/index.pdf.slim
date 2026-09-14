@@ -1,5 +1,5 @@
 .mb-6.text-center
-  p.text-xl.mb-2 Feuille de route
+  p.text-xl.mb-2= t('views.daily_quests.transporters.steps.index_pdf.title')
 
   - if @transporter.photo.attached?
     = image_tag polymorphic_url(@transporter.photo), class: 'rounded-full object-cover w-16 h-16 mx-auto mb-3'
@@ -10,7 +10,7 @@
     = "#{@transporter.vehicle.name} - #{@transporter.vehicle.number_plate}"
 
 .border.p-2.rounded-lg.mb-6 style="background-color: #DEDEDE"
-  p Prévenir impérativement le client pour tout retard supérieur à 10 minutes par rapport à l'horaire prévu
+  p= t('views.daily_quests.transporters.steps.index_pdf.late_warning')
 
 - if @transporter.vehicle.details?
   .border.p-2.rounded-lg.mb-6
@@ -44,18 +44,18 @@
 
     div
       p.mb-1
-        span.font-bold Détails du trajet:
-        =< " [ #{step.duration} mn |  #{step.distance} km ]"
+        span.font-bold= t('views.daily_quests.transporters.steps.index_pdf.trip_details')
+        =< t('views.daily_quests.transporters.steps.index_pdf.duration_distance', duration: step.duration, distance: step.distance)
 
       p.mb-1
-        span.font-bold Profil:
+        span.font-bold= t('views.daily_quests.transporters.steps.index_pdf.profile')
         =< mission.customer.human_kind
 
       - if mission.customer.details?
-        p.font-bold.mb-1.mt-3 Détails du client:
+        p.font-bold.mb-1.mt-3= t('views.daily_quests.transporters.steps.index_pdf.customer_details')
         == mission.customer.details
 
 
       - if step.description.present?
-        p.font-bold.mb-1.mt-3 Informations complémentaires:
+        p.font-bold.mb-1.mt-3= t('views.daily_quests.transporters.steps.index_pdf.additional_information')
         == step.description

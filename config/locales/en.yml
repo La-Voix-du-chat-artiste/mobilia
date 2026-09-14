@@ -1,0 +1,30 @@
+en:
+  'true': 'Yes'
+  'false': 'No'
+
+  light: Light
+  dark: Dark
+
+  helpers:
+    submit:
+      create: Save
+      update: Save
+      submit: Save
+
+  date:
+    formats:
+      complete_slash: "%A, %B %-d, %Y"
+  time:
+    formats:
+      complete_slash: "%A, %B %-d, %Y at %H:%M"
+
+  distance:
+    centi:
+      one: "centimeter"
+      other: "centimeters"
+    unit:
+      one: "meter"
+      other: "meters"
+    thousand:
+      one: "kilometer"
+      other: "kilometers"

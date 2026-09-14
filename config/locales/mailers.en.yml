@@ -1,0 +1,14 @@
+en:
+  transporter_mailer:
+    send_planning:
+      subject: "Your transport schedule for %{date}"
+      greeting: "Hello %{name},"
+      body_html: Attached is your transport schedule for <strong>%{date}</strong>.
+      sign_off: Have a good day,
+
+  user_mailer:
+    reset_password_email:
+      subject: "Reset your password"
+      greeting: "Hello %{email},"
+      introduction: You asked to reset your password.
+      instructions: "Here is the link to reset it:"

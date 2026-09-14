@@ -3,18 +3,18 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
   .flex.items-center.gap-3
     - if allowed_to?(:index?, @daily_quest)
-      = link_to '<< Retour au planning',
+      = link_to t('views.daily_quests.show.back_to_planning'),
                 daily_quests_path(date: @daily_quest.started_on),
                 class: 'btn-back'
 
     - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: @daily_quest })
-      = link_to 'Gérer les missions', daily_quest_missions_path(@daily_quest), class: 'btn-edit'
+      = link_to t('views.daily_quests.show.manage_missions'), daily_quest_missions_path(@daily_quest), class: 'btn-edit'
 
     - if allowed_to?(:destroy?, @daily_quest)
-      = button_to 'Supprimer', @daily_quest,
+      = button_to t('common.delete'), @daily_quest,
                   class: 'btn-destroy',
                   method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce planning ?' }
+                  data: { turbo_confirm: t('views.daily_quests.show.confirm_delete') }
 
 div id=dom_id(@daily_quest)
   .flex.flex-col.lg:flex-row.justify-between.gap-6
@@ -28,7 +28,7 @@ div id=dom_id(@daily_quest)
                     turbo_stream: true \
                   } do
           span.block
-            | Mission #{index + 1}:
+            = t('views.daily_quests.show.mission_number', number: index + 1)
             =< mission.customer.full_name
           span.block.text-sm.italic
             =< mission.place.name
@@ -36,4 +36,4 @@ div id=dom_id(@daily_quest)
     - if @mission
       .lg:w-2/3
         = turbo_frame_tag :steps, src: [@daily_quest, @mission, :steps] do
-          p.dark:text-white Chargement des étapes de la missions
+          p.dark:text-white= t('views.daily_quests.show.loading_steps')

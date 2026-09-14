@@ -3,7 +3,7 @@
 header.mb-3
   .flex.flex-col.lg:flex-row.items-center.justify-between.gap-3.mb-3
     .flex.flex-row.items-center.gap-3.mb-1
-      h1.text-3xl Missions #{l(@daily_quest.started_on, format: '%A')}
+      h1.text-3xl= t('views.daily_quests.index.title', day: l(@daily_quest.started_on, format: '%A'))
       = date_field( \
         'planning', 'date', \
         type: 'date', \
@@ -19,8 +19,8 @@ header.mb-3
 
 - if @transporters.any?(&:no_vehicle?)
   .panel-warning.mb-3
-    p.font-bold.mb-1 ⚠️ Chauffeurs sans véhicule
-    p.mb-2 Certains chauffeurs n'ont pas de véhicule de configuré. Vous ne pourrez pas leur assigner de missions sans véhicule
+    p.font-bold.mb-1= t('views.daily_quests.index.drivers_without_vehicle')
+    p.mb-2= t('views.daily_quests.index.drivers_without_vehicle_details')
 
     ul.list-disc.list-inside
       - @transporters.select(&:no_vehicle?).each do |transporter|
@@ -33,7 +33,7 @@ header.mb-3
 
 - if absent
   .panel-warning.mb-3
-    p.font-bold.mb-1 Chauffeurs absents aujourd'hui
+    p.font-bold.mb-1= t('views.daily_quests.index.absent_drivers_today')
 
     ul.list-disc.list-inside
       - @transporters.each do |transporter|
@@ -44,26 +44,22 @@ header.mb-3
             span.rounded.px-1.py-1.bg-yellow-500.text-white.rounded-lg.text-sm.ml-2.mb-1.inline-block
               = current_absence.human_reason
             - if current_absence.started_on != current_absence.ended_on
-              span.ml-2.text-xs
-                | (jusqu'au
-                =< l(current_absence.ended_on, format: :complete_slash)
-                | )
+              span.ml-2.text-xs= t('views.daily_quests.index.until', date: l(current_absence.ended_on, format: :complete_slash))
 
 
 .w-full data-controller=('sortable' unless current_user.standard?)
   - unless current_user.standard?
     .border-2.border-dashed.border-yellow-600.p-2.rounded-lg.mb-6
       .flex.flex-col.lg:flex-row.items-center.justify-between.gap-2.bg-yellow-600.text-white.rounded-lg.p-3
-        p ⚠️ Missions sans chauffeur
+        p= t('views.daily_quests.index.missions_without_driver')
 
         - if allowed_to?(:optimize?, @daily_quest)
-          = link_to 'Tout placer sur le planning', optimize_daily_quest_path(@daily_quest), class: 'btn-edit', data: { turbo_method: :post, turbo_confirm: 'Voulez-vous placer automatiquement toutes les missions ?' }
+          = link_to t('views.daily_quests.index.optimize_all'), optimize_daily_quest_path(@daily_quest), class: 'btn-edit', data: { turbo_method: :post, turbo_confirm: t('views.daily_quests.index.confirm_optimize_all') }
 
       - steps = @daily_quest.steps.single
 
       - if @daily_quest.steps.any? && steps.empty?
-        p.panel-success.mt-2
-          | Félicitations, vous avez assigné toutes les missions en attente !
+        p.panel-success.mt-2= t('views.daily_quests.index.all_missions_assigned')
       - elsif @daily_quest.steps.blank?
         .mt-2
           = render 'daily_quests/missions/empty_missions', daily_quest: @daily_quest

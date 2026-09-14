@@ -3,53 +3,53 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
   .flex.items-center.gap-2
     - if allowed_to?(:index?, Transporter)
-      = link_to '<< Retour aux chauffeurs', transporters_path, class: 'btn-back'
+      = link_to t('views.transporters.show.back'), transporters_path, class: 'btn-back'
 
     - if allowed_to?(:update?, @transporter)
-      = link_to 'Modifier', edit_transporter_path(@transporter), class: 'btn-edit'
+      = link_to t('common.edit'), edit_transporter_path(@transporter), class: 'btn-edit'
 
     - if allowed_to?(:destroy?, @transporter)
-      = button_to 'Supprimer', @transporter,
+      = button_to t('common.delete'), @transporter,
                   class: 'btn-destroy',
                   method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce chauffeur ?' }
+                  data: { turbo_confirm: t('views.transporters.show.confirm_delete') }
 
 .row.p-4.mb-3 id=dom_id(@transporter)
   - if @transporter.photo.attached?
     p.mb-3= image_tag url_for(@transporter.photo), class: 'w-32'
 
   p
-    strong Téléphone:
+    strong= "#{Transporter.human_attribute_name(:phone)}:"
     =< formatted_phone_number(@transporter.phone)
   p
-    strong Email:
+    strong= "#{Transporter.human_attribute_name(:email)}:"
     =< @transporter.email
 
   div
-    p: strong Détails:
+    p: strong= "#{Transporter.human_attribute_name(:details)}:"
     = @transporter.details
 
   - if @transporter.address.present?
     p
-      strong Adresse:
+      strong= "#{Address.human_attribute_name(:label)}:"
       =< @transporter.address.label
 
   - if @transporter.vehicle.present?
     p
-      strong Véhicule:
+      strong= "#{Transporter.human_attribute_name(:vehicle)}:"
       =< @transporter.vehicle.name
 
 - if @transporter.vehicle.blank?
   .panel-warning.mb-6
-    p.font-bold.mb-1 ⚠️ Chauffeur sans véhicule
-    p.mb-2 Aucun véhicule n'est configuré pour ce chauffeur. Vous ne pourrez pas lui assigner de missions sans véhicule.
+    p.font-bold.mb-1= t('views.transporters.show.no_vehicle')
+    p.mb-2= t('views.transporters.show.no_vehicle_warning')
 
     = simple_form_for(@transporter) do |f|
       = f.association :vehicle,
                       collection: vehicles_select_options(company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter).distinct),
                       label: false,
                       hint: false,
-                      include_blank: 'Sélectionner un véhicule',
+                      include_blank: t('views.transporters.show.select_vehicle'),
                       wrapper_html: { class: 'w-full' },
                       input_html: { \
                         data: { \
@@ -60,10 +60,10 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
 section.mb-6.dark:text-white
   header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
-    h2.text-xl Les présences / absences
+    h2.text-xl= t('views.transporters.show.absences_title')
 
     - if allowed_to?(:create?, Absence, namespace: Transporters, context: { transporter: @transporter })
-      = link_to 'Ajouter une présence / absence',
+      = link_to t('views.transporters.show.add_absence'),
                 new_transporter_absence_path(@transporter),
                 class: 'btn-show'
 
@@ -77,39 +77,39 @@ section.mb-6.dark:text-white
 
   - else
     .panel-info.mb-5
-      | Il n'y a pas encore de présence ou absence de configurée
+      = t('views.transporters.show.absences_empty')
 
 
 section.dark:text-white
   header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-3.gap-3
-    h2.text-xl Les horaires de travail
+    h2.text-xl= t('views.transporters.show.work_hours')
 
   - i18n_scope = 'activemodel'
 
   p
-    strong Lundi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.monday')}:"
     =< I18n.t(@transporter.availabilities.monday, scope: i18n_scope)
 
   p
-    strong Mardi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.tuesday')}:"
     =< I18n.t(@transporter.availabilities.tuesday, scope: i18n_scope)
 
   p
-    strong Mercredi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.wednesday')}:"
     =< I18n.t(@transporter.availabilities.wednesday, scope: i18n_scope)
 
   p
-    strong Jeudi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.thursday')}:"
     =< I18n.t(@transporter.availabilities.thursday, scope: i18n_scope)
 
   p
-    strong Vendredi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.friday')}:"
     =< I18n.t(@transporter.availabilities.friday, scope: i18n_scope)
 
   p
-    strong Samedi:
+    strong= "#{t('simple_form.labels.transporter.availabilities.saturday')}:"
     =< I18n.t(@transporter.availabilities.saturday, scope: i18n_scope)
 
   p
-    strong Dimanche:
+    strong= "#{t('simple_form.labels.transporter.availabilities.sunday')}:"
     =< I18n.t(@transporter.availabilities.sunday, scope: i18n_scope)

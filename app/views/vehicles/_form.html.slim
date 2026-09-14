@@ -41,4 +41,4 @@
     = f.button :submit
 
     - if @vehicle.new_record?
-      = f.button :button, 'Valider et créer un nouveau véhicule >>', type: :submit, name: :mode, value: 'save_and_create_new'
+      = f.button :button, t('views.vehicles.form.submit_and_create_new'), type: :submit, name: :mode, value: 'save_and_create_new'

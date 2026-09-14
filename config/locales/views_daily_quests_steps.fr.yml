@@ -1,0 +1,22 @@
+fr:
+  views:
+    daily_quests:
+      steps:
+        label:
+          outbound: Trajet aller
+          return: Trajet retour
+
+      transporters:
+        steps:
+          index:
+            back_to_planning: "<< Retour au planning"
+            manage_missions: Gérer les missions
+            confirm_delete: "Voulez-vous supprimer cette queête ?"
+          index_pdf:
+            title: Feuille de route
+            late_warning: "Prévenir impérativement le client pour tout retard supérieur à 10 minutes par rapport à l'horaire prévu"
+            trip_details: "Détails du trajet:"
+            profile: "Profil:"
+            customer_details: "Détails du client:"
+            additional_information: "Informations complémentaires:"
+            duration_distance: " [ %{duration} mn |  %{distance} km ]"

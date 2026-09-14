@@ -1,0 +1,26 @@
+zh:
+  views:
+    application:
+      header:
+        customers: 客户
+        map: 地图
+        my_company: 我的公司
+        my_profile: 我的资料
+        open_menu: 打开菜单
+        places: 地点
+        planning: 排班
+        settings: 设置
+        sign_out: 退出登录
+        todays_map: 今日地图
+        vehicles: 车辆
+      footer:
+        built_with: 开发者
+        by: 出品
+        github: 在 GitHub 上查看 Mobilia
+      flash:
+        close: 关闭
+      locale_switcher:
+        label: 语言
+      turbo_confirm:
+        are_you_sure: 确定要继续吗？
+        close_modal: 关闭对话框

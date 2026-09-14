@@ -61,14 +61,14 @@
                     value: value_for_drop_duration_minutes(f.object) \
                   }
 
-    = f.button :submit, 'Enregistrer', class: 'btn-add w-full'
+    = f.button :submit, t('common.save'), class: 'btn-add w-full'
 
     - if mission.persisted?
-      = link_to 'Retour',
+      = link_to t('common.back'),
                 daily_quest_mission_path(mission.daily_quest, mission),
                 class: 'block underline text-sm text-center'
     - else
-      = link_to 'Retour',
+      = link_to t('common.back'),
                 daily_quest_missions_path(mission.daily_quest),
                 class: 'block underline text-sm text-center',
                 data: { \

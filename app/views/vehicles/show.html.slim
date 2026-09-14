@@ -2,50 +2,51 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
   h1.text-3xl= @vehicle.name
 
   .flex.items-center.gap-2
-    = link_to '<< Retour aux véhicules', vehicles_path, class: 'btn-back'
+    = link_to t('views.vehicles.show.back'), vehicles_path, class: 'btn-back'
 
     - if allowed_to?(:update?, @vehicle)
-      = link_to 'Modifier', edit_vehicle_path(@vehicle), class: 'btn-edit'
+      = link_to t('common.edit'), edit_vehicle_path(@vehicle), class: 'btn-edit'
 
     - if allowed_to?(:destroy?, @vehicle)
-      = button_to 'Supprimer', @vehicle,
+      = button_to t('common.delete'), @vehicle,
                   class: 'btn-destroy',
                   method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer ce véhicule ?' }
+                  data: { turbo_confirm: t('views.vehicles.show.confirm_delete') }
 
 .row.p-4 id=dom_id(@vehicle)
   - if @vehicle.photo.attached?
     p.mb-3= image_tag url_for(@vehicle.photo), class: 'max-w-[300px]'
 
   p
-    strong Plaque d'immatriculation:
+    strong = t('views.vehicles.show.number_plate')
     =< @vehicle.number_plate
 
   p
-    strong Longueur:
+    strong = t('views.vehicles.show.length')
     =< @vehicle.width.presence || '/'
 
   p
-    strong Hauteur:
+    strong = t('views.vehicles.show.height')
     =< @vehicle.height.presence || '/'
 
   p
-    strong Nombre de places assises:
+    strong = t('views.vehicles.show.max_regular_seats')
     =< @vehicle.max_regular_seats
 
   p
-    strong Nombre de places en fauteuil roulant:
+    strong = t('views.vehicles.show.max_wheelchair_seats')
     =< @vehicle.max_wheelchair_seats
 
   p
-    strong Status:
+    strong = t('views.vehicles.show.status')
     =< @vehicle.human_status
 
   p
-    strong Véhicule de remplacement ?
+    strong = t('views.vehicles.show.substitution')
     =< t(@vehicle.substitution.to_s)
 
   - if @vehicle.details?
     div
-      p: strong Détails:
+      p
+        strong = t('views.vehicles.show.details')
       = @vehicle.details

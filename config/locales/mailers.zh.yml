@@ -1,0 +1,14 @@
+zh:
+  transporter_mailer:
+    send_planning:
+      subject: "您 %{date} 的接送排班"
+      greeting: "%{name}，您好！"
+      body_html: 附件是您 <strong>%{date}</strong> 的接送排班。
+      sign_off: 祝您一切顺利，
+
+  user_mailer:
+    reset_password_email:
+      subject: "重置您的密码"
+      greeting: "%{email}，您好！"
+      introduction: 您申请了重置密码。
+      instructions: "请点击以下链接重置密码："

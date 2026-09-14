@@ -1,0 +1,10 @@
+/ The language switcher. Every language is named in its own language, so the
+/ labels need no translation themselves, and each link keeps the visitor on the
+/ page they are already reading (`request.path`, so stale query parameters such
+/ as a search or a page number are dropped).
+nav.locale-switcher.flex.items-center.justify-center.gap-2 aria-label=t('views.application.locale_switcher.label')
+  - I18n.available_locales.each do |locale|
+    - if locale == I18n.locale
+      span.font-bold.underline aria-current="true" = locale_label(locale)
+    - else
+      = link_to locale_label(locale), "#{request.path}?locale=#{locale}", class: 'hover:underline'

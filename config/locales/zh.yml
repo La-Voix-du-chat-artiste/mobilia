@@ -1,0 +1,32 @@
+zh:
+  'true': '是'
+  'false': '否'
+
+  light: 浅色
+  dark: 深色
+
+  helpers:
+    submit:
+      create: 保存
+      update: 保存
+      submit: 保存
+
+  date:
+    formats:
+      complete_slash: "%Y年%-m月%-d日 %A"
+  time:
+    formats:
+      complete_slash: "%Y年%-m月%-d日 %H:%M"
+
+  # Chinese has no plural form: `one` and `other` are the same text on purpose,
+  # so number_to_human cannot fall back to another locale's pluralisation.
+  distance:
+    centi:
+      one: "厘米"
+      other: "厘米"
+    unit:
+      one: "米"
+      other: "米"
+    thousand:
+      one: "公里"
+      other: "公里"

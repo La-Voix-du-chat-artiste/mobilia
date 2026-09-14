@@ -20,7 +20,7 @@ class UsersController < ApplicationController
         session[:company_id] = nil
         auto_login(@user)
 
-        format.html { redirect_to root_path, notice: 'Votre compte administrateur a bien été créé' }
+        format.html { redirect_to root_path, notice: t('flash.users.create') }
       else
         format.html { render :new, status: :unprocessable_content }
       end

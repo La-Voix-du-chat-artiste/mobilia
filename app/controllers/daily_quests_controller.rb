@@ -47,7 +47,7 @@ class DailyQuestsController < ApplicationController
 
     @daily_quest.missions.destroy_all
 
-    redirect_to daily_quests_path, notice: 'Toutes les missions du jour ont bien été supprimées'
+    redirect_to daily_quests_path, notice: t('flash.daily_quests.destroy')
   end
 
   # @route POST /daily_quests/:id/optimize (optimize_daily_quest)
@@ -67,7 +67,7 @@ class DailyQuestsController < ApplicationController
 
     DuplicateWeekJob.perform_later(@daily_quest)
 
-    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes. La page sera rafraîchie une fois la copie terminée'
+    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: t('flash.daily_quests.duplicate_week')
   end
 
   # @route POST /daily_quests/:id/reset (reset_daily_quest)
@@ -76,7 +76,7 @@ class DailyQuestsController < ApplicationController
 
     ResetDailyQuest.call(@daily_quest)
 
-    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: 'Le planning du jour a bien été réinitialisé'
+    redirect_to daily_quests_path(date: @daily_quest.started_on), notice: t('flash.daily_quests.reset')
   end
 
   private

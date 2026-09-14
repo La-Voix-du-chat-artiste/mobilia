@@ -38,7 +38,7 @@ class CustomersController < ApplicationController
       if @customer.save
         format.html do
           redirect_url = params[:mode] == 'save_and_create_new' ? new_customer_path : customer_path(@customer)
-          redirect_to redirect_url, notice: 'Le client a bien été créé'
+          redirect_to redirect_url, notice: t('flash.customers.create')
         end
         format.json { render :show, status: :created, location: @customer }
       else
@@ -69,7 +69,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to customer_path(@customer), notice: 'Le client a bien été mis à jour' }
+        format.html { redirect_to customer_path(@customer), notice: t('flash.customers.update') }
         format.json { render :show, status: :ok, location: @customer }
       else
         @customer.build_address(label: customer_params.dig(:address_attributes, :label))
@@ -87,7 +87,7 @@ class CustomersController < ApplicationController
     @customer.destroy
 
     respond_to do |format|
-      format.html { redirect_to customers_path, notice: 'Le client a bien été supprimé' }
+      format.html { redirect_to customers_path, notice: t('flash.customers.destroy') }
       format.json { head :no_content }
     end
   end
@@ -98,10 +98,10 @@ class CustomersController < ApplicationController
 
     if @customer.available?
       @customer.archive!
-      flash[:notice] = 'Le client a bien été archivé'
+      flash[:notice] = t('flash.customers.archive')
     else
       @customer.unarchive!
-      flash[:notice] = 'Le client a bien été désarchivé'
+      flash[:notice] = t('flash.customers.unarchive')
     end
 
     redirect_to customers_path

@@ -1,0 +1,101 @@
+en:
+  seo:
+    default:
+      title: Transport planning and routing for fleets and individuals.
+      description: Mobilia is the new generation of transport planning and routing for fleets and individuals.
+
+    companies:
+      new:
+        title: New company
+      edit:
+        title: Edit company
+
+    customers:
+      index:
+        title: Customers
+      new:
+        title: New customer
+      show:
+        title: Customer details
+      edit:
+        title: Edit customer
+
+    daily_quests:
+      index:
+        title: Today's schedule
+      show:
+        title: Overview of today's missions
+
+    daily_quests/missions:
+      index:
+        title: Mission management
+
+    daily_quests/transporters/steps:
+      index:
+        title: Details of today's driver missions
+
+    homes:
+      show:
+        title: Map of today's missions
+
+    me/profiles:
+      show:
+        title: My profile
+      edit:
+        title: Edit my profile
+
+    password_resets:
+      new:
+        title: Password reset
+      edit:
+        title: Password reset
+
+    places:
+      index:
+        title: Places
+      new:
+        title: New place
+      show:
+        title: Place details
+      edit:
+        title: Edit place
+
+    sessions:
+      new:
+        title: Sign in
+
+    settings:
+      show:
+        title: Settings
+      edit:
+        title: Edit settings
+
+    transporters:
+      index:
+        title: Drivers
+      new:
+        title: New driver
+      show:
+        title: Driver details
+      edit:
+        title: Edit driver
+
+    transporters/absences:
+      new:
+        title: Add an absence
+      edit:
+        title: Edit an absence
+
+    users:
+      new:
+        title: 'Create the administrator account'
+
+    vehicles:
+      index:
+        title: Vehicles
+      new:
+        title: New vehicle
+      show:
+        title: Vehicle details
+      edit:
+        title: Edit vehicle

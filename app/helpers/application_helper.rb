@@ -1,6 +1,14 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  # Each language is named in its own language, the way a language picker should
+  # be: someone who cannot read the current language still recognises their own.
+  LOCALE_LABELS = { fr: 'Français', en: 'English', zh: '中文' }.freeze
+
+  def locale_label(locale)
+    LOCALE_LABELS[locale.to_sym] || locale.to_s.upcase
+  end
+
   def render_turbo_stream_flash_messages
     turbo_stream.prepend 'flashes', partial: 'flashes', locals: { disappear: false }
   end

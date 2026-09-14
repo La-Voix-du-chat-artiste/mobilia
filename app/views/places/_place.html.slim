@@ -10,23 +10,23 @@ details.row id=dom_id(place) class=('opacity-50' unless place.enabled?)
 
     .flex.items-center.gap-3
       - if allowed_to?(:show?, place)
-        = link_to 'Fiche lieu', place_path(place), class: 'btn-show', data: { turbo_frame: :_top }
+        = link_to t('views.places.place.show'), place_path(place), class: 'btn-show', data: { turbo_frame: :_top }
 
       - if allowed_to?(:update?, place)
-        = link_to 'Modifier', edit_place_path(place), class: 'btn-edit', data: { turbo_frame: :_top }
+        = link_to t('common.edit'), edit_place_path(place), class: 'btn-edit', data: { turbo_frame: :_top }
 
       - if allowed_to?(:destroy?, place)
-        = button_to 'Supprimer', place,
+        = button_to t('common.delete'), place,
                     class: 'btn-destroy',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous supprimer ce lieu ?' }
+                    data: { turbo_confirm: t('views.places.place.confirm_delete') }
 
   .p-2.border-t.dark:border-gray-600
     p
-      strong Téléphone:
+      strong = t('views.places.place.phone')
       =< formatted_phone_number(place.phone)
     p
-      strong Email:
+      strong = t('views.places.place.email')
       =< place.email
 
     = place.details

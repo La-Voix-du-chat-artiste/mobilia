@@ -1,0 +1,33 @@
+fr:
+  views:
+    customers:
+      index:
+        title: Clients disponibles
+        title_archived: Clients archivés
+        add_customer: Ajouter un client
+        link_available: Clients disponibles
+        link_archived: Clients archivés
+        help_title: Explications à lire
+        help_intro: Les clients représentent les personnes à transporter aux différents lieux.
+        help_search: Vous pouvez renseigner autant de clients que nécessaires et utiliser la fonction de recherche pour filtrer les clients selon les critères.
+        search_placeholder: Rechercher un client par prénom, nom, téléphone ou adresse
+        empty: "Il n'y a pas encore de clients -"
+        empty_search: Il n'y a aucun client correspondant à cette recherche
+      show:
+        back: "<< Retour aux clients"
+        confirm_archive: Voulez-vous effectuer cette action sur ce client ?
+        confirm_delete: Voulez-vous supprimer ce client ?
+      new:
+        title: Ajouter un client
+        back: "<< Retour aux clients"
+      edit:
+        title: Modifier un client
+        back: "<< Retour au client"
+      form:
+        address_prompt: Saisir l'adresse du client
+        no_favorite_transporter: Pas de chauffeur préféré
+        save_and_create: Valider et créer un nouveau client >>
+      customer:
+        profile: Profil client
+        confirm_archive: Voulez-vous effectuer cette action sur ce client ?
+        confirm_delete: Voulez-vous supprimer ce client ?

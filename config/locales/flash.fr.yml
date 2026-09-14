@@ -1,0 +1,71 @@
+fr:
+  # Flash messages raised by controllers, keyed by controller path and action.
+  flash:
+    not_authenticated: Vous devez être authentifié pour accéder à cette page
+
+    companies:
+      create: "L'entreprise a bien été créée"
+      update: "L'entreprise a bien été mise à jour"
+
+    customers:
+      create: Le client a bien été créé
+      update: Le client a bien été mis à jour
+      destroy: Le client a bien été supprimé
+      archive: Le client a bien été archivé
+      unarchive: Le client a bien été désarchivé
+
+    daily_quests:
+      destroy: Toutes les missions du jour ont bien été supprimées
+      duplicate_week: La semaine est en cours de duplication. Veuillez patienter, cela peut prendre quelques minutes. La page sera rafraîchie une fois la copie terminée
+      reset: Le planning du jour a bien été réinitialisé
+
+      missions:
+        create: La mission a bien été créé.
+        update: La mission a bien été mise à jour.
+        destroy: La mission a bien été supprimée
+
+      steps:
+        destroy: La mission a bien été supprimée
+
+      transporters:
+        send_all_plannings: Les plannings du jour sont en train d'être envoyés aux différents chauffeurs
+        send_planning: Le planning a bien été envoyé par email à %{name}
+
+    me:
+      profiles:
+        update: Votre profil a bien été mis à jour
+
+    password_resets:
+      instructions_sent: Les instructions pour réinitialiser votre mot de passe ont été envoyées.
+      invalid_email: L'email renseigné n'est pas valide
+      email_required: Veuillez renseigner votre email
+      update: Le mot de passe a été mis à jour avec succès.
+
+    places:
+      create: Le lieu a été créé.
+      update: Le lieu a été mis à jour.
+      destroy: Le lieu a été supprimé.
+
+    sessions:
+      create: Erreur lors de la connexion
+
+    settings:
+      update: Les paramètres ont bien été mis à jour.
+
+    transporters:
+      create: Le chauffeur a bien été créé.
+      update: Le chauffeur a bien été mis à jour.
+      destroy: Le chauffeur a bien été supprimé.
+
+      absences:
+        create: L'absence a bien été créé
+        update: L'absence a bien été modifiée
+        destroy: L'absence a bien été supprimée
+
+    users:
+      create: Votre compte administrateur a bien été créé
+
+    vehicles:
+      create: Le véhicule a bien été créé.
+      update: Le véhicule a bien été mis à jour.
+      destroy: Le véhicule a bien été supprimé.

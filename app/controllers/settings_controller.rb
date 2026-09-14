@@ -15,7 +15,7 @@ class SettingsController < ApplicationController
 
     respond_to do |format|
       if @setting.update(setting_params)
-        format.html { redirect_to root_path, notice: 'Les paramètres ont bien été mis à jour.' }
+        format.html { redirect_to root_path, notice: t('flash.settings.update') }
       else
         format.html { render :edit, status: :unprocessable_content }
       end

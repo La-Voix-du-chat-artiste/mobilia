@@ -1,0 +1,33 @@
+zh:
+  views:
+    customers:
+      index:
+        title: 可用客户
+        title_archived: 已归档客户
+        add_customer: 添加客户
+        link_available: 可用客户
+        link_archived: 已归档客户
+        help_title: 阅读说明
+        help_intro: 客户是需要接送至各个地点的人员。
+        help_search: 您可以根据需要添加任意数量的客户，并使用搜索功能按条件筛选客户。
+        search_placeholder: 按名字、姓氏、电话或地址搜索客户
+        empty: "还没有客户 -"
+        empty_search: 没有符合此搜索条件的客户
+      show:
+        back: "<< 返回客户列表"
+        confirm_archive: 您要对该客户执行此操作吗？
+        confirm_delete: 您要删除该客户吗？
+      new:
+        title: 添加客户
+        back: "<< 返回客户列表"
+      edit:
+        title: 编辑客户
+        back: "<< 返回该客户"
+      form:
+        address_prompt: 请输入客户地址
+        no_favorite_transporter: 无首选司机
+        save_and_create: 保存并创建新客户 >>
+      customer:
+        profile: 客户资料
+        confirm_archive: 您要对该客户执行此操作吗？
+        confirm_delete: 您要删除该客户吗？

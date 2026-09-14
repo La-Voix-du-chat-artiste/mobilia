@@ -3,4 +3,4 @@
     = render 'customers', customers: @customers, pagy: @pagy
   - else
     .panel-warning.mb-5
-      p Il n'y a aucun client correspondant à cette recherche
+      p= t('views.customers.index.empty_search')

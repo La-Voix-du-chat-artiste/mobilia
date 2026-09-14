@@ -13,26 +13,26 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
   .flex.items-center.justify-between.gap-3
     - if allowed_to?(:index?, @daily_quest)
-      = link_to '<< Retour au planning',
+      = link_to t('views.daily_quests.transporters.steps.index.back_to_planning'),
                 daily_quests_path(date: @daily_quest.started_on),
                 class: 'btn-back'
 
     - if allowed_to?(:index?, @transporter, with: DailyQuests::Transporters::StepPolicy, context: { daily_quest: @daily_quest })
-      = link_to 'Exporter en PDF',
+      = link_to t('common.export_pdf'),
                 daily_quest_transporter_steps_path(@daily_quest, @transporter, format: :pdf),
                 target: :_blank,
                 class: 'btn-show'
 
     - if allowed_to?(:index?, Mission, namespace: DailyQuests, context: { daily_quest: @daily_quest })
-      = link_to 'Gérer les missions',
+      = link_to t('views.daily_quests.transporters.steps.index.manage_missions'),
                 daily_quest_missions_path(@daily_quest),
                 class: 'btn-edit'
 
     - if allowed_to?(:destroy?, @daily_quest)
-      = button_to 'Supprimer', @daily_quest,
+      = button_to t('common.delete'), @daily_quest,
                   class: 'btn-destroy',
                   method: :delete,
-                  data: { turbo_confirm: 'Voulez-vous supprimer cette queête ?' }
+                  data: { turbo_confirm: t('views.daily_quests.transporters.steps.index.confirm_delete') }
 
 div id=dom_id(@daily_quest)
   .flex.flex-col.lg:flex-row.justify-between.gap-3

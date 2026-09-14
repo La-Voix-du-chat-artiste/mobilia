@@ -1,0 +1,33 @@
+en:
+  views:
+    customers:
+      index:
+        title: Available customers
+        title_archived: Archived customers
+        add_customer: Add a customer
+        link_available: Available customers
+        link_archived: Archived customers
+        help_title: Read the explanations
+        help_intro: Customers are the people to be transported to the various places.
+        help_search: You can enter as many customers as necessary and use the search function to filter customers according to the criteria.
+        search_placeholder: Search for a customer by first name, last name, phone or address
+        empty: "There are no customers yet -"
+        empty_search: No customers match this search
+      show:
+        back: "<< Back to customers"
+        confirm_archive: Do you want to perform this action on this customer?
+        confirm_delete: Do you want to delete this customer?
+      new:
+        title: Add a customer
+        back: "<< Back to customers"
+      edit:
+        title: Edit a customer
+        back: "<< Back to the customer"
+      form:
+        address_prompt: Enter the customer's address
+        no_favorite_transporter: No preferred driver
+        save_and_create: Save and create a new customer >>
+      customer:
+        profile: Customer profile
+        confirm_archive: Do you want to perform this action on this customer?
+        confirm_delete: Do you want to delete this customer?

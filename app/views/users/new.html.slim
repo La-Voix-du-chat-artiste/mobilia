@@ -5,7 +5,7 @@
   h1.text-4xl= @user.company.name
 
 .row.p-5
-  h2.text-3xl.text-center.mb-3 Créer votre compte administrateur
+  h2.text-3xl.text-center.mb-3 = t('views.users.new.title')
 
   = simple_form_for @user, html: { class: 'space-y-5' } do |f|
     = f.input :first_name, as: :string

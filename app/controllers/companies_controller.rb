@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.save
         session[:company_id] = @company.id
-        format.html { redirect_to new_user_path, notice: "L'entreprise a bien été créée" }
+        format.html { redirect_to new_user_path, notice: t('flash.companies.create') }
       else
         format.html { render :new, status: :unprocessable_content }
       end
@@ -39,7 +39,7 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to root_path, notice: "L'entreprise a bien été mise à jour" }
+        format.html { redirect_to root_path, notice: t('flash.companies.update') }
       else
         format.html { render :edit, status: :unprocessable_content }
       end

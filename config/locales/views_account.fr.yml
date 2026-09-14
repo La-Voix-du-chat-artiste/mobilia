@@ -1,0 +1,68 @@
+fr:
+  views:
+    companies:
+      form:
+        address_search: Chercher une adresse
+      new:
+        title: Créer mon entreprise
+        back: "<< Retour"
+      edit:
+        title: Modifier mon entreprise
+
+    homes:
+      show:
+        planning_html: Planning <strong>%{date}</strong>
+        clients: Clients
+        places: Lieux
+        transporters: Chauffeurs
+        next_day: Voir %{date} >>
+        previous_day: "<< Voir %{date}"
+
+    me:
+      profiles:
+        form:
+          address_search: Chercher une adresse
+        show:
+          email: "Email :"
+          phone: "Téléphone :"
+        edit:
+          title: Modifier mon profil
+          back: "<< Retour à mon profil"
+
+    password_resets:
+      new:
+        title: Réinitialiser mon mot de passe
+        email_hint: Veuillez saisir votre adresse email actuelle pour recevoir les instructions de réinitialisation du mot de passe.
+        submit: Réinitialiser mon mot de passe
+        signed_in: J'ai retrouvé mon mot de passe, je me connecte !
+      edit:
+        title: Réinitialiser mon mot de passe
+        submit: Mettre à jour le mot de passe
+
+    sessions:
+      new:
+        title: Connexion Mobilia
+        demo_email_placeholder: admin@demo.test
+        demo_email_hint_html: Utiliser <strong>admin@demo.test</strong> pour la démonstration
+        demo_password_placeholder: password
+        demo_password_hint_html: Utiliser <strong>password</strong> pour la démonstration
+        show_password: Afficher le mot de passe en clair
+        hide_password: Masquer le mot de passe
+        submit: Se connecter
+        forgot_password: Mot de passe oublié ?
+        or: ou
+        create_company: Créer mon entreprise
+        create_company_note: "Note: En créant une entreprise, vous aurez un espace vide de toutes données. Vous pourrez donc créer de zéro toutes les ressources que vous souhaitez sans avoir de résidus de données existantes."
+        readme_html: Refer to the %{link} for more details.
+        readme_link: Mobilia Github README instructions
+
+    settings:
+      form:
+        address_search: Chercher une adresse
+      edit:
+        title: Modifier les paramètres
+        back: "<< Retour aux paramètres"
+
+    users:
+      new:
+        title: Créer votre compte administrateur

@@ -1,0 +1,26 @@
+en:
+  views:
+    application:
+      header:
+        customers: Customers
+        map: Map
+        my_company: My company
+        my_profile: My profile
+        open_menu: Open the menu
+        places: Places
+        planning: Planning
+        settings: Settings
+        sign_out: Sign out
+        todays_map: Today's map
+        vehicles: Vehicles
+      footer:
+        built_with: Built with
+        by: by
+        github: Mobilia on GitHub
+      flash:
+        close: Close
+      locale_switcher:
+        label: Language
+      turbo_confirm:
+        are_you_sure: Are you sure?
+        close_modal: Close the dialog

@@ -1,0 +1,71 @@
+zh:
+  # Flash messages raised by controllers, keyed by controller path and action.
+  flash:
+    not_authenticated: 您需要登录后才能访问此页面
+
+    companies:
+      create: 公司已创建
+      update: 公司已更新
+
+    customers:
+      create: 客户已创建
+      update: 客户已更新
+      destroy: 客户已删除
+      archive: 客户已归档
+      unarchive: 客户已取消归档
+
+    daily_quests:
+      destroy: 今日所有任务已删除
+      duplicate_week: 正在复制本周排班，请稍候，可能需要几分钟。复制完成后页面会自动刷新
+      reset: 今日排班已重置
+
+      missions:
+        create: 任务已创建。
+        update: 任务已更新。
+        destroy: 任务已删除
+
+      steps:
+        destroy: 任务已删除
+
+      transporters:
+        send_all_plannings: 正在向各位司机发送今日排班
+        send_planning: 排班已通过邮件发送给 %{name}
+
+    me:
+      profiles:
+        update: 您的资料已更新
+
+    password_resets:
+      instructions_sent: 重置密码的说明已发送。
+      invalid_email: 填写的邮箱无效
+      email_required: 请输入您的邮箱
+      update: 密码已成功更新。
+
+    places:
+      create: 地点已创建。
+      update: 地点已更新。
+      destroy: 地点已删除。
+
+    sessions:
+      create: 登录失败
+
+    settings:
+      update: 设置已更新。
+
+    transporters:
+      create: 司机已创建。
+      update: 司机已更新。
+      destroy: 司机已删除。
+
+      absences:
+        create: 缺勤记录已创建
+        update: 缺勤记录已更新
+        destroy: 缺勤记录已删除
+
+    users:
+      create: 您的管理员账户已创建
+
+    vehicles:
+      create: 车辆已创建。
+      update: 车辆已更新。
+      destroy: 车辆已删除。

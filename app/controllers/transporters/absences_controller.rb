@@ -18,7 +18,7 @@ module Transporters
 
       respond_to do |format|
         if @absence.save
-          format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été créé" }
+          format.html { redirect_to transporter_path(@transporter), notice: t('flash.transporters.absences.create') }
         else
           format.html { render :new, status: :unprocessable_content }
         end
@@ -37,7 +37,7 @@ module Transporters
 
       respond_to do |format|
         if @absence.update(absence_params)
-          format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été modifiée" }
+          format.html { redirect_to transporter_path(@transporter), notice: t('flash.transporters.absences.update') }
         else
           format.html { render :edit, status: :unprocessable_content }
         end
@@ -51,7 +51,7 @@ module Transporters
       @absence.destroy
 
       respond_to do |format|
-        format.html { redirect_to transporter_path(@transporter), notice: "L'absence a bien été supprimée" }
+        format.html { redirect_to transporter_path(@transporter), notice: t('flash.transporters.absences.destroy') }
       end
     end
 

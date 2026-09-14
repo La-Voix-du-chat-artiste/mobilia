@@ -21,6 +21,8 @@ It handles the management and routing of your fleet and drivers
   - Generation of PDF routes for each transporter
   - Sending of PDF by email (to one driver or to all of them)
 - Basic settings to personalize experience
+- Three languages: French (default), English and Simplified Chinese, switchable
+  from the header or the footer
 
 ## Tools
 
@@ -96,6 +98,12 @@ $ bundle exec rspec
 Use `db:create db:schema:load` rather than `db:prepare`: on a freshly created
 database `db:prepare` also runs `db/seeds.rb`, which calls the geocoding, avatar
 and routing services.
+
+`bundle exec rspec spec/i18n` checks the translations on their own: that the
+three locales define exactly the same keys, that every key used in a template
+exists (and every `views.*` key is used), and that every page renders in each
+language with missing translations raising. See [doc/i18n.md](doc/i18n.md) for
+how the translations are organised and how to add a language.
 
 ## Demonstration
 

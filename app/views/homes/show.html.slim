@@ -2,22 +2,22 @@ div data-controller="global-map" data-global-map-customers-url-value=daily_custo
   #map.h-screen.w-screen.fixed data-global-map-target="map"
 
   section.absolute.bottom-8.left-2.text-xs.bg-white/75.p-2.border.rounded-lg.z-20.dark:bg-gray-700.dark:text-white.dark:border-gray-600.space-y-3
-    p.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center.dark:border-gray-200 class="py-0.5" Planning <strong>#{l(@original_day, format: :complete_slash)}</strong>
+    p.bg-gray-600.px-2.rounded-lg.text-white.text-xs.text-center.dark:border-gray-200 class="py-0.5" == t('views.homes.show.planning_html', date: l(@original_day, format: :complete_slash))
 
     .space-y-2
       p.flex.items-center.gap-2.cursor-pointer data-action="click->global-map#toggleCustomers"
         span.inline-block.w-6.h-6.border-2.border-white.bg-green-500.rounded-full
-        span< Clients
+        span< = t('views.homes.show.clients')
 
       p.flex.items-center.gap-2.cursor-pointer data-action="click->global-map#togglePlaces"
         span.inline-block.w-6.h-6.border-2.border-white.bg-blue-500.rounded-full
-        span< Lieux
+        span< = t('views.homes.show.places')
 
       p.flex.items-center.gap-2.cursor-pointer data-action="click->global-map#toggleTransporters"
         span.inline-block.w-6.h-6.border-2.border-white.bg-orange-500.rounded-full
-        span< Chauffeurs
+        span< = t('views.homes.show.transporters')
 
     - if @original_day == (calendar.business_day?(Date.current) ? Date.current : calendar.next_business_day(Date.current))
-      = link_to "Voir #{l(@next_day, format: :complete_slash)} >>", root_path(date: @next_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
+      = link_to t('views.homes.show.next_day', date: l(@next_day, format: :complete_slash)), root_path(date: @next_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
     - else
-      = link_to "<< Voir #{l(@prev_day, format: :complete_slash)}", root_path(date: @prev_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'
+      = link_to t('views.homes.show.previous_day', date: l(@prev_day, format: :complete_slash)), root_path(date: @prev_day), class: 'block rounded-lg px-2 py-0.5 bg-gray-100 dark:bg-gray-600 dark:text-white'

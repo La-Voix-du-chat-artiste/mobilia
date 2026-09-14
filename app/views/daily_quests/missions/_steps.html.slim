@@ -7,7 +7,7 @@
   = render partial: 'daily_quests/missions/step', collection: steps
 
   - if close_quest.present?
-    = link_to 'Fermer',
+    = link_to t('common.close'),
               daily_quest_missions_path(close_quest),
               class: 'block underline text-sm text-center dark:text-white',
               data: { \

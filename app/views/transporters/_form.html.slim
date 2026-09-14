@@ -45,7 +45,7 @@
                    } \
                  },
                  collection: [ff.object.label].compact,
-                 prompt: 'Chercher une adresse',
+                 prompt: t('views.transporters.form.address_prompt'),
                  include_blank: false,
                  wrapper_html: { class: 'w-full' }
 
@@ -56,7 +56,7 @@
 
     = f.association :vehicle,
                     collection: vehicles_select_options(vehicles),
-                    include_blank: 'Sélectionner un véhicule',
+                    include_blank: t('views.transporters.form.select_vehicle'),
                     wrapper_html: { class: 'w-full' },
                     input_html: { \
                       data: { \
@@ -84,4 +84,4 @@
     = f.button :submit
 
     - if @transporter.new_record?
-      = f.button :button, 'Valider et créer nouveau chauffeur >>', type: :submit, name: :mode, value: 'save_and_create_new'
+      = f.button :button, t('views.transporters.form.save_and_create_new'), type: :submit, name: :mode, value: 'save_and_create_new'

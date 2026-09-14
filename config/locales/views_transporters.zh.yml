@@ -1,0 +1,52 @@
+zh:
+  views:
+    transporters:
+      index:
+        title: 司机
+        new: 添加司机
+        help:
+          summary: 阅读说明
+          assignment: 需要在本页面指定可分配运输任务的司机。
+          absences: 您可以点击“司机资料”为司机配置指定时间段的缺勤。自动分配运输任务给司机时会考虑缺勤情况。
+        empty: 还没有司机 -
+      new:
+        title: 添加司机
+        back: "<< 返回司机列表"
+      edit:
+        title: 编辑司机
+        back: "<< 返回司机"
+      show:
+        back: "<< 返回司机列表"
+        confirm_delete: 确定要删除这位司机吗？
+        no_vehicle: "⚠️ 司机无车辆"
+        no_vehicle_warning: 该司机尚未配置车辆。没有车辆将无法为其分配运输任务。
+        select_vehicle: 请选择车辆
+        absences_title: 出勤 / 缺勤
+        add_absence: 添加出勤 / 缺勤
+        absences_empty: 尚未配置任何出勤或缺勤
+        work_hours: 工作时间
+      form:
+        address_prompt: 搜索地址
+        select_vehicle: 请选择车辆
+        save_and_create_new: "确定并创建新司机 >>"
+      transporter:
+        absent: 缺勤
+        no_vehicle: "⚠️ 司机无车辆"
+        select_vehicle: 请选择车辆
+        profile: 司机资料
+        confirm_delete: 确定要删除这位司机吗？
+      map_popup:
+        address: "居住地址："
+        driving: 出行中
+        stopped: 已停止
+      absences:
+        new:
+          title: "为 %{name} 添加出勤 / 缺勤"
+          back: "<< 返回司机"
+        edit:
+          title: "为 %{name} 编辑出勤 / 缺勤"
+          back: "<< 返回司机"
+        absence:
+          from: 从
+          to: 至
+          confirm_delete: 确定要删除此缺勤吗？

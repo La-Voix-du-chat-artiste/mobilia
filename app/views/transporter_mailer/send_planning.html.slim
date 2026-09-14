@@ -1,6 +1,6 @@
-h1 Bonjour #{@transporter.first_name},
+h1= t('transporter_mailer.send_planning.greeting', name: @transporter.first_name)
 
-p Vous trouverez en pièce jointe votre planning de transport du <strong>#{l(@daily_quest.started_on)}</strong>.
+p== t('transporter_mailer.send_planning.body_html', date: l(@daily_quest.started_on))
 
-p Bonne journée,
+p= t('transporter_mailer.send_planning.sign_off')
 p= @daily_quest.company.name

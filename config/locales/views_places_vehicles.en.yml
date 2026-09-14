@@ -1,0 +1,72 @@
+en:
+  # Strings of the places and vehicles screens. Field labels, vehicle status
+  # labels and form hints live in activerecord.* / simple_form.*; shared
+  # vocabulary (delete, edit, add the first one, ...) lives in common.*.
+  views:
+    places:
+      edit:
+        back: "<< Back to places"
+        title: Edit a place
+      form:
+        address_prompt: Search for an address
+        submit_and_create_new: "Save and create a new place >>"
+      index:
+        add: Add a place
+        empty: There are no places yet -
+        help_text: "Places represent the different locations where customers are dropped off. These can be a medical centre, a hospital, a company, ..."
+        help_title: Explanations to read
+        no_results: No place matches this search
+        search_placeholder: Search for a place by name or address
+        title: Places
+      new:
+        back: "<< Back to places"
+        title: Add a place
+      place:
+        confirm_delete: Do you want to delete this place?
+        email: "Email:"
+        phone: "Phone:"
+        show: Place details
+      show:
+        address: "Address:"
+        back: "<< Back to places"
+        confirm_delete: Do you want to delete this place?
+        details: "Details:"
+        email: "Email:"
+        phone: "Phone:"
+
+    vehicles:
+      edit:
+        back: "<< Back to vehicles"
+        title: Edit a vehicle
+      form:
+        submit_and_create_new: "Save and create a new vehicle >>"
+      index:
+        add: Add a vehicle
+        empty: There are no vehicles yet -
+        help_text: "The different vehicles are to be entered on this page. Vehicles can then be assigned to a driver."
+        help_title: Explanations to read
+        title: Vehicles
+      new:
+        back: "<< Back to vehicles"
+        title: Add a vehicle
+      show:
+        back: "<< Back to vehicles"
+        confirm_delete: Do you want to delete this vehicle?
+        details: "Details:"
+        height: "Height:"
+        length: "Length:"
+        max_regular_seats: "Number of regular seats:"
+        max_wheelchair_seats: "Number of wheelchair seats:"
+        number_plate: "Registration number:"
+        status: "Status:"
+        substitution: Replacement vehicle?
+      vehicle:
+        confirm_delete: Do you want to delete this vehicle?
+        height: "Height:"
+        length: "Length:"
+        max_regular_seats: "Number of regular seats:"
+        max_wheelchair_seats: "Number of wheelchair seats:"
+        no_driver: "⚠️ Vehicle without a driver"
+        show: Vehicle details
+        status: "Status:"
+        substitution: Replacement vehicle?

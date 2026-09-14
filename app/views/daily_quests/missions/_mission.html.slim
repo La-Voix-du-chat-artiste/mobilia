@@ -23,28 +23,28 @@
       - steps.each.with_index do |step, index|
         p.border-b.dark:border-gray-600.dark:text-gray-300
           - if steps.count == 1
-            | Trajet unique
+            = t('views.daily_quests.missions.mission.single_trip')
           - elsif index == 0
-            | Départ
+            = t('views.daily_quests.missions.mission.departure')
           - else
-            | Retour
+            = t('views.daily_quests.missions.mission.return')
 
         = render 'daily_quests/steps/metadata', step: step
 
     footer.flex.items-center.justify-between.gap-1.mt-3
       - if allowed_to?(:show?, mission, context: { daily_quest: daily_quest })
-        = link_to 'Détails',
+        = link_to t('views.daily_quests.missions.mission.details'),
                   daily_quest_mission_steps_path(daily_quest, mission),
                   data: { turbo_frame: :steps },
                   class: 'btn-show w-full'
 
       - if allowed_to?(:update?, mission, context: { daily_quest: daily_quest })
-        = link_to 'Modifier',
+        = link_to t('common.edit'),
                   edit_daily_quest_mission_path(daily_quest, mission),
                   class: 'btn-edit w-full'
 
       - if allowed_to?(:destroy?, mission, context: { daily_quest: daily_quest })
-        = link_to 'Supprimer',
+        = link_to t('common.delete'),
                   daily_quest_mission_path(daily_quest, mission),
                   class: 'btn-destroy w-full',
-                  data: { turbo_method: :delete, turbo_confirm: 'Voulez-vous supprimer cette mission ?' }
+                  data: { turbo_method: :delete, turbo_confirm: t('views.daily_quests.missions.mission.confirm_delete') }

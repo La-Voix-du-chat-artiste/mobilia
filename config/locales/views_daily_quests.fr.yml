@@ -1,0 +1,103 @@
+fr:
+  views:
+    daily_quests:
+      index:
+        absent_drivers_today: "Chauffeurs absents aujourd'hui"
+        all_missions_assigned: "Félicitations, vous avez assigné toutes les missions en attente !"
+        confirm_optimize_all: "Voulez-vous placer automatiquement toutes les missions ?"
+        drivers_without_vehicle: "⚠️ Chauffeurs sans véhicule"
+        drivers_without_vehicle_details: "Certains chauffeurs n'ont pas de véhicule de configuré. Vous ne pourrez pas leur assigner de missions sans véhicule"
+        missions_without_driver: "⚠️ Missions sans chauffeur"
+        optimize_all: "Tout placer sur le planning"
+        title: "Missions %{day}"
+        until: "(jusqu'au %{date})"
+
+      instructions:
+        first_step: 'Commencez par configurer la ou les mission(s) de transport de la journée en cliquant sur le bouton "Ajouter une mission".'
+        intro: "Cette page permet d'assigner les différentes missions aux chauffeurs en activité pour la journée spécifiée."
+        notes_information: "Renseigner de manière la plus précise possible les informations du véhicule, les absences des chauffeurs, les informations complémentaires des clients et des lieux permet à l'algorithme de créer un planning précis et de générer moins de stress pour les chauffeurs."
+        notes_pdf: "Chaque chauffeur a automatiquement un PDF contenant toutes les missions de sa journée avec toutes les informations nécessaires intégrées dessus."
+        notes_reassign: "Vous pouvez toujours réaffecter des missions placées automatiquement par l'algorithme manuellement si des changements sont nécessaires. Un code couleur avertira d'un potentiel conflit de durée ou de distance."
+        notes_title: "Notes:"
+        option_drag: "Assigner manuellement par glisser/déposer une mission à un chauffeur"
+        option_place: "Cliquer sur le bouton \"Placer\" pour laisser l'algorithme affecter cette mission au chauffeur le plus adapté"
+        option_place_all: "Cliquer sur le bouton \"Tout placer sur le planning\" pour que l'algorithme répartisse automatiquement toutes les missions à tous les chauffeurs déterminés comme étant les plus adaptés"
+        option_select: "Assigner manuellement en sélectionnant un chauffeur dans la liste déroulante"
+        options_intro: "Une fois cette étape effectuée, vous aurez quatres possibilités:"
+        title: "Explications à lire"
+
+      menu:
+        confirm_destroy_missions: "Voulez-vous supprimer toutes les missions du jour ? Attention, cette action est irréversible !"
+        confirm_duplicate_week: "Voulez-vous dupliquer la semaine du %{start_date} - %{end_date} sur la semaine du %{next_start_date} - %{next_end_date} ? Si une des journées existe déjà, elle sera supprimée et remplacée par la journée correspondante de la semaine sélectionnée"
+        confirm_reset: "Voulez-vous réinitialiser le planning du jour ? Toutes les missions se trouvant actuellement dans les colonnes des chauffeurs seront désassignées."
+        confirm_send_all_plannings: "Voulez-vous envoyer les plannings du jour à tous les chauffeurs par email ?"
+        destroy_missions: "Supprimer les missions du jour"
+        duplicate_week: "Dupliquer toute la semaine"
+        label: "Menu"
+        manage_missions: "Gérer les missions"
+        mission_details: "Détails des missions"
+        reset: "Réinitialiser le planning"
+        send_all_plannings: "Envoyer les plannings de tous les chauffeurs par email"
+
+      show:
+        back_to_planning: "<< Retour au planning"
+        confirm_delete: "Voulez-vous supprimer ce planning ?"
+        loading_steps: "Chargement des étapes de la missions"
+        manage_missions: "Gérer les missions"
+        mission_number: "Mission %{number}:"
+
+      step:
+        add_note: "Ajouter une remarque"
+        assign_driver: "Assigner un chauffeur"
+        confirm_place: "Voulez-vous placer automatiquement cette mission ?"
+        confirm_remove: "Voulez-vous retirer cette mission pour la journée du %{date} ?"
+        determined_algorithmically: "Déterminé algorithmiquement"
+        mission_completed: "Mission terminée 🎉"
+        place: "Placer"
+        trip_conflict: "⚠️ Trajet en conflit"
+        trip_impossible: "⚠️ Trajet impossible"
+
+      transporter_column:
+        confirm_send_planning: "Voulez-vous envoyer le planning du jour à ce chauffeur par email ?"
+        send_planning_to_driver: "Envoyer par email au chauffeur"
+        todays_trips: "Trajets du jour"
+
+      missions:
+        edit:
+          title: "Modifier mission"
+
+        empty_missions:
+          add_first: "ajouter le premier"
+          add_first_mission: "ajouter la première"
+          no_customers: "Il n'y a pas encore de clients,"
+          no_drivers: "Il n'y a pas encore de chauffeurs,"
+          no_missions: "Il n'y a pas encore de missions,"
+          no_places: "Il n'y a pas encore de lieux,"
+          no_vehicles: "Il n'y a pas encore de véhicules,"
+          prerequisites: "Avant de pouvoir ajouter une mission, vous devez vous assurer que les éléments suivants sont correctement configurés:"
+
+        index:
+          add_help_html: 'Pour ajouter une nouvelle mission, cliquer sur le bouton <span class="btn-add !text-xs">Ajouter une mission +</span> puis enregistrez.'
+          add_mission: "Ajouter une mission +"
+          back_to_planning: "<< Retour au planning"
+          delete_help_html: 'Pour supprimer une mission, cliquez sur le lien <span class="btn-destroy !text-xs">Supprimer</span> en bas de la carte de la mission.'
+          edit_help_html: 'Pour modifier une mission, cliquez sur le lien <span class="btn-edit !text-xs">Modifier</span> en bas de la carte de la mission.'
+          instructions: "Explications à lire"
+          intro_html: "Cette page permet de configurer les missions de transport pour la journée du <strong>%{date}</strong>:"
+          note_computed: "Note: L'heure à laquelle chercher le client chez lui et l'heure de retour seront automatiquement calculées par l'algorithme."
+          specify_customer_html: "le <strong>client</strong> à transporter"
+          specify_duration_html: "la <strong>durée</strong> de la consultation en minutes"
+          specify_intro: "Pour chaque mission, spécifiez:"
+          specify_place_html: "le <strong>lieu</strong> où il doit être déposé"
+          specify_time_html: "l'<strong>heure</strong> à laquelle il doit être déposé"
+          title: "Missions du %{date}"
+
+        mission:
+          confirm_delete: "Voulez-vous supprimer cette mission ?"
+          departure: "Départ"
+          details: "Détails"
+          return: "Retour"
+          single_trip: "Trajet unique"
+
+        new:
+          title: "Nouvelle mission"

@@ -17,13 +17,13 @@ module DailyQuests
 
       transporters.each do |transporter|
         TransporterMailer
-          .with(transporter: transporter, daily_quest: @daily_quest)
+          .with(transporter: transporter, daily_quest: @daily_quest, locale: I18n.locale)
           .send_planning
           .deliver_later
       end
 
       respond_to do |format|
-        notice = "Les plannings du jour sont en train d'être envoyés aux différents chauffeurs"
+        notice = t('flash.daily_quests.transporters.send_all_plannings')
 
         format.html do
           # `daily_quest_path` is the show route and requires :id. This action is
@@ -42,12 +42,12 @@ module DailyQuests
       authorize! @transporter, context: { daily_quest: @daily_quest }
 
       TransporterMailer
-        .with(transporter: @transporter, daily_quest: @daily_quest)
+        .with(transporter: @transporter, daily_quest: @daily_quest, locale: I18n.locale)
         .send_planning
         .deliver_later
 
       respond_to do |format|
-        notice = "Le planning a bien été envoyé par email à #{@transporter.full_name}"
+        notice = t('flash.daily_quests.transporters.send_planning', name: @transporter.full_name)
 
         format.html do
           # See send_all_plannings: daily_quest_path needs :id.

@@ -1,0 +1,18 @@
+zh:
+  # Vocabulary shared by more than one screen. Anything used by a single screen
+  # belongs in that screen's config/locales/views_*.zh.yml instead, and the i18n
+  # lint spec fails on a key that no template uses.
+  common:
+    add_first: 添加第一个
+    archive: 归档
+    back: 返回
+    cancel: 取消
+    close: 关闭
+    confirm: 确认
+    delete: 删除
+    edit: 编辑
+    export_pdf: 导出 PDF
+    next_business_day: 下一个工作日
+    previous_business_day: 上一个工作日
+    save: 保存
+    unarchive: 取消归档

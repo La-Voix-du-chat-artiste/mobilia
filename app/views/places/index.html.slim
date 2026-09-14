@@ -1,13 +1,13 @@
 header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
-  h1.text-3xl Lieux
+  h1.text-3xl= t('views.places.index.title')
 
   - if allowed_to?(:create?, Place)
-    = link_to 'Ajouter un lieu', new_place_path, class: 'btn-add'
+    = link_to t('views.places.index.add'), new_place_path, class: 'btn-add'
 
 - unless current_user.standard?
   details.panel-info.mb-5 open=options.show_help?
-    summary.cursor-pointer Explications à lire
-    p.mt-3 Les lieux représentent les différents endroits où les clients sont déposés. Ce peut-être un institut médical, un hôpital, une entreprise, ...
+    summary.cursor-pointer= t('views.places.index.help_title')
+    p.mt-3= t('views.places.index.help_text')
 
 - if @places.any?
   = simple_form_for :search,
@@ -21,7 +21,7 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
                     } do |f|
     = f.input :query,
               label: false,
-              placeholder: 'Rechercher un lieu par nom ou adresse',
+              placeholder: t('views.places.index.search_placeholder'),
               input_html: { class: 'rounded-lg' },
               wrapper_html: { class: 'lg:w-1/2 mx-auto' }
 
@@ -34,7 +34,7 @@ header.flex.flex-col.lg:flex-row.items-center.justify-between.mb-6.gap-3
 
 - else
   p.panel-warning.p-4
-    | Il n'y a pas encore de lieux -
+    = t('views.places.index.empty')
 
     - if allowed_to?(:create?, Place)
-      =< link_to 'Ajouter le premier', new_place_path, class: 'underline'
+      =< link_to t('common.add_first'), new_place_path, class: 'underline'

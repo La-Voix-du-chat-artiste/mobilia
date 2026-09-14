@@ -31,7 +31,7 @@ module DailyQuests
 
       respond_to do |format|
         if @mission.save
-          notice = 'La mission a bien été créé.'
+          notice = t('flash.daily_quests.missions.create')
 
           format.html { redirect_to daily_quest_missions_path(@daily_quest), notice: notice }
           format.turbo_stream { flash.now[:notice] = notice }
@@ -57,7 +57,7 @@ module DailyQuests
       authorize! @mission, context: { daily_quest: @mission.daily_quest }
 
       if @mission.update(mission_params)
-        redirect_to daily_quest_mission_path(@daily_quest, @mission), notice: 'La mission a bien été mise à jour.'
+        redirect_to daily_quest_mission_path(@daily_quest, @mission), notice: t('flash.daily_quests.missions.update')
       else
         render :edit, status: :unprocessable_content
       end
@@ -70,7 +70,7 @@ module DailyQuests
       @mission.destroy
 
       respond_to do |format|
-        notice = 'La mission a bien été supprimée'
+        notice = t('flash.daily_quests.missions.destroy')
 
         format.html { redirect_to daily_quest_missions_path(date: @daily_quest.started_on), notice: notice }
         format.turbo_stream { flash.now[:notice] = notice }

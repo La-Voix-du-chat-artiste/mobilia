@@ -1,0 +1,132 @@
+en:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+
+    error_notification:
+      default_message: "Please check the following problems:"
+
+    labels:
+      session:
+        email: Email
+        password: Password
+        remember: Remember me?
+      transporter:
+        availabilities:
+          monday: Monday
+          tuesday: Tuesday
+          wednesday: Wednesday
+          thursday: Thursday
+          friday: Friday
+          saturday: Saturday
+          sunday: Sunday
+
+      setting:
+        options:
+          map_refresh_interval: Map refresh interval
+          map_gesture_handling: Disable scrolling on the map
+          theme: Theme
+          delta_jam: Traffic jam delta
+          delta_loading: Loading/unloading delta
+          enable_customers_map: Enable the customer map?
+          enable_places_map: Enable the place map?
+          enable_transporters_map: Enable the driver map?
+          show_help: Show explanations?
+          big_screen_planning_show_all_transporters: Show all drivers at the same time on the planning?
+          transporters_can_see_each_others: Can drivers see each other?
+          validate_phone_for_customers: Customer phone number required?
+          validate_phone_for_places: Place phone number required?
+          validate_phone_for_transporters: Driver phone number required?
+          enable_customer_photo: Enable customer photos?
+          enable_place_photo: Enable place photos?
+          enable_transporter_photo: Enable driver photos?
+          enable_vehicle_photo: Enable vehicle photos?
+
+      user:
+        remove_photo: Remove the photo?
+
+    placeholders:
+      customer:
+        phone: "Format: 0123456789"
+      mission:
+        drop_duration_hours: Hours part
+        drop_duration_minutes: Minutes part
+
+    hints:
+      company:
+        name: Company name
+        logo: Logo to upload in square format for a better result
+        description: Company description
+        virtual_address: If you enter an address, the map will automatically be centred on it.
+
+      customer:
+        enabled: If checked, the customer can be assigned to a trip
+        phone: "Phone number in 10-digit format without spaces (e.g. 0123456789)"
+        address:
+          label: "Note: Addresses matching the value entered in the field are displayed and updated automatically."
+        favorite_trip_transporter: Enter the default driver to assign to this customer for the outbound trip (from the customer's address to the place where they are to be dropped off). If provided (optional), the algorithm will follow this rule as long as no trip conflict prevents it. If not specified, the most suitable driver will be assigned automatically.
+        favorite_trip_back_transporter: Enter the default driver to assign to this customer for the return trip (from the drop-off place back to the customer). If provided (optional), the algorithm will follow this rule as long as no trip conflict prevents it. If not specified, the most suitable driver will be assigned automatically.
+        details: Additional information to add about the customer. This data will be displayed on the PDF generated for the driver.
+
+      place:
+        name: Name of the place (company, institute, ...)
+        enabled: If checked, this place can be configured on a trip
+        phone: "Phone number in 10-digit format without spaces (e.g. 0123456789)"
+        details: Additional information to add about the place. This data will be displayed on the PDF generated for the driver.
+        address:
+          label: "Note: Addresses matching the value entered in the field are displayed and updated automatically."
+
+      transporter:
+        details: Additional information to add about the driver
+        phone: "Phone number in 10-digit format without spaces (e.g. 0123456789)"
+        address:
+          label: "Note: Addresses matching the value entered in the field are displayed and updated automatically."
+        vehicle: Which vehicle is assigned to this driver?
+
+      mission:
+        customer: The customer to pick up
+        place: The place where they are to be dropped off
+        drop_time: The time at which the customer is to be picked up from home is determined automatically by the algorithm
+        drop_duration_hours: "Specify the <strong>hours</strong> part of the duration (example: for <strong>1h30</strong>, enter <strong>1</strong> in this field and <strong>30</strong> in the field for <strong>minutes</strong>)"
+        drop_duration_minutes: "Specify the <strong>minutes</strong> part of the duration (see the previous example)"
+        round_trip: Check the box if a return trip is to be scheduled for this mission
+
+      step:
+        description: Additional information for the driver (will be displayed on the generated PDF)
+
+      vehicle:
+        enabled: If checked, this vehicle can be assigned to a driver
+        substitution: Is this vehicle used as a substitute for another vehicle?
+        details: Additional information to add about the vehicle. This data will be displayed on the PDF generated for the driver.
+        length: The length of the vehicle is important information that helps determine a more precise route. A transport truck is not necessarily suited to the narrow streets of a city centre, and this information helps avoid them as much as possible on the generated route.
+        width: The width of the vehicle is important information that helps determine a more precise route. A transport truck is not necessarily suited to the narrow streets of a city centre, and this information helps avoid them as much as possible on the generated route.
+        height: The height of the vehicle is important information that helps determine a more precise route. A transport truck is not necessarily suited to roads with low bridges, and this information helps avoid them on the generated route.
+        max_regular_seats: This information helps the algorithm determine whether the vehicle still has capacity to accept a walking person on the trip or whether it is already full.
+        max_wheelchair_seats: This information helps the algorithm determine whether the vehicle still has capacity to accept a person in a wheelchair on the trip or whether it is already full.
+
+      setting:
+        options:
+          map_refresh_interval: Refresh interval for the position of drivers (in seconds)
+          map_gesture_handling: If checked, scrolling will be disabled by default on the map. You will need to use a keyboard key (desktop) or two fingers (mobile) to interact with the map.
+          theme: Website theme
+          delta_jam: Time for the algorithm to take into account to anticipate possible traffic jams (in minutes)
+          delta_loading: Time to take into account for loading / unloading people in wheelchairs (in minutes)
+          enable_customers_map: If checked, a map of customers will be displayed on the customers page (does not affect the main map)
+          enable_places_map: If checked, a map of places will be displayed on the places page (does not affect the main map)
+          enable_transporters_map: If checked, a map of drivers will be displayed on the drivers page (does not affect the main map)
+          show_help: If checked, the help and explanation panel will be opened automatically on the pages where it appears. Otherwise it will be closed.
+          big_screen_planning_show_all_transporters: If checked, all drivers will be displayed together on the day's planning page, without horizontal scrolling, on large screens (from 1536px wide). Note that if you have a lot of drivers at the same time, the width of the columns will be reduced so that everyone can appear, and the experience will not be very good.
+          transporters_can_see_each_others: If checked, drivers logged in with their own account will be able to see other drivers' information (location on the map, addresses, customers, ...). Uncheck the box for more confidentiality.
+          validate_phone_for_customers: If checked, the customer creation form will require a phone number to be entered
+          validate_phone_for_places: If checked, the place creation form will require a phone number to be entered
+          validate_phone_for_transporters: If checked, the driver creation form will require a phone number to be entered
+          enable_customer_photo: If checked, customers will be able to set their photo in their profile. If unchecked, the user's photo will be replaced by their initials.
+          enable_place_photo: If checked, places will be able to have a photo set on their profile page. If unchecked, the place's photo will be replaced by its initials.
+          enable_transporter_photo: If checked, drivers will be able to have a photo set on their profile page. If unchecked, the driver's photo will be replaced by their initials.
+          enable_vehicle_photo: If checked, vehicles will be able to have a photo set on their profile page. If unchecked, the vehicle's photo will be replaced by its initials.
+
+      address:
+        label: If you enter an address, the map will automatically be centred on it if there is no marker on it.

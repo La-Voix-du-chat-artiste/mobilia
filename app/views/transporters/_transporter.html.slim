@@ -10,14 +10,14 @@ details.row id=dom_id(transporter)
 
           - if transporter.off?
             span.rounded.px-1.py-1.bg-yellow-500.text-white.rounded-lg.text-sm.ml-2.mb-1.inline-block.animate-pulse
-              = 'Absent'
+              = t('views.transporters.transporter.absent')
 
         - if transporter.address.present?
           p.italic.text-gray-500= transporter.address.label
         .text-sm
           - if transporter.vehicle.nil?
             .flex.items-center.gap-3
-              span.text-orange-500 ⚠️ Chauffeur sans véhicule
+              span.text-orange-500= t('views.transporters.transporter.no_vehicle')
 
               - if allowed_to?(:update?, transporter)
                 = simple_form_for(transporter) do |f|
@@ -25,7 +25,7 @@ details.row id=dom_id(transporter)
                                   collection: vehicles_select_options(company.vehicles.enabled.normal.with_attached_photo.where.missing(:transporter)),
                                   label: false,
                                   hint: false,
-                                  include_blank: 'Sélectionner un véhicule',
+                                  include_blank: t('views.transporters.transporter.select_vehicle'),
                                   wrapper_html: { class: 'w-full' },
                                   input_html: { \
                                     data: { \
@@ -42,23 +42,23 @@ details.row id=dom_id(transporter)
 
     .flex.items-center.gap-3
       - if allowed_to?(:show?, transporter)
-        = link_to 'Profil chauffeur', transporter_path(transporter), class: 'btn-show'
+        = link_to t('views.transporters.transporter.profile'), transporter_path(transporter), class: 'btn-show'
 
       - if allowed_to?(:update?, transporter)
-        = link_to 'Modifier', edit_transporter_path(transporter), class: 'btn-edit'
+        = link_to t('common.edit'), edit_transporter_path(transporter), class: 'btn-edit'
 
       - if allowed_to?(:destroy?, transporter)
-        = button_to 'Supprimer', transporter,
+        = button_to t('common.delete'), transporter,
                     class: 'btn-destroy',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous supprimer ce chauffeur ?' }
+                    data: { turbo_confirm: t('views.transporters.transporter.confirm_delete') }
 
   .p-2.border-t.dark:border-gray-600
     p
-      strong Téléphone:
+      strong= "#{Transporter.human_attribute_name(:phone)}:"
       =< formatted_phone_number(transporter.phone)
     p
-      strong Email:
+      strong= "#{Transporter.human_attribute_name(:email)}:"
       =< transporter.email
 
     = transporter.details

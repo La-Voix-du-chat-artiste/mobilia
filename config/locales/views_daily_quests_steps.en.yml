@@ -1,0 +1,22 @@
+en:
+  views:
+    daily_quests:
+      steps:
+        label:
+          outbound: Outbound trip
+          return: Return trip
+
+      transporters:
+        steps:
+          index:
+            back_to_planning: "<< Back to planning"
+            manage_missions: Manage missions
+            confirm_delete: "Do you want to delete this day's planning?"
+          index_pdf:
+            title: Route sheet
+            late_warning: "You must notify the customer of any delay of more than 10 minutes compared with the scheduled time"
+            trip_details: "Trip details:"
+            profile: "Profile:"
+            customer_details: "Customer details:"
+            additional_information: "Additional information:"
+            duration_distance: " [ %{duration} min | %{distance} km ]"

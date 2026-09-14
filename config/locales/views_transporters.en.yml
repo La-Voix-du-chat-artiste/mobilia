@@ -1,0 +1,52 @@
+en:
+  views:
+    transporters:
+      index:
+        title: Drivers
+        new: Add a driver
+        help:
+          summary: Explanations to read
+          assignment: The drivers to whom transport missions can be assigned must be specified on this page.
+          absences: You can configure driver absences for a given period by clicking on "Driver profile". Absences are taken into account when automatically assigning transport missions to drivers.
+        empty: There are no drivers yet -
+      new:
+        title: Add a driver
+        back: "<< Back to the drivers"
+      edit:
+        title: Edit a driver
+        back: "<< Back to the driver"
+      show:
+        back: "<< Back to the drivers"
+        confirm_delete: Do you want to delete this driver?
+        no_vehicle: "⚠️ Driver without a vehicle"
+        no_vehicle_warning: No vehicle is configured for this driver. You will not be able to assign transport missions to them without a vehicle.
+        select_vehicle: Select a vehicle
+        absences_title: Attendance / absences
+        add_absence: Add an attendance / absence
+        absences_empty: There is no attendance or absence configured yet
+        work_hours: Working hours
+      form:
+        address_prompt: Search for an address
+        select_vehicle: Select a vehicle
+        save_and_create_new: "Validate and create a new driver >>"
+      transporter:
+        absent: Absent
+        no_vehicle: "⚠️ Driver without a vehicle"
+        select_vehicle: Select a vehicle
+        profile: Driver profile
+        confirm_delete: Do you want to delete this driver?
+      map_popup:
+        address: "Home address:"
+        driving: On the move
+        stopped: Stopped
+      absences:
+        new:
+          title: "Add an attendance / absence for %{name}"
+          back: "<< Back to the driver"
+        edit:
+          title: "Edit an attendance / absence for %{name}"
+          back: "<< Back to the driver"
+        absence:
+          from: From
+          to: "to"
+          confirm_delete: Do you want to delete this absence?

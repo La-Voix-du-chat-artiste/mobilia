@@ -33,7 +33,12 @@ module Mobilia
     config.time_zone = 'Europe/Paris'
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # French is the language the app was written in; English and Simplified
+    # Chinese are complete translations. The app runs without locale fallbacks
+    # (see config/locales/zh.framework.yml), so a missing key is a bug the test
+    # suite catches rather than a page of half-English Chinese.
     config.i18n.default_locale = :fr
+    config.i18n.available_locales = %i[fr en zh]
 
     # Active Record encryption keys, from .env (see .env.template).
     #

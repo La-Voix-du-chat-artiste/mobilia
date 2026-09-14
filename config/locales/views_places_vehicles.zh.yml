@@ -1,0 +1,72 @@
+zh:
+  # Strings of the places and vehicles screens. Field labels, vehicle status
+  # labels and form hints live in activerecord.* / simple_form.*; shared
+  # vocabulary (delete, edit, add the first one, ...) lives in common.*.
+  views:
+    places:
+      edit:
+        back: "<< 返回地点列表"
+        title: 修改地点
+      form:
+        address_prompt: 搜索地址
+        submit_and_create_new: "保存并创建新地点 >>"
+      index:
+        add: 添加地点
+        empty: 还没有地点 -
+        help_text: "地点代表客户被送达的不同场所，可以是医疗机构、医院、公司等。"
+        help_title: 阅读说明
+        no_results: 没有符合该搜索条件的地点
+        search_placeholder: 按名称或地址搜索地点
+        title: 地点
+      new:
+        back: "<< 返回地点列表"
+        title: 添加地点
+      place:
+        confirm_delete: 要删除该地点吗？
+        email: "电子邮箱："
+        phone: "电话："
+        show: 地点详情
+      show:
+        address: "地址："
+        back: "<< 返回地点列表"
+        confirm_delete: 要删除该地点吗？
+        details: "详情："
+        email: "电子邮箱："
+        phone: "电话："
+
+    vehicles:
+      edit:
+        back: "<< 返回车辆列表"
+        title: 修改车辆
+      form:
+        submit_and_create_new: "保存并创建新车辆 >>"
+      index:
+        add: 添加车辆
+        empty: 还没有车辆 -
+        help_text: "在此页面填写各车辆的信息。车辆之后可以分配给司机。"
+        help_title: 阅读说明
+        title: 车辆
+      new:
+        back: "<< 返回车辆列表"
+        title: 添加车辆
+      show:
+        back: "<< 返回车辆列表"
+        confirm_delete: 要删除该车辆吗？
+        details: "详情："
+        height: "高度："
+        length: "长度："
+        max_regular_seats: "普通座位数："
+        max_wheelchair_seats: "轮椅座位数："
+        number_plate: "车牌号："
+        status: "状态："
+        substitution: 替换车辆？
+      vehicle:
+        confirm_delete: 要删除该车辆吗？
+        height: "高度："
+        length: "长度："
+        max_regular_seats: "普通座位数："
+        max_wheelchair_seats: "轮椅座位数："
+        no_driver: "⚠️ 车辆未分配司机"
+        show: 车辆详情
+        status: "状态："
+        substitution: 替换车辆？

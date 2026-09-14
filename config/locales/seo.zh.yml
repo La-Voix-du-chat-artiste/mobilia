@@ -1,0 +1,101 @@
+zh:
+  seo:
+    default:
+      title: 面向车队与个人的运输规划与路线优化。
+      description: Mobilia 是面向车队与个人的新一代运输规划与路线优化方案。
+
+    companies:
+      new:
+        title: 新建公司
+      edit:
+        title: 编辑公司
+
+    customers:
+      index:
+        title: 客户列表
+      new:
+        title: 新建客户
+      show:
+        title: 客户详情
+      edit:
+        title: 编辑客户
+
+    daily_quests:
+      index:
+        title: 今日排班
+      show:
+        title: 今日任务总览
+
+    daily_quests/missions:
+      index:
+        title: 任务管理
+
+    daily_quests/transporters/steps:
+      index:
+        title: 今日司机任务详情
+
+    homes:
+      show:
+        title: 今日任务地图
+
+    me/profiles:
+      show:
+        title: 我的资料
+      edit:
+        title: 编辑我的资料
+
+    password_resets:
+      new:
+        title: 重置密码
+      edit:
+        title: 重置密码
+
+    places:
+      index:
+        title: 地点列表
+      new:
+        title: 新建地点
+      show:
+        title: 地点详情
+      edit:
+        title: 编辑地点
+
+    sessions:
+      new:
+        title: 登录
+
+    settings:
+      show:
+        title: 设置
+      edit:
+        title: 编辑设置
+
+    transporters:
+      index:
+        title: 司机列表
+      new:
+        title: 新建司机
+      show:
+        title: 司机详情
+      edit:
+        title: 编辑司机
+
+    transporters/absences:
+      new:
+        title: 添加请假
+      edit:
+        title: 编辑请假
+
+    users:
+      new:
+        title: '创建管理员账户'
+
+    vehicles:
+      index:
+        title: 车辆列表
+      new:
+        title: 新建车辆
+      show:
+        title: 车辆详情
+      edit:
+        title: 编辑车辆

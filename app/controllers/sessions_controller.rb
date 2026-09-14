@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
       redirect_to root_path
     else
-      flash.now[:alert] = 'Erreur lors de la connexion'
+      flash.now[:alert] = t('flash.sessions.create')
 
       render :new, status: :unauthorized
     end

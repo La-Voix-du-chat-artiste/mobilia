@@ -2,9 +2,9 @@
 
 div
   - if step.customer_to_place?
-    p.panel-info class=klass Trajet aller
+    p.panel-info class=klass = t('views.daily_quests.steps.label.outbound')
   - elsif step.place_to_customer?
-    p.panel-warning class=klass Trajet retour
+    p.panel-warning class=klass = t('views.daily_quests.steps.label.return')
   - else
     p.panel-error class=klass
       = step.role

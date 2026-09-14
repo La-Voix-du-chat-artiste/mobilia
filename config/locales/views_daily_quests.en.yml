@@ -1,0 +1,103 @@
+en:
+  views:
+    daily_quests:
+      index:
+        absent_drivers_today: "Drivers absent today"
+        all_missions_assigned: "Congratulations, you have assigned all the pending missions!"
+        confirm_optimize_all: "Do you want to place all the missions automatically?"
+        drivers_without_vehicle: "⚠️ Drivers without a vehicle"
+        drivers_without_vehicle_details: "Some drivers have no vehicle configured. You will not be able to assign missions to them without a vehicle"
+        missions_without_driver: "⚠️ Missions without a driver"
+        optimize_all: "Place everything on the planning board"
+        title: "Missions for %{day}"
+        until: "(until %{date})"
+
+      instructions:
+        first_step: 'Start by configuring the day''s transport mission(s) by clicking the "Add a mission" button.'
+        intro: "This page lets you assign the various missions to the drivers working on the specified day."
+        notes_information: "Entering the vehicle information, the drivers' absences and the additional information about customers and places as accurately as possible helps the algorithm build an accurate planning board and generate less stress for the drivers."
+        notes_pdf: "Each driver automatically gets a PDF containing all the missions of their day with all the necessary information included."
+        notes_reassign: "You can always manually reassign missions that the algorithm placed automatically if changes are needed. A colour code warns of a potential duration or distance conflict."
+        notes_title: "Notes:"
+        option_drag: "Assign a mission to a driver manually by drag and drop"
+        option_place: "Click the \"Place\" button to let the algorithm assign this mission to the most suitable driver"
+        option_place_all: "Click the \"Place everything on the planning board\" button so that the algorithm automatically spreads all the missions across all the drivers it has determined to be the most suitable"
+        option_select: "Assign manually by selecting a driver from the drop-down list"
+        options_intro: "Once this step is done, you will have four possibilities:"
+        title: "Explanations to read"
+
+      menu:
+        confirm_destroy_missions: "Do you want to delete all of today's missions? Careful, this action is irreversible!"
+        confirm_duplicate_week: "Do you want to duplicate the week of %{start_date} - %{end_date} onto the week of %{next_start_date} - %{next_end_date}? If one of the days already exists, it will be deleted and replaced by the corresponding day of the selected week"
+        confirm_reset: "Do you want to reset today's planning board? All the missions currently in the drivers' columns will be unassigned."
+        confirm_send_all_plannings: "Do you want to email today's plannings to all the drivers?"
+        destroy_missions: "Delete today's missions"
+        duplicate_week: "Duplicate the whole week"
+        label: "Menu"
+        manage_missions: "Manage missions"
+        mission_details: "Mission details"
+        reset: "Reset the planning board"
+        send_all_plannings: "Email all the drivers' plannings"
+
+      show:
+        back_to_planning: "<< Back to planning"
+        confirm_delete: "Do you want to delete this planning board?"
+        loading_steps: "Loading the mission steps"
+        manage_missions: "Manage missions"
+        mission_number: "Mission %{number}:"
+
+      step:
+        add_note: "Add a note"
+        assign_driver: "Assign a driver"
+        confirm_place: "Do you want to place this mission automatically?"
+        confirm_remove: "Do you want to remove this mission for the day of %{date}?"
+        determined_algorithmically: "Determined algorithmically"
+        mission_completed: "Mission completed 🎉"
+        place: "Place"
+        trip_conflict: "⚠️ Trip in conflict"
+        trip_impossible: "⚠️ Impossible trip"
+
+      transporter_column:
+        confirm_send_planning: "Do you want to email today's planning to this driver?"
+        send_planning_to_driver: "Send by email to the driver"
+        todays_trips: "Today's trips"
+
+      missions:
+        edit:
+          title: "Edit mission"
+
+        empty_missions:
+          add_first: "add the first one"
+          add_first_mission: "add the first one"
+          no_customers: "There are no customers yet,"
+          no_drivers: "There are no drivers yet,"
+          no_missions: "There are no missions yet,"
+          no_places: "There are no places yet,"
+          no_vehicles: "There are no vehicles yet,"
+          prerequisites: "Before you can add a mission, you must make sure the following items are configured correctly:"
+
+        index:
+          add_help_html: 'To add a new mission, click the <span class="btn-add !text-xs">Add a mission +</span> button and then save.'
+          add_mission: "Add a mission +"
+          back_to_planning: "<< Back to planning"
+          delete_help_html: 'To delete a mission, click the <span class="btn-destroy !text-xs">Delete</span> link at the bottom of the mission card.'
+          edit_help_html: 'To edit a mission, click the <span class="btn-edit !text-xs">Edit</span> link at the bottom of the mission card.'
+          instructions: "Explanations to read"
+          intro_html: "This page lets you configure the transport missions for the day of <strong>%{date}</strong>:"
+          note_computed: "Note: The time at which to pick the customer up from home and the return time will be calculated automatically by the algorithm."
+          specify_customer_html: "the <strong>customer</strong> to transport"
+          specify_duration_html: "the <strong>duration</strong> of the appointment in minutes"
+          specify_intro: "For each mission, specify:"
+          specify_place_html: "the <strong>place</strong> where they must be dropped off"
+          specify_time_html: "the <strong>time</strong> at which they must be dropped off"
+          title: "Missions for %{date}"
+
+        mission:
+          confirm_delete: "Do you want to delete this mission?"
+          departure: "Departure"
+          details: "Details"
+          return: "Return"
+          single_trip: "Single trip"
+
+        new:
+          title: "New mission"

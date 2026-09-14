@@ -5,21 +5,21 @@
         p.font-bold=< l(absence.ended_on, format: :complete_slash)
       - else
         p
-          | Du
+          = t('views.transporters.absences.absence.from')
           span.font-bold=<> l(absence.started_on, format: :complete_slash)
-          | au
+          = t('views.transporters.absences.absence.to')
           span.font-bold=< l(absence.ended_on, format: :complete_slash)
 
       p.panel-warning.px-2.py-1= absence.human_reason
 
     .flex.items-center.gap-3
       - if allowed_to?(:update?, absence, namespace: Transporters, context: { transporter: absence.transporter })
-        = link_to 'Modifier',
+        = link_to t('common.edit'),
                   edit_transporter_absence_path(absence.transporter, absence),
                   class: 'btn-edit'
 
       - if allowed_to?(:destroy?, absence, namespace: Transporters, context: { transporter: absence.transporter })
-        = button_to 'Supprimer', [absence.transporter, absence],
+        = button_to t('common.delete'), [absence.transporter, absence],
                     class: 'btn-destroy',
                     method: :delete,
-                    data: { turbo_confirm: 'Voulez-vous supprimer cette absence ?' }
+                    data: { turbo_confirm: t('views.transporters.absences.absence.confirm_delete') }
